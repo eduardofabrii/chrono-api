@@ -99,6 +99,13 @@
 			<version>1.18.24</version>
 			<scope>compile</scope>
 		</dependency>
+
+	<!-- JWT para autenticacao -->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.4.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
