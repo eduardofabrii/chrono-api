@@ -1,5 +1,6 @@
 package com.chrono.service.user;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,5 +66,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    // Service to update last login from user
+    @Override
+    public void updateLastLogin(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        user.setLastLogin(LocalDateTime.now());
+
+        userRepository.save(user);
     }
 }
