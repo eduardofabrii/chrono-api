@@ -85,6 +85,13 @@
 			<scope>test</scope>
 		</dependency>
 
+	<!-- Validacoes -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-validation</artifactId>
+	</dependency>
+
+
 	<!-- Lombok para reduzir o código -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
