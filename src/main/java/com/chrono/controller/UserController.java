@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chrono.domain.user.User;
 import com.chrono.domain.user.UserDTO;
 import com.chrono.domain.user.UserMapper;
+import com.chrono.infra.security.util.PasswordUtil;
 import com.chrono.service.user.UserService;
 
 import jakarta.validation.Valid;
@@ -67,6 +68,9 @@ public class UserController {
     // POST to save user
     @PostMapping
     public ResponseEntity<User> saveUser(@Valid @RequestBody UserDTO dto) throws URISyntaxException {
+        String hashPassword = PasswordUtil.encoder(dto.getPassword());
+        dto.setPassword(hashPassword);
+
         User newUser = userService.saveUser(userMapper.userToUserDTO(dto));
 
         return ResponseEntity.created(new URI("/user/save/" + newUser.getId())).body(newUser);

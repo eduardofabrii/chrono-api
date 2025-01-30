@@ -51,10 +51,10 @@
 		</dependency>
 
 	<!-- Segurança incluindo autenticação, autorização e proteção contra ataques -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> -->
+		</dependency>
 
 	<!-- Reinicia aplicação automaticamente após salvar mudanças -->
 		<dependency>

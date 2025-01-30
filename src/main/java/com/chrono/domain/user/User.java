@@ -3,6 +3,7 @@ package com.chrono.domain.user;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -70,7 +71,12 @@ public class User {
             @NotBlank(message = "É obrigatório o usuario ter uma senha.") String password, UserRole role) {
         this.name = name;
         this.email = email;
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
         this.role = role;
+    }
+
+    // Extra Getters and Setters
+    public void setPassword(String password) {
+        this.password = new BCryptPasswordEncoder().encode(password);
     }
 }
