@@ -31,9 +31,6 @@ public class AuthenticationController {
     private UserService userService;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private TokenService tokenService;
 
     // POST to send token authentication by name and password
