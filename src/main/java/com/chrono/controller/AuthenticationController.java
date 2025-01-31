@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chrono.domain.user.User;
 import com.chrono.infra.security.dto.AuthenticationDTO;
 import com.chrono.infra.security.dto.LoginResponseDTO;
-import com.chrono.repository.UserRepository;
 import com.chrono.service.security.TokenService;
 import com.chrono.service.user.UserService;
 
@@ -34,7 +33,7 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     // POST to send token authentication by name and password
-    @PostMapping("/login")
+    @PostMapping("login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO dto) {
         var userPassword = new UsernamePasswordAuthenticationToken(dto.name(), dto.password());
         var auth = this.authenticationManager.authenticate(userPassword);
