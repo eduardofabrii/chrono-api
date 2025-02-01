@@ -63,15 +63,11 @@ public class ProjectController {
     // PUT to update project
     @PutMapping("{id}")
     public ResponseEntity<ProjectPutResponse> updateProject(@Valid @RequestBody ProjectPutRequest dto, @PathVariable Integer id) {
-        // Converte o DTO para o objeto Project
         Project project = MAPPER.toProjectPut(dto);
         project.setId(id);
         
-        // Imprime no console para ver o valor da priority
-        System.out.println("Updated Project Priority: " + project.getPriority());
-        
-        projectService.updateProject(project);  // Atualiza o projeto
-        ProjectPutResponse response = MAPPER.toProjectPutResponse(project);  // Mapeia a resposta
+        projectService.updateProject(project);
+        ProjectPutResponse response = MAPPER.toProjectPutResponse(project);
         return ResponseEntity.ok().body(response);
     }
     

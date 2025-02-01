@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 import com.chrono.domain.project.ProjectPriority;
 import com.chrono.domain.project.ProjectStatus;
-import com.chrono.domain.user.User;
 import com.chrono.response.user.UserGetResponseToProject;
 
 import lombok.Builder;
