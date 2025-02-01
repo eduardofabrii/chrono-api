@@ -31,13 +31,19 @@ public class SecurityConfiguration {
                     // Public routes for all
                     .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 
-                    // Protected routes for admin
-                    .requestMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/user/{id}").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE, "/user/{id}").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/user/{id}").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/user/name").hasRole("ADMIN")
+                    // Protected routes of user only by admin
+                    .requestMatchers(HttpMethod.POST, "/v1/user").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/v1/user/{id}").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/v1/user/{id}").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/v1/user/{id}").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/v1/user").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/v1/user/name").hasRole("ADMIN")
+
+                    // Protected router of projects only by admin
+                    .requestMatchers(HttpMethod.POST, "/v1/project").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/v1/project/{id}").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/v1/project/{id}").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/v1/project/{id}").hasRole("ADMIN")
 
                     .anyRequest().authenticated()
                 )
