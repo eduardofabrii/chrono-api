@@ -69,7 +69,7 @@ public class Project {
     
     @Column(name = "data_criacao", updatable = false)
     @CreationTimestamp
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:SS")
     private LocalDateTime creationDate;
     
     @Column(name = "prioridade")

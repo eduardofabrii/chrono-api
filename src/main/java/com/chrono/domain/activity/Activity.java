@@ -38,6 +38,7 @@ import lombok.ToString;
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_atividade")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER) // Força o carregamento do projeto completo
@@ -55,10 +56,12 @@ public class Activity {
     
     @Column(name = "data_inicio")
     @NotNull(message = "A data de início é obrigatória.")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate startDate;
     
     @Column(name = "data_fim")
     @NotNull(message = "A data de fim é obrigatória.")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
     
     @Column(name = "status")
@@ -73,7 +76,7 @@ public class Activity {
     
     @Column(name = "data_criacao", updatable = false)
     @CreationTimestamp
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:SS")
     private LocalDateTime creationDate;
 
 
