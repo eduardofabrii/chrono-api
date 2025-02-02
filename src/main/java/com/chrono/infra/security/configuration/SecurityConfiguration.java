@@ -39,11 +39,23 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.GET, "/v1/user").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/v1/user/name").hasRole("ADMIN")
 
-                    // Protected router of projects only by admin
+                    // Protected routes of projects only by admin
                     .requestMatchers(HttpMethod.POST, "/v1/project").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/v1/project/{id}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/v1/project/{id}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/v1/project/{id}").hasRole("ADMIN")
+
+                    // Protected routes of activity only by admin
+                    .requestMatchers(HttpMethod.POST, "/v1/activity").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/v1/activity/{id}").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/v1/activity/{id}").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/v1/activity/{id}").hasRole("ADMIN")
+
+                    // Protected routes of hours only by admin
+                    .requestMatchers(HttpMethod.POST, "/v1/hours").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/v1/hours/{id}").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/v1/hours/{id}").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/v1/hours/{id}").hasRole("ADMIN")
 
                     .anyRequest().authenticated()
                 )
