@@ -1,5 +1,6 @@
 package com.chrono.service.activity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,13 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chrono.domain.activity.Activity;
+import com.chrono.domain.project.Project;
 import com.chrono.repository.ActivityRepository;
+import com.chrono.service.project.ProjectService;
+import com.chrono.service.user.UserService;
 
 @Service
 public class ActivityServiceImpl implements ActivityService {
 
     @Autowired
     private ActivityRepository activityRepository;
+
+    @Autowired
+    private ProjectService projectService;
+
+    @Autowired
+    private UserService userService;
 
     // GET to list all activity
     @Override
@@ -37,6 +47,8 @@ public class ActivityServiceImpl implements ActivityService {
     // PUT to update activity
     @Override
     public void updateActivity(Activity activity) {
+        checkAndSetProjectAndResponsible(activity);
+
         Activity currentActivity = this.findActivityById(activity.getId());
         currentActivity.setName(activity.getName());
         currentActivity.setDescription(activity.getDescription());
@@ -52,6 +64,7 @@ public class ActivityServiceImpl implements ActivityService {
     // POST to save Activity
     @Override
     public Activity saveActivity(Activity activity) {
+        checkAndSetProjectAndResponsible(activity);
         activity.setId(null);
         return activityRepository.save(activity);
     }
@@ -60,5 +73,20 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public void deleteActivityById(Long id) {
         activityRepository.deleteById(id);
+    }
+
+    // Function for check before post / put in postman
+    private void checkAndSetProjectAndResponsible(Activity activity) {
+        if (activity.getProject() != null && activity.getProject().getId() != null) {
+            activity.setProject(projectService.findProjectById(activity.getProject().getId()));
+        }
+
+        if (activity.getResponsible() != null && activity.getResponsible().getId() != null) {
+            activity.setResponsible(userService.findResponsibleById(activity.getResponsible().getId().longValue()));
+        }
+
+        if (activity.getCreationDate() == null) {
+            activity.setCreationDate(activity.getCreationDate());
+        }
     }
 }
