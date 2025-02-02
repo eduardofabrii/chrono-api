@@ -23,7 +23,6 @@ public interface ReleaseTimeMapper {
     @Mapping(target = "description", source = "description")
     @Mapping(target = "startDate", source = "startDate")
     @Mapping(target = "endDate", source = "endDate")
-    @Mapping(target = "registerDate", source = "registerDate")
     ReleaseTime toReleaseTimePost(ReleaseTimePostRequest postRequest);
 
     @Mapping(target = "id", source = "id")
@@ -32,7 +31,6 @@ public interface ReleaseTimeMapper {
     @Mapping(target = "description", source = "description")
     @Mapping(target = "startDate", source = "startDate")
     @Mapping(target = "endDate", source = "endDate")
-    @Mapping(target = "registerDate", source = "registerDate")
     ReleaseTime toReleaseTimePut(ReleaseTimePutRequest putRequest);
 
     ReleaseTimeGetResponse toReleaseTimeGetResponse(ReleaseTime releaseTime);

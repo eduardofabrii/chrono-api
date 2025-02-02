@@ -3,6 +3,8 @@ package com.chrono.domain.releasetime;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.chrono.domain.activity.Activity;
 import com.chrono.domain.user.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -63,7 +65,7 @@ public class ReleaseTime {
     private LocalDate endDate;
 
     @Column(name = "data_registro")
-    @NotNull(message = "A data de registro é obrigatória.")
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:SS")
+    @CreationTimestamp
     private LocalDateTime registerDate;
 }

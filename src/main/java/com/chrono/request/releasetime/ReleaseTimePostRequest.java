@@ -20,5 +20,4 @@ public class ReleaseTimePostRequest {
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
-    private LocalDateTime registerDate;
 }
