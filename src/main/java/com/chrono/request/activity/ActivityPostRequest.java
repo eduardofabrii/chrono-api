@@ -4,9 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.chrono.domain.activity.ActivityStatus;
-import com.chrono.domain.project.Project;
-import com.chrono.domain.user.User;
 import com.chrono.response.project.ProjectPostResponse;
+import com.chrono.response.user.UserGetResponseToProject;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +22,6 @@ public class ActivityPostRequest {
     private LocalDate startDate;
     private LocalDate endDate;
     private ActivityStatus status;
-    private User responsible;
+    private UserGetResponseToProject responsible;
     private LocalDateTime creationDate;
 }
