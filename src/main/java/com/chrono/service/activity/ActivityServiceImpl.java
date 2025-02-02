@@ -1,6 +1,5 @@
 package com.chrono.service.activity;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chrono.domain.activity.Activity;
-import com.chrono.domain.project.Project;
 import com.chrono.repository.ActivityRepository;
 import com.chrono.service.project.ProjectService;
 import com.chrono.service.user.UserService;
@@ -64,6 +62,12 @@ public class ActivityServiceImpl implements ActivityService {
     // POST to save Activity
     @Override
     public Activity saveActivity(Activity activity) {
+
+        // Date validator
+        if (activity.getEndDate() != null && activity.getStartDate() != null && activity.getEndDate().isBefore(activity.getStartDate())) {
+            throw new IllegalArgumentException("A data de fim não pode ser anterior à data de início.");
+        }
+    
         checkAndSetProjectAndResponsible(activity);
         activity.setId(null);
         return activityRepository.save(activity);

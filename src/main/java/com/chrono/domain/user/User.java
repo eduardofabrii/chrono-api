@@ -21,16 +21,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "usuario")
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
@@ -44,10 +48,12 @@ public class User implements UserDetails {
     private String name;
 
     @Column(unique = true)
+    @Email
     @NotBlank(message = "O email do usuario é obrigatório.")
     private String email;
 
     @Column(name = "senha")
+    @Size(min = 5, message = "A senha deve ter pelo menos 8 caracteres.")
     @NotBlank(message = "É obrigatório o usuario ter uma senha.")
     private String password;
     
@@ -63,13 +69,6 @@ public class User implements UserDetails {
     @Column(name = "perfil")
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
-    // toString
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", creationDate="
-                + creationDate + ", lastLogin=" + lastLogin + ", profileEnum=" + role + "]";
-    }
 
     
     // Constructors
