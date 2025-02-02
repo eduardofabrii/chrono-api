@@ -20,6 +20,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,6 +52,7 @@ public class ReleaseTime {
     private User user;
     
     @Column(name = "descricao", columnDefinition = "TEXT")
+    @Size(min = 10, message = "A descrição deve ter no mínimo 10 caracteres.")
     @NotBlank(message = "A descrição da atividade é obrigatória.")
     private String description;
     
@@ -65,7 +67,7 @@ public class ReleaseTime {
     private LocalDate endDate;
 
     @Column(name = "data_registro")
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:SS")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @CreationTimestamp
     private LocalDateTime registerDate;
 }

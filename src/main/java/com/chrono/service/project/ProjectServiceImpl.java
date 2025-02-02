@@ -10,6 +10,8 @@ import com.chrono.domain.project.Project;
 import com.chrono.repository.ProjectRepository;
 import com.chrono.service.user.UserService;
 
+import jakarta.validation.constraints.AssertTrue;
+
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
@@ -61,10 +63,17 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.save(currentProject);
     }
 
+
     @Override
     public Project saveProject(Project project) {
+        // To insert correct data
         if (project.getResponsible() != null && project.getResponsible().getId() != null) {
             project.setResponsible(userService.findResponsibleById(project.getResponsible().getId().longValue()));
+        }
+
+        // Date validation
+        if (project.getEndDate() != null && project.getStartDate() != null && project.getEndDate().isBefore(project.getStartDate())) {
+            throw new IllegalArgumentException("A data de fim não pode ser anterior a data de início.");
         }
     
         project.setId(null);

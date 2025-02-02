@@ -22,6 +22,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,7 +52,8 @@ public class Activity {
     private String name;
     
     @Column(name = "descricao", columnDefinition = "TEXT")
-    @NotBlank(message = "A descrição do projeto é obrigatória.")
+    @Size(min = 10, message = "A descrição deve ter no mínimo 10 caracteres.")
+    @NotBlank(message = "A descrição da atividade é obrigatória.")
     private String description;
     
     @Column(name = "data_inicio")
@@ -74,9 +76,9 @@ public class Activity {
     @NotNull(message = "É obrigatório ter um usuario dono do projeto")
     private User responsible;
     
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @Column(name = "data_criacao", updatable = false)
     @CreationTimestamp
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:SS")
     private LocalDateTime creationDate;
 
 

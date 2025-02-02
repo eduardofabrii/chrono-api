@@ -59,6 +59,11 @@ public class ReleaseTimeServiceImpl implements ReleaseTimeService {
     // POST to save release time
     @Override
     public ReleaseTime saveReleaseTime(ReleaseTime releaseTime) {
+        // Date validator
+        if (releaseTime.getEndDate() != null && releaseTime.getStartDate() != null && releaseTime.getEndDate().isBefore(releaseTime.getStartDate())) {
+            throw new IllegalArgumentException("A data de fim não pode ser anterior à data de início.");
+        }
+
         checkReleaseTime(releaseTime);
         releaseTime.setId(null);
         return releaseTimeRepository.save(releaseTime);
