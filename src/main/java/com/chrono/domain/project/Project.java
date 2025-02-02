@@ -76,12 +76,23 @@ public class Project {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "A prioridade do projeto é obrigatória.")
     private ProjectPriority priority;
-    
-    // Constructors
-    public Project(Integer id, @NotBlank(message = "O nome do projeto é obrigatório.") String name,
-            @NotBlank(message = "A descrição do projeto é obrigatório.") String description) {
-        this.id = id;
+
+    public Project(@NotBlank(message = "O nome do projeto é obrigatório.") String name,
+            @NotBlank(message = "A descrição do projeto é obrigatória.") String description,
+            @NotNull(message = "A data de início é obrigatória.") LocalDate startDate,
+            @NotNull(message = "A data de fim é obrigatória.") LocalDate endDate,
+            @NotNull(message = "O status do projeto é obrigatório.") ProjectStatus status,
+            @NotNull(message = "É obrigatório ter um usuario dono do projeto") User responsible,
+            @NotNull(message = "A prioridade do projeto é obrigatória.") ProjectPriority priority) {
         this.name = name;
         this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.responsible = responsible;
+        this.priority = priority;
     }
+    
+    // Constructors
+    
 }
