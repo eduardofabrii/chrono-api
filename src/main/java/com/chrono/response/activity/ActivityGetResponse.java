@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import com.chrono.domain.activity.ActivityStatus;
 import com.chrono.response.project.ProjectGetResponse;
-import com.chrono.response.user.UserGetResponse;
+import com.chrono.response.user.UserGetResponseToProject;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +22,6 @@ public class ActivityGetResponse {
     private LocalDate startDate;
     private LocalDate endDate;
     private ActivityStatus status;
-    private UserGetResponse responsible;
+    private UserGetResponseToProject responsible;
     private LocalDateTime creationDate;
 }
