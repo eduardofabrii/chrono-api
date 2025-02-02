@@ -20,14 +20,12 @@ public interface UserMapper {
     @Mapping(target = "id")
     @Mapping(target = "name")
     @Mapping(target = "email")
-    @Mapping(target = "password")
     @Mapping(target = "role")
     User toUserPost(UserPostRequest userRequest);
 
     @Mapping(target = "id")
     @Mapping(target = "name")
     @Mapping(target = "email")
-    @Mapping(target = "password")
     @Mapping(target = "role")
     User toUserPut(UserPutRequest userRequest);
 
