@@ -70,4 +70,36 @@ public class ReleaseTime {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @CreationTimestamp
     private LocalDateTime registerDate;
+
+
+
+    // Constructors
+    public ReleaseTime(@NotNull(message = "A atividade é obrigatória.") Activity activity,
+            @NotNull(message = "O usuário que lançou as horas é obrigatório.") User user,
+            @Size(min = 10, message = "A descrição deve ter no mínimo 10 caracteres.") @NotBlank(message = "A descrição da atividade é obrigatória.") String description,
+            @NotNull(message = "A data de início é obrigatória.") LocalDate startDate,
+            @NotNull(message = "A data de fim é obrigatória.") LocalDate endDate) {
+        this.activity = activity;
+        this.user = user;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+
+
+    public ReleaseTime(@NotNull(message = "A atividade é obrigatória.") Activity activity,
+            @NotNull(message = "O usuário que lançou as horas é obrigatório.") User user,
+            @Size(min = 10, message = "A descrição deve ter no mínimo 10 caracteres.") @NotBlank(message = "A descrição da atividade é obrigatória.") String description,
+            @NotNull(message = "A data de início é obrigatória.") LocalDate startDate,
+            @NotNull(message = "A data de fim é obrigatória.") LocalDate endDate, LocalDateTime registerDate) {
+        this.activity = activity;
+        this.user = user;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.registerDate = registerDate;
+    }    
+
+    
 }
