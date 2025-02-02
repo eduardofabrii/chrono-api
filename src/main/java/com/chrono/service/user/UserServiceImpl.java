@@ -77,4 +77,10 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
     }
+
+    // Function to avoid errors and load before posting
+    public User findResponsibleById(Long id) {
+        return userRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("User responsible not found!"));
+    }
 }

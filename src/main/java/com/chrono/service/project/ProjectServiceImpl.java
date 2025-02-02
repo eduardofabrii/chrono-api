@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.chrono.domain.project.Project;
 import com.chrono.repository.ProjectRepository;
+import com.chrono.service.user.UserService;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private UserService userService;
 
     // GET to list all projects
     @Override
@@ -34,9 +38,13 @@ public class ProjectServiceImpl implements ProjectService {
         return project.orElse(null);
     }
 
-    // PUT to update project
+    // Search user before PUT, for PUT to update project 
     @Override
     public void updateProject(Project project) {
+        if (project.getResponsible() != null && project.getResponsible().getId() != null) {
+            project.setResponsible(userService.findResponsibleById(project.getResponsible().getId().longValue()));
+        }
+        
         Project currentProject = this.findProjectById(project.getId());
         currentProject.setName(project.getName());
         currentProject.setDescription(project.getDescription());
@@ -46,12 +54,19 @@ public class ProjectServiceImpl implements ProjectService {
         currentProject.setPriority(project.getPriority());
         currentProject.setStatus(project.getStatus());
 
+        if (project.getCreationDate() == null) {
+            project.setCreationDate(currentProject.getCreationDate());
+        }
+
         projectRepository.save(currentProject);
     }
 
-    // POST to save project
     @Override
     public Project saveProject(Project project) {
+        if (project.getResponsible() != null && project.getResponsible().getId() != null) {
+            project.setResponsible(userService.findResponsibleById(project.getResponsible().getId().longValue()));
+        }
+    
         project.setId(null);
         return projectRepository.save(project);
     }

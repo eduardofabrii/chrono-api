@@ -12,4 +12,5 @@ public interface UserService {
     public User saveUser(User user);
     public void deleteUserById(Long id);
     public void updateLastLogin(String email);
+    public User findResponsibleById(Long id);
 }
