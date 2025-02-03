@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,21 +24,21 @@ import com.chrono.response.releasetime.ReleaseTimePutResponse;
 import com.chrono.service.releasetime.ReleaseTimeService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("v1/hours")
+@RequiredArgsConstructor
 public class ReleaseTimeController {
 
-    private static final ReleaseTimeMapper MAPPER = ReleaseTimeMapper.INSTANCE;
-    
-    @Autowired
-    private ReleaseTimeService releaseTimeService;
+    private final ReleaseTimeMapper mapper;
+    private final ReleaseTimeService releaseTimeService;
 
     // GET to list all releases
     @GetMapping
     public ResponseEntity<List<ReleaseTimeGetResponse>> listAll() {
         List<ReleaseTime> releases = releaseTimeService.findAllReleases();
-        List<ReleaseTimeGetResponse> responseList = MAPPER.toReleaseTimeGetResponseList(releases);
+        List<ReleaseTimeGetResponse> responseList = mapper.toReleaseTimeGetResponseList(releases);
         return ResponseEntity.ok(responseList);
     }
 
@@ -47,18 +46,18 @@ public class ReleaseTimeController {
     @GetMapping("{id}")
     public ResponseEntity<ReleaseTimeGetResponse> getReleaseTimeById(@PathVariable Integer id) {
         ReleaseTime releaseTime = releaseTimeService.findReleaseTimeById(id);
-        ReleaseTimeGetResponse response = MAPPER.toReleaseTimeGetResponse(releaseTime);
+        ReleaseTimeGetResponse response = mapper.toReleaseTimeGetResponse(releaseTime);
         return ResponseEntity.ok().body(response);
     }
 
     // PUT to update releaseTime
     @PutMapping("{id}")
     public ResponseEntity<ReleaseTimePutResponse> updateReleaseTime(@Valid @RequestBody ReleaseTimePutRequest dto, @PathVariable Integer id) {
-        ReleaseTime releaseTime = MAPPER.toReleaseTimePut(dto);
+        ReleaseTime releaseTime = mapper.toReleaseTimePut(dto);
         releaseTime.setId(id);
         
         releaseTimeService.updateReleaseTime(releaseTime); 
-        ReleaseTimePutResponse response = MAPPER.toReleaseTimePutResponse(releaseTime);
+        ReleaseTimePutResponse response = mapper.toReleaseTimePutResponse(releaseTime);
         return ResponseEntity.ok().body(response);
     }
     
@@ -66,10 +65,10 @@ public class ReleaseTimeController {
     // POST to save releaseTime
     @PostMapping
     public ResponseEntity<ReleaseTimePostResponse> saveReleaseTime(@Valid @RequestBody ReleaseTimePostRequest postRequest) throws URISyntaxException {
-        ReleaseTime releaseTime = MAPPER.toReleaseTimePost(postRequest);
+        ReleaseTime releaseTime = mapper.toReleaseTimePost(postRequest);
         releaseTimeService.saveReleaseTime(releaseTime);
         
-        ReleaseTimePostResponse response = MAPPER.toReleaseTimePostResponse(releaseTime);
+        ReleaseTimePostResponse response = mapper.toReleaseTimePostResponse(releaseTime);
         return ResponseEntity.created(new URI("/v1/ReleaseTime/" + releaseTime.getId())).body(response);
     }
 

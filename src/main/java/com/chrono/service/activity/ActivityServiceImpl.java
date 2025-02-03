@@ -3,7 +3,6 @@ package com.chrono.service.activity;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chrono.domain.activity.Activity;
@@ -11,21 +10,23 @@ import com.chrono.repository.ActivityRepository;
 import com.chrono.service.project.ProjectService;
 import com.chrono.service.user.UserService;
 
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ActivityServiceImpl implements ActivityService {
 
-    @Autowired
-    private ActivityRepository activityRepository;
-
-    @Autowired
-    private ProjectService projectService;
-
-    @Autowired
-    private UserService userService;
+    private final ActivityRepository activityRepository;
+    private final ProjectService projectService;
+    private final UserService userService;
 
     // GET to list all activity
     @Override
     public List<Activity> findAllActivities() {
+        if (activityRepository.findAll().isEmpty()) {
+            throw new EntityNotFoundException("Nenhuma atividade encontrada.");
+        }
         return activityRepository.findAll();
     }
 
@@ -38,6 +39,12 @@ public class ActivityServiceImpl implements ActivityService {
     // GET to find activity by id
     @Override
     public Activity findActivityById(Integer id) {
+        Optional<Activity> activity = activityRepository.findById(id);
+        return activity.orElse(null);
+    }
+
+    @Override
+    public Activity findActivityById(Long id) {
         Optional<Activity> activity = activityRepository.findById(id);
         return activity.orElse(null);
     }
@@ -76,6 +83,9 @@ public class ActivityServiceImpl implements ActivityService {
     // DELETE to delete Activity
     @Override
     public void deleteActivityById(Long id) {
+        if (!activityRepository.existsById(id)) {
+            throw new EntityNotFoundException("Atividade não encontrada para o ID: " + id);
+        }
         activityRepository.deleteById(id);
     }
 

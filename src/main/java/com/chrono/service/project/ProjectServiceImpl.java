@@ -3,23 +3,21 @@ package com.chrono.service.project;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chrono.domain.project.Project;
 import com.chrono.repository.ProjectRepository;
 import com.chrono.service.user.UserService;
 
-import jakarta.validation.constraints.AssertTrue;
+import lombok.RequiredArgsConstructor;
+
 
 @Service
+@RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
 
-    @Autowired
-    private ProjectRepository projectRepository;
-
-    @Autowired
-    private UserService userService;
+    private final ProjectRepository projectRepository;
+    private final UserService userService;
 
     // GET to list all projects
     @Override

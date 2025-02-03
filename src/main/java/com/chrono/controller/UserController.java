@@ -5,7 +5,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,21 +27,21 @@ import com.chrono.response.user.UserPutResponse;
 import com.chrono.service.user.UserService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("v1/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    private static final UserMapper MAPPER = UserMapper.INSTANCE;
-    
-    @Autowired
-    private UserService userService;
+    private final UserMapper mapper;
+    private final UserService userService;
 
     // GET to all users
     @GetMapping
     public ResponseEntity<List<UserGetResponse>> listAll() {
         List<User> users = userService.findAllUsers();
-        List<UserGetResponse> userGetResponseList = MAPPER.toUserGetResponseList(users);
+        List<UserGetResponse> userGetResponseList = mapper.toUserGetResponseList(users);
         
         return ResponseEntity.ok(userGetResponseList);
     }
@@ -51,7 +50,7 @@ public class UserController {
     @GetMapping("name")
     public ResponseEntity<List<UserGetResponse>> getUserByName(@RequestParam String name) {
         List<User> users = userService.findUserByName(name);
-        List<UserGetResponse> response = MAPPER.toUserGetResponseList(users);
+        List<UserGetResponse> response = mapper.toUserGetResponseList(users);
         return ResponseEntity.ok().body(response);
     }
 
@@ -59,17 +58,17 @@ public class UserController {
     @GetMapping("{id}")
     public ResponseEntity<UserGetResponse> getUserById(@PathVariable Integer id) {
         User user = userService.findUserById(id);
-        UserGetResponse response = MAPPER.toUserGetResponse(user);
+        UserGetResponse response = mapper.toUserGetResponse(user);
         return ResponseEntity.ok().body(response);
     }
 
     // PUT to update user
     @PutMapping("{id}")
     public ResponseEntity<UserPutResponse> updateUser(@Valid @RequestBody UserPutRequest dto, @PathVariable Integer id) {
-        User user = MAPPER.toUserPut(dto);
+        User user = mapper.toUserPut(dto);
         user.setId(id);
         userService.updateUser(user);
-        UserPutResponse response = MAPPER.toUserPutResponse(user);
+        UserPutResponse response = mapper.toUserPutResponse(user);
         return ResponseEntity.ok().body(response);
     }
 
@@ -79,10 +78,10 @@ public class UserController {
         String hashPassword = PasswordUtil.encoder(postRequest.getPassword());
         postRequest.setPassword(hashPassword);
 
-        User user = MAPPER.toUserPost(postRequest);
+        User user = mapper.toUserPost(postRequest);
         userService.saveUser(user);
 
-        UserPostResponse response = MAPPER.toUserPostResponse(user);
+        UserPostResponse response = mapper.toUserPostResponse(user);
 
         return ResponseEntity.created(new URI("/v1/user/" + user.getId())).body(response);
     }

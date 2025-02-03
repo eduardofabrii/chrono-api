@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.MappingConstants;
 
 import com.chrono.domain.activity.Activity;
 import com.chrono.request.activity.ActivityPostRequest;
@@ -13,9 +13,8 @@ import com.chrono.response.activity.ActivityGetResponse;
 import com.chrono.response.activity.ActivityPostResponse;
 import com.chrono.response.activity.ActivityPutResponse;
 
-@Mapper
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ActivityMapper {
-    ActivityMapper INSTANCE = Mappers.getMapper(ActivityMapper.class);
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "project", source = "project")

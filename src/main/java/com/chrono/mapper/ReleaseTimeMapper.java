@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.MappingConstants;
 
 import com.chrono.domain.releasetime.ReleaseTime;
 import com.chrono.request.releasetime.ReleaseTimePostRequest;
@@ -13,9 +13,8 @@ import com.chrono.response.releasetime.ReleaseTimeGetResponse;
 import com.chrono.response.releasetime.ReleaseTimePostResponse;
 import com.chrono.response.releasetime.ReleaseTimePutResponse;
 
-@Mapper
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ReleaseTimeMapper {
-    ReleaseTimeMapper INSTANCE = Mappers.getMapper(ReleaseTimeMapper.class);
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "activity", source = "activity")
