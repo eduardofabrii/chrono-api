@@ -8,6 +8,7 @@ public interface ActivityService {
     public List<Activity> findAllActivities();
     public List<Activity> findActivityByName(String name);
     public Activity findActivityById(Integer id);
+    public Activity findActivityById(Long id);
     public void updateActivity(Activity Activity);
     public Activity saveActivity(Activity Activity);
     public void deleteActivityById(Long id);

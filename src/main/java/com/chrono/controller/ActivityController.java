@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,21 +25,21 @@ import com.chrono.response.activity.ActivityPutResponse;
 import com.chrono.service.activity.ActivityService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("v1/activity")
+@RequiredArgsConstructor
 public class ActivityController {
 
-    private static final ActivityMapper MAPPER = ActivityMapper.INSTANCE;
-    
-    @Autowired
-    private ActivityService activityService;
+    private final ActivityMapper mapper;
+    private final ActivityService activityService;
 
     // GET to list all activities
     @GetMapping
     public ResponseEntity<List<ActivityGetResponse>> listAll() {
         List<Activity> activities = activityService.findAllActivities();
-        List<ActivityGetResponse> responseList = MAPPER.toActivityGetResponseList(activities);
+        List<ActivityGetResponse> responseList = mapper.toActivityGetResponseList(activities);
         return ResponseEntity.ok(responseList);
     }
 
@@ -48,7 +47,7 @@ public class ActivityController {
     @GetMapping("name")
     public ResponseEntity<List<ActivityGetResponse>> getActivityByName(@RequestParam String name) {
         List<Activity> activities = activityService.findActivityByName(name);
-        List<ActivityGetResponse> response = MAPPER.toActivityGetResponseList(activities);
+        List<ActivityGetResponse> response = mapper.toActivityGetResponseList(activities);
         return ResponseEntity.ok().body(response);
     }
 
@@ -56,29 +55,28 @@ public class ActivityController {
     @GetMapping("{id}")
     public ResponseEntity<ActivityGetResponse> getActivityById(@PathVariable Integer id) {
         Activity activity = activityService.findActivityById(id);
-        ActivityGetResponse response = MAPPER.toActivityGetResponse(activity);
+        ActivityGetResponse response = mapper.toActivityGetResponse(activity);
         return ResponseEntity.ok().body(response);
     }
 
     // PUT to update Activity
     @PutMapping("{id}")
     public ResponseEntity<ActivityPutResponse> updateActivity(@Valid @RequestBody ActivityPutRequest dto, @PathVariable Integer id) {
-        Activity activity = MAPPER.toActivityPut(dto);
+        Activity activity = mapper.toActivityPut(dto);
         activity.setId(id);
         
         activityService.updateActivity(activity); 
-        ActivityPutResponse response = MAPPER.toActivityPutResponse(activity);
+        ActivityPutResponse response = mapper.toActivityPutResponse(activity);
         return ResponseEntity.ok().body(response);
     }
-    
 
     // POST to save Activity
     @PostMapping
     public ResponseEntity<ActivityPostResponse> saveActivity(@Valid @RequestBody ActivityPostRequest postRequest) throws URISyntaxException {
-        Activity activity = MAPPER.toActivityPost(postRequest);
+        Activity activity = mapper.toActivityPost(postRequest);
         activityService.saveActivity(activity);
         
-        ActivityPostResponse response = MAPPER.toActivityPostResponse(activity);
+        ActivityPostResponse response = mapper.toActivityPostResponse(activity);
         return ResponseEntity.created(new URI("/v1/Activity/" + activity.getId())).body(response);
     }
 

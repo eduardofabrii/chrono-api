@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,21 +25,21 @@ import com.chrono.response.project.ProjectPutResponse;
 import com.chrono.service.project.ProjectService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("v1/project")
+@RequiredArgsConstructor
 public class ProjectController {
 
-    private static final ProjectMapper MAPPER = ProjectMapper.INSTANCE;
-    
-    @Autowired
-    private ProjectService projectService;
+    private final ProjectMapper mapper;
+    private final ProjectService projectService;
 
     // GET to list all projects
     @GetMapping
     public ResponseEntity<List<ProjectGetResponse>> listAll() {
         List<Project> projects = projectService.findAllProjects();
-        List<ProjectGetResponse> responseList = MAPPER.toProjectGetResponseList(projects);
+        List<ProjectGetResponse> responseList = mapper.toProjectGetResponseList(projects);
         return ResponseEntity.ok(responseList);
     }
 
@@ -48,7 +47,7 @@ public class ProjectController {
     @GetMapping("name")
     public ResponseEntity<List<ProjectGetResponse>> getProjectByName(@RequestParam String name) {
         List<Project> projects = projectService.findProjectByName(name);
-        List<ProjectGetResponse> response = MAPPER.toProjectGetResponseList(projects);
+        List<ProjectGetResponse> response = mapper.toProjectGetResponseList(projects);
         return ResponseEntity.ok().body(response);
     }
 
@@ -56,18 +55,18 @@ public class ProjectController {
     @GetMapping("{id}")
     public ResponseEntity<ProjectGetResponse> getProjectById(@PathVariable Integer id) {
         Project project = projectService.findProjectById(id);
-        ProjectGetResponse response = MAPPER.toProjectGetResponse(project);
+        ProjectGetResponse response = mapper.toProjectGetResponse(project);
         return ResponseEntity.ok().body(response);
     }
 
     // PUT to update project
     @PutMapping("{id}")
     public ResponseEntity<ProjectPutResponse> updateProject(@Valid @RequestBody ProjectPutRequest dto, @PathVariable Integer id) {
-        Project project = MAPPER.toProjectPut(dto);
+        Project project = mapper.toProjectPut(dto);
         project.setId(id);
         
         projectService.updateProject(project);
-        ProjectPutResponse response = MAPPER.toProjectPutResponse(project);
+        ProjectPutResponse response = mapper.toProjectPutResponse(project);
         return ResponseEntity.ok().body(response);
     }
     
@@ -75,10 +74,10 @@ public class ProjectController {
     // POST to save project
     @PostMapping
     public ResponseEntity<ProjectPostResponse> saveProject(@Valid @RequestBody ProjectPostRequest postRequest) throws URISyntaxException {
-        Project project = MAPPER.toProjectPost(postRequest);
+        Project project = mapper.toProjectPost(postRequest);
         projectService.saveProject(project);
         
-        ProjectPostResponse response = MAPPER.toProjectPostResponse(project);
+        ProjectPostResponse response = mapper.toProjectPostResponse(project);
         return ResponseEntity.created(new URI("/v1/project/" + project.getId())).body(response);
     }
 

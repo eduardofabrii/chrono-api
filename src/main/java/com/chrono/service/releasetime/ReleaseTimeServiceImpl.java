@@ -3,7 +3,6 @@ package com.chrono.service.releasetime;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chrono.domain.activity.Activity;
@@ -11,25 +10,20 @@ import com.chrono.domain.project.Project;
 import com.chrono.domain.releasetime.ReleaseTime;
 import com.chrono.domain.user.User;
 import com.chrono.repository.ReleaseTimeRepository;
-import com.chrono.repository.UserRepository;
 import com.chrono.service.activity.ActivityService;
 import com.chrono.service.project.ProjectService;
 import com.chrono.service.user.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ReleaseTimeServiceImpl implements ReleaseTimeService {
 
-    @Autowired
-    private ReleaseTimeRepository releaseTimeRepository;
-
-    @Autowired
-    private ActivityService activityService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ProjectService projectService;
+    private final ReleaseTimeRepository releaseTimeRepository;
+    private final ActivityService activityService;
+    private final UserService userService;
+    private final ProjectService projectService;
 
     @Override
     public List<ReleaseTime> findAllReleases() {

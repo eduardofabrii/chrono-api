@@ -22,20 +22,16 @@ import com.chrono.repository.ProjectRepository;
 import com.chrono.repository.ReleaseTimeRepository;
 import com.chrono.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @SpringBootApplication
+@RequiredArgsConstructor
 public class ChronoApplication implements CommandLineRunner {
 
-	@Autowired
-	private UserRepository usuarioRepository;
-
-	@Autowired
-	private ProjectRepository projectRepository;
-
-	@Autowired
-	private ActivityRepository activityRepository;
-
-	@Autowired
-	private ReleaseTimeRepository releaseTimeRepository;
+	private final UserRepository usuarioRepository;
+	private final ProjectRepository projectRepository;
+	private final ActivityRepository activityRepository;
+	private final ReleaseTimeRepository releaseTimeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ChronoApplication.class, args);
