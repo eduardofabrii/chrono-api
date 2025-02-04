@@ -77,9 +77,4 @@ public class Project {
         this.responsible = responsible;
         this.priority = priority;
     }
-
-    // Getters and Setters
-    public void setResponsibleToOnlyProject(UserGetResponseToProject responsible) {
-        this.responsible = new User(responsible.id(), responsible.name(), responsible.email());
-    }
 }
