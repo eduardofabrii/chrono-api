@@ -41,36 +41,26 @@ public class ReleaseTime {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_atividade")
-    @NotNull(message = "A atividade é obrigatória.")
     private Activity activity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_usuario")
-    @NotNull(message = "O usuário que lançou as horas é obrigatório.")
     private User user;
     
     @Column(name = "descricao", columnDefinition = "TEXT")
-    @Size(min = 10, message = "A descrição deve ter no mínimo 10 caracteres.")
-    @NotBlank(message = "A descrição da atividade é obrigatória.")
     private String description;
     
     @Column(name = "data_inicio")
-    @NotNull(message = "A data de início é obrigatória.")
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate startDate;
     
     @Column(name = "data_fim")
-    @NotNull(message = "A data de fim é obrigatória.")
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
 
     @Column(name = "data_registro")
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @CreationTimestamp
     private LocalDateTime registerDate;
-
 
 
     // Constructors

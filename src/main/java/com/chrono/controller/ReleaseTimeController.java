@@ -53,7 +53,7 @@ public class ReleaseTimeController {
     @PostMapping
     public ResponseEntity<ReleaseTimePostResponse> saveReleaseTime(@Valid @RequestBody ReleaseTimePostRequest postRequest) throws URISyntaxException {
         ReleaseTimePostResponse response = releaseTimeService.saveReleaseTime(postRequest);
-        return ResponseEntity.created(new URI("/v1/hours/" + response.getId())).body(response);
+        return ResponseEntity.created(new URI("/v1/hours/" + response.id())).body(response);
     }
 
     // DELETE to delete release time
