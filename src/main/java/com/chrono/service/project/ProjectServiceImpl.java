@@ -1,75 +1,76 @@
 package com.chrono.service.project;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.chrono.domain.project.Project;
+import com.chrono.mapper.ProjectMapper;
 import com.chrono.repository.ProjectRepository;
-import com.chrono.service.user.UserService;
+import com.chrono.request.project.ProjectPostRequest;
+import com.chrono.request.project.ProjectPutRequest;
+import com.chrono.response.project.ProjectGetResponse;
+import com.chrono.response.project.ProjectPostResponse;
+import com.chrono.response.project.ProjectPutResponse;
 
 import lombok.RequiredArgsConstructor;
-
 
 @Service
 @RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
-    private final UserService userService;
+    private final ProjectMapper mapper;
 
-    // GET to list all projects
+    // GET all projects
     @Override
-    public List<Project> findAllProjects() {
-        return projectRepository.findAll();
+    public List<ProjectGetResponse> findAllProjects() {
+        List<Project> projects = projectRepository.findAll();
+        return mapper.toProjectGetResponseList(projects);
     }
 
-    // GET to find project by name
+    // GET project by name
     @Override
-    public List<Project> findProjectByName(String name) {
-        return projectRepository.findByNameContaining(name);
+    public List<ProjectGetResponse> findProjectByName(String name) {
+        List<Project> projects = projectRepository.findByNameContaining(name);
+        return mapper.toProjectGetResponseList(projects);
     }
 
-    // GET to find project by id
+    // GET project by id
     @Override
-    public Project findProjectById(Integer id) {
-        Optional<Project> project = projectRepository.findById(id);
-        return project.orElse(null);
+    public ProjectGetResponse findProjectById(Integer id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Project not found"));
+        return mapper.toProjectGetResponse(project);
     }
 
-    // Search user before PUT, for PUT to update project 
+    // PUT to update project
     @Override
-    public void updateProject(Project project) {
-        Project currentProject = this.findProjectById(project.getId());
-        currentProject.setName(project.getName());
-        currentProject.setDescription(project.getDescription());
-        currentProject.setStartDate(project.getStartDate());
-        currentProject.setEndDate(project.getEndDate());
-        currentProject.setResponsible(project.getResponsible());
-        currentProject.setPriority(project.getPriority());
-        currentProject.setStatus(project.getStatus());
+    public ProjectPutResponse updateProject(Integer id, ProjectPutRequest dto) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Project not found"));
 
-        if (project.getCreationDate() == null) {
-            project.setCreationDate(currentProject.getCreationDate());
-        }
+        if (dto.getName() != null) project.setName(dto.getName());
+        if (dto.getDescription() != null) project.setDescription(dto.getDescription());
+        if (dto.getStartDate() != null) project.setStartDate(dto.getStartDate());
+        if (dto.getEndDate() != null) project.setEndDate(dto.getEndDate());
+        if (dto.getResponsible() != null) project.setResponsible(dto.getResponsible());
+        if (dto.getPriority() != null) project.setPriority(dto.getPriority());
+        if (dto.getStatus() != null) project.setStatus(dto.getStatus());
 
-        projectRepository.save(currentProject);
+        projectRepository.save(project);
+        return mapper.toProjectPutResponse(project);
     }
 
-
+    // POST new project
     @Override
-    public Project saveProject(Project project) {
-        // Date validation
-        if (project.getEndDate() != null && project.getStartDate() != null && project.getEndDate().isBefore(project.getStartDate())) {
-            throw new IllegalArgumentException("A data de fim não pode ser anterior a data de início.");
-        }
-    
-        project.setId(null);
-        return projectRepository.save(project);
+    public ProjectPostResponse saveProject(ProjectPostRequest postRequest) {
+        Project project = mapper.toProjectPost(postRequest);
+        projectRepository.save(project);
+        return mapper.toProjectPostResponse(project);
     }
 
-    // DELETE to delete project
+    // DELETE project by ID
     @Override
     public void deleteProjectById(Long id) {
         projectRepository.deleteById(id);
