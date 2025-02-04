@@ -16,26 +16,12 @@ import com.chrono.response.activity.ActivityPutResponse;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ActivityMapper {
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "project", source = "project")
-    @Mapping(target = "name", source = "name")
-    @Mapping(target = "description", source = "description")
-    @Mapping(target = "startDate", source = "startDate")
-    @Mapping(target = "endDate", source = "endDate")
-    @Mapping(target = "status", source = "status")
-    @Mapping(target = "responsible", source = "responsible")
-    @Mapping(target = "creationDate", source = "creationDate")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "creationDate", ignore = true)
     Activity toActivityPost(ActivityPostRequest postRequest);
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "project", source = "project")
-    @Mapping(target = "name", source = "name")
-    @Mapping(target = "description", source = "description")
-    @Mapping(target = "startDate", source = "startDate")
-    @Mapping(target = "endDate", source = "endDate")
-    @Mapping(target = "status", source = "status")
-    @Mapping(target = "responsible", source = "responsible")
-    @Mapping(target = "creationDate", source = "creationDate")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "creationDate", ignore = true)
     Activity toActivityPut(ActivityPutRequest putRequest);
 
     ActivityGetResponse toActivityGetResponse(Activity activity);

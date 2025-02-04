@@ -37,46 +37,36 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Activity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_atividade")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER) // Força o carregamento do projeto completo
+    @ManyToOne
     @JoinColumn(name = "id_projeto")
-    @NotNull(message = "O id do projeto é obrigatório.")
     private Project project;
     
     @Column(name = "nome")
-    @NotBlank(message = "O nome da atividade é obrigatória.")
     private String name;
     
     @Column(name = "descricao", columnDefinition = "TEXT")
-    @Size(min = 10, message = "A descrição deve ter no mínimo 10 caracteres.")
-    @NotBlank(message = "A descrição da atividade é obrigatória.")
     private String description;
     
     @Column(name = "data_inicio")
-    @NotNull(message = "A data de início é obrigatória.")
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate startDate;
     
     @Column(name = "data_fim")
-    @NotNull(message = "A data de fim é obrigatória.")
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
     
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "O status da atividade é obrigatório.")
     private ActivityStatus status;
     
-    @ManyToOne(fetch = FetchType.EAGER) // Força o carregamento do usuário completo
+    @ManyToOne
     @JoinColumn(name = "id_usuario_responsavel")
-    @NotNull(message = "É obrigatório ter um usuario dono do projeto")
     private User responsible;
     
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @Column(name = "data_criacao", updatable = false)
     @CreationTimestamp
     private LocalDateTime creationDate;

@@ -6,22 +6,23 @@ import java.time.LocalDateTime;
 import com.chrono.domain.activity.ActivityStatus;
 import com.chrono.response.project.ProjectGetResponse;
 import com.chrono.response.user.UserGetResponseToProject;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+public record ActivityGetResponse(
+    Integer id,
+    ProjectGetResponse project,
+    String name,
+    String description,
 
-@Getter
-@Setter
-@Builder
-public class ActivityGetResponse {
-    private Integer id;
-    private ProjectGetResponse project;
-    private String name;
-    private String description;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private ActivityStatus status;
-    private UserGetResponseToProject responsible;
-    private LocalDateTime creationDate;
-}
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    LocalDate startDate,
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    LocalDate endDate,
+
+    ActivityStatus status,
+    UserGetResponseToProject responsible,
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    LocalDateTime creationDate
+) {}

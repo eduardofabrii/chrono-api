@@ -60,7 +60,7 @@ public class ActivityController {
     @PostMapping
     public ResponseEntity<ActivityPostResponse> saveActivity(@Valid @RequestBody ActivityPostRequest postRequest) throws URISyntaxException {
         ActivityPostResponse response = activityService.saveActivity(postRequest);
-        return ResponseEntity.created(new URI("/v1/activity/" + response.getId())).body(response);
+        return ResponseEntity.created(new URI("/v1/activity/" + response.id())).body(response);
     }
 
     // DELETE to delete activity
