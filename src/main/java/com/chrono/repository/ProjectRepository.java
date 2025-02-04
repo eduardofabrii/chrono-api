@@ -14,13 +14,13 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
-    List<Project> findByName(String name);
-    List<Project> findByNameContaining(String name);
-    Optional<Project> findById(Integer id);
-    List<Project> findByPriority(ProjectPriority priority);
-    List<Project> findByCreationDate(LocalDateTime creationDate);
-    List<Project> findByResponsible(User responsible);
-    List<Project> findByStartDate(LocalDate startDate);
-    List<Project> findByStatus(ProjectStatus status);
-    List<Project> findByEndDate(LocalDate endDate);
+    public List<Project> findByName(String name);
+    public List<Project> findByNameContaining(String name);
+    public Optional<Project> findById(Integer id);
+    public List<Project> findByPriority(ProjectPriority priority);
+    public List<Project> findByCreationDate(LocalDateTime creationDate);
+    public List<Project> findByResponsible(User responsible);
+    public List<Project> findByStartDate(LocalDate startDate);
+    public List<Project> findByStatus(ProjectStatus status);
+    public List<Project> findByEndDate(LocalDate endDate);
 }

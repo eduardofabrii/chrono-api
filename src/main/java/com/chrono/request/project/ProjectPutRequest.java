@@ -13,8 +13,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
-
-public record ProjectPutRequest (
+public record ProjectPutRequest(
     Integer id,
 
     @NotBlank(message = "Nome é obrigatório")

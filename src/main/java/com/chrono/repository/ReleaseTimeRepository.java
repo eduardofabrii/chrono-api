@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 import com.chrono.domain.user.User;
 
 public interface ReleaseTimeRepository extends JpaRepository<ReleaseTime, Long>{
-    Optional<ReleaseTime> findById(Integer id);
-    List<ReleaseTime> findByActivity(Activity activity);
-    List<ReleaseTime> findByDescription(String description);
-    List<ReleaseTime> findByEndDate(LocalDate endDate);
-    List<ReleaseTime> findByRegisterDate(LocalDateTime registerDate);
-    List<ReleaseTime> findByStartDate(LocalDate startDate);
-    List<ReleaseTime> findByUser(User user);
+    public Optional<ReleaseTime> findById(Integer id);
+    public List<ReleaseTime> findByActivity(Activity activity);
+    public List<ReleaseTime> findByDescription(String description);
+    public List<ReleaseTime> findByEndDate(LocalDate endDate);
+    public List<ReleaseTime> findByRegisterDate(LocalDateTime registerDate);
+    public List<ReleaseTime> findByStartDate(LocalDate startDate);
+    public List<ReleaseTime> findByUser(User user);
 }
