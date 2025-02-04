@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chrono.domain.project.Project;
-import com.chrono.mapper.ProjectMapper;
 import com.chrono.request.project.ProjectPostRequest;
 import com.chrono.request.project.ProjectPutRequest;
 import com.chrono.response.project.ProjectGetResponse;
@@ -32,57 +30,41 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProjectController {
 
-    private final ProjectMapper mapper;
     private final ProjectService projectService;
 
     // GET to list all projects
     @GetMapping
     public ResponseEntity<List<ProjectGetResponse>> listAll() {
-        List<Project> projects = projectService.findAllProjects();
-        List<ProjectGetResponse> responseList = mapper.toProjectGetResponseList(projects);
-        return ResponseEntity.ok(responseList);
+        return ResponseEntity.ok(projectService.findAllProjects());
     }
 
-    // GET to find project by name
+    // GET to find user by project
     @GetMapping("name")
     public ResponseEntity<List<ProjectGetResponse>> getProjectByName(@RequestParam String name) {
-        List<Project> projects = projectService.findProjectByName(name);
-        List<ProjectGetResponse> response = mapper.toProjectGetResponseList(projects);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(projectService.findProjectByName(name));
     }
 
     // GET to find project by id
     @GetMapping("{id}")
     public ResponseEntity<ProjectGetResponse> getProjectById(@PathVariable Integer id) {
-        Project project = projectService.findProjectById(id);
-        ProjectGetResponse response = mapper.toProjectGetResponse(project);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(projectService.findProjectById(id));
     }
 
-    // PUT to update project
+    // POST to save project
     @PutMapping("{id}")
     public ResponseEntity<ProjectPutResponse> updateProject(@Valid @RequestBody ProjectPutRequest dto, @PathVariable Integer id) {
-        Project project = mapper.toProjectPut(dto);
-        project.setId(id);
-        
-        projectService.updateProject(project);
-        ProjectPutResponse response = mapper.toProjectPutResponse(project);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(projectService.updateProject(id, dto));
     }
-    
 
     // POST to save project
     @PostMapping
     public ResponseEntity<ProjectPostResponse> saveProject(@Valid @RequestBody ProjectPostRequest postRequest) throws URISyntaxException {
-        Project project = mapper.toProjectPost(postRequest);
-        projectService.saveProject(project);
-        
-        ProjectPostResponse response = mapper.toProjectPostResponse(project);
-        return ResponseEntity.created(new URI("/v1/project/" + project.getId())).body(response);
+        ProjectPostResponse response = projectService.saveProject(postRequest);
+        return ResponseEntity.created(new URI("/v1/project/" + response.getId())).body(response);
     }
 
     // DELETE to delete project
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProjectById(@PathVariable Long id) {
         projectService.deleteProjectById(id);
         return ResponseEntity.noContent().build();

@@ -92,7 +92,4 @@ public class Project {
         this.responsible = responsible;
         this.priority = priority;
     }
-    
-    // Constructors
-    
 }
