@@ -2,12 +2,17 @@ package com.chrono.service.user;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.chrono.domain.user.User;
+import com.chrono.mapper.UserMapper;
 import com.chrono.repository.UserRepository;
+import com.chrono.request.user.UserPostRequest;
+import com.chrono.request.user.UserPutRequest;
+import com.chrono.response.user.UserGetResponse;
+import com.chrono.response.user.UserPostResponse;
+import com.chrono.response.user.UserPutResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,72 +21,66 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper mapper;
 
-    // GET to list all users
+    // GET all users
     @Override
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+    public List<UserGetResponse> findAllUsers() {
+        List<User> users = userRepository.findAll();
+        return mapper.toUserGetResponseList(users);
     }
 
-    // GET to find user by name
+    // GET user by name
     @Override
-    public List<User> findUserByName(String name) {
-        return userRepository.findByNameContaining(name);
+    public List<UserGetResponse> findUserByName(String name) {
+        List<User> users = userRepository.findByNameContaining(name);
+        return mapper.toUserGetResponseList(users);
     }
 
-    // GET to find user by id
+    // GET user by ID
     @Override
-    public User findUserById(Integer id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.orElse(null);
+    public UserGetResponse findUserById(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return mapper.toUserGetResponse(user);
     }
 
     // PUT to update user
     @Override
-    public void updateUser(User user) {
-        User currentUser = this.findUserById(user.getId());
-        if (user.getName() != null) {
-            currentUser.setName(user.getName());
-        }
-        if (user.getEmail() != null) {
-            currentUser.setEmail(user.getEmail());
-        }
-        if (user.getPassword() != null) {
-            currentUser.setPassword(user.getPassword());
-        }
-        if (user.getRole() != null) {
-            currentUser.setRole(user.getRole());
-        }
+    public UserPutResponse updateUser(Integer id, UserPutRequest dto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        userRepository.save(currentUser);
+        if (dto.getName() != null) user.setName(dto.getName());
+        if (dto.getEmail() != null) user.setEmail(dto.getEmail());
+        if (dto.getPassword() != null) user.setPassword(dto.getPassword());
+        if (dto.getRole() != null) user.setRole(dto.getRole());
+
+        userRepository.save(user);
+        return mapper.toUserPutResponse(user);
     }
 
-    // POST to save user
+    // POST to save new user
     @Override
-    public User saveUser(User user) {
-        user.setId(null);
-        return userRepository.save(user);
+    public UserPostResponse saveUser(UserPostRequest postRequest) {
+        User user = mapper.toUserPost(postRequest);
+        userRepository.save(user);
+        return mapper.toUserPostResponse(user);
     }
 
-    // DELETE to delete user
+    // DELETE user by ID
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
 
-    // Service to update last login from user
+    // UPDATE last login for user
     @Override
     public void updateLastLogin(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setLastLogin(LocalDateTime.now());
-
         userRepository.save(user);
-    }
-
-    // Function to avoid errors and load before posting
-    public User findResponsibleById(Long id) {
-        return userRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("User responsible not found!"));
     }
 }

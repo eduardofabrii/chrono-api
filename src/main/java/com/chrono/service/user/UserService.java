@@ -2,15 +2,18 @@ package com.chrono.service.user;
 
 import java.util.List;
 
-import com.chrono.domain.user.User;
+import com.chrono.request.user.UserPostRequest;
+import com.chrono.request.user.UserPutRequest;
+import com.chrono.response.user.UserGetResponse;
+import com.chrono.response.user.UserPostResponse;
+import com.chrono.response.user.UserPutResponse;
 
 public interface UserService {
-    public List<User> findAllUsers();
-    public List<User> findUserByName(String name);
-    public User findUserById(Integer id);
-    public void updateUser(User user);
-    public User saveUser(User user);
-    public void deleteUserById(Long id);
-    public void updateLastLogin(String email);
-    public User findResponsibleById(Long id);
+    List<UserGetResponse> findAllUsers();
+    List<UserGetResponse> findUserByName(String name);
+    UserGetResponse findUserById(Integer id);
+    UserPutResponse updateUser(Integer id, UserPutRequest dto);
+    UserPostResponse saveUser(UserPostRequest postRequest);
+    void deleteUserById(Long id);
+    void updateLastLogin(String email);
 }
