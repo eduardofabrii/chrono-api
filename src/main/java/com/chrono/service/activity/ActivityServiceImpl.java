@@ -1,16 +1,18 @@
 package com.chrono.service.activity;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.chrono.domain.activity.Activity;
+import com.chrono.mapper.ActivityMapper;
 import com.chrono.repository.ActivityRepository;
-import com.chrono.service.project.ProjectService;
-import com.chrono.service.user.UserService;
+import com.chrono.request.activity.ActivityPostRequest;
+import com.chrono.request.activity.ActivityPutRequest;
+import com.chrono.response.activity.ActivityGetResponse;
+import com.chrono.response.activity.ActivityPostResponse;
+import com.chrono.response.activity.ActivityPutResponse;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,71 +20,55 @@ import lombok.RequiredArgsConstructor;
 public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityRepository activityRepository;
-    private final ProjectService projectService;
-    private final UserService userService;
+    private final ActivityMapper mapper;
 
-    // GET to list all activity
+    // GET to list all activities
     @Override
-    public List<Activity> findAllActivities() {
-        if (activityRepository.findAll().isEmpty()) {
-            throw new EntityNotFoundException("Nenhuma atividade encontrada.");
-        }
-        return activityRepository.findAll();
+    public List<ActivityGetResponse> findAllActivities() {
+        List<Activity> activities = activityRepository.findAll();
+        return mapper.toActivityGetResponseList(activities);
     }
 
     // GET to find activity by name
     @Override
-    public List<Activity> findActivityByName(String name) {
-        return activityRepository.findByNameContaining(name);
+    public List<ActivityGetResponse> findActivityByName(String name) {
+        List<Activity> activities = activityRepository.findByNameContaining(name);
+        return mapper.toActivityGetResponseList(activities);
     }
 
     // GET to find activity by id
     @Override
-    public Activity findActivityById(Integer id) {
-        Optional<Activity> activity = activityRepository.findById(id);
-        return activity.orElse(null);
-    }
-
-    @Override
-    public Activity findActivityById(Long id) {
-        Optional<Activity> activity = activityRepository.findById(id);
-        return activity.orElse(null);
+    public ActivityGetResponse findActivityById(Integer id) {
+        Activity activity = activityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Activity not found"));
+        return mapper.toActivityGetResponse(activity);
     }
 
     // PUT to update activity
     @Override
-    public void updateActivity(Activity activity) {
-        Activity currentActivity = this.findActivityById(activity.getId());
-        currentActivity.setName(activity.getName());
-        currentActivity.setDescription(activity.getDescription());
-        currentActivity.setProject(activity.getProject());
-        currentActivity.setStatus(activity.getStatus());
-        currentActivity.setResponsible(activity.getResponsible());
-        currentActivity.setStartDate(activity.getStartDate());
-        currentActivity.setEndDate(activity.getEndDate());
+    public ActivityPutResponse updateActivity(Integer id, ActivityPutRequest dto) {
+        Activity activity = activityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Activity not found"));
 
-        activityRepository.save(currentActivity);
+        if (dto.getName() != null) activity.setName(dto.getName());
+        if (dto.getDescription() != null) activity.setDescription(dto.getDescription());
+        if (dto.getStatus() != null) activity.setStatus(dto.getStatus());
+
+        activityRepository.save(activity);
+        return mapper.toActivityPutResponse(activity);
     }
 
-    // POST to save Activity
+    // POST to save activity
     @Override
-    public Activity saveActivity(Activity activity) {
-
-        // Date validator
-        if (activity.getEndDate() != null && activity.getStartDate() != null && activity.getEndDate().isBefore(activity.getStartDate())) {
-            throw new IllegalArgumentException("A data de fim não pode ser anterior à data de início.");
-        }
-    
-        activity.setId(null);
-        return activityRepository.save(activity);
+    public ActivityPostResponse saveActivity(ActivityPostRequest postRequest) {
+        Activity activity = mapper.toActivityPost(postRequest);
+        activityRepository.save(activity);
+        return mapper.toActivityPostResponse(activity);
     }
 
-    // DELETE to delete Activity
+    // DELETE to delete activity
     @Override
     public void deleteActivityById(Long id) {
-        if (!activityRepository.existsById(id)) {
-            throw new EntityNotFoundException("Atividade não encontrada para o ID: " + id);
-        }
         activityRepository.deleteById(id);
     }
 }

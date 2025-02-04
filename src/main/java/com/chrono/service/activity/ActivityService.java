@@ -2,14 +2,17 @@ package com.chrono.service.activity;
 
 import java.util.List;
 
-import com.chrono.domain.activity.Activity;
+import com.chrono.request.activity.ActivityPostRequest;
+import com.chrono.request.activity.ActivityPutRequest;
+import com.chrono.response.activity.ActivityGetResponse;
+import com.chrono.response.activity.ActivityPostResponse;
+import com.chrono.response.activity.ActivityPutResponse;
 
 public interface ActivityService {
-    public List<Activity> findAllActivities();
-    public List<Activity> findActivityByName(String name);
-    public Activity findActivityById(Integer id);
-    public Activity findActivityById(Long id);
-    public void updateActivity(Activity Activity);
-    public Activity saveActivity(Activity Activity);
-    public void deleteActivityById(Long id);
+    List<ActivityGetResponse> findAllActivities();
+    List<ActivityGetResponse> findActivityByName(String name);
+    ActivityGetResponse findActivityById(Integer id);
+    ActivityPutResponse updateActivity(Integer id, ActivityPutRequest activity);
+    ActivityPostResponse saveActivity(ActivityPostRequest activity);
+    void deleteActivityById(Long id);
 }

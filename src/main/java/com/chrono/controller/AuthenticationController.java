@@ -28,7 +28,7 @@ public class AuthenticationController {
     private final UserService userService;
     private final TokenService tokenService;
 
-    // POST to send token authentication by name and password
+    // Post to send token authentication by name and password
     @PostMapping("login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO dto) {
         var userPassword = new UsernamePasswordAuthenticationToken(dto.name(), dto.password());
