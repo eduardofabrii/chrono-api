@@ -16,34 +16,12 @@ import com.chrono.response.project.ProjectPutResponse;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ProjectMapper {
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "name", source = "name")
-    @Mapping(target = "description", source = "description")
-    @Mapping(target = "startDate", source = "startDate")
-    @Mapping(target = "endDate", source = "endDate")
-    @Mapping(target = "status", source = "status")
-    @Mapping(target = "responsible", source = "responsible")
-    @Mapping(target = "priority", source = "priority")
+    @Mapping(target = "id", ignore = true)
     Project toProjectPost(ProjectPostRequest postRequest);
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "name", source = "name")
-    @Mapping(target = "description", source = "description")
-    @Mapping(target = "startDate", source = "startDate")
-    @Mapping(target = "endDate", source = "endDate")
-    @Mapping(target = "status", source = "status")
-    @Mapping(target = "responsible", source = "responsible")
-    @Mapping(target = "priority", source = "priority")
+    @Mapping(target = "id", ignore = true)
     Project toProjectPut(ProjectPutRequest putRequest);
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "name", source = "name")
-    @Mapping(target = "description", source = "description")
-    @Mapping(target = "startDate", source = "startDate")
-    @Mapping(target = "endDate", source = "endDate")
-    @Mapping(target = "status", source = "status")
-    @Mapping(target = "responsible", source = "responsible")
-    @Mapping(target = "priority", source = "priority")
     ProjectPutResponse toProjectPutResponse(Project project);
 
     ProjectGetResponse toProjectGetResponse(Project project);

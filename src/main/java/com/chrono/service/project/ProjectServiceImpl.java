@@ -50,13 +50,13 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Project not found"));
 
-        if (dto.getName() != null) project.setName(dto.getName());
-        if (dto.getDescription() != null) project.setDescription(dto.getDescription());
-        if (dto.getStartDate() != null) project.setStartDate(dto.getStartDate());
-        if (dto.getEndDate() != null) project.setEndDate(dto.getEndDate());
-        if (dto.getResponsible() != null) project.setResponsible(dto.getResponsible());
-        if (dto.getPriority() != null) project.setPriority(dto.getPriority());
-        if (dto.getStatus() != null) project.setStatus(dto.getStatus());
+        if (dto.name() != null) project.setName(dto.name());
+        if (dto.description() != null) project.setDescription(dto.description());
+        if (dto.startDate() != null) project.setStartDate(dto.startDate());
+        if (dto.endDate() != null) project.setEndDate(dto.endDate());
+        if (dto.responsible() != null) project.setResponsibleToOnlyProject(dto.responsible());
+        if (dto.priority() != null) project.setPriority(dto.priority());
+        if (dto.status() != null) project.setStatus(dto.status());
 
         projectRepository.save(project);
         return mapper.toProjectPutResponse(project);
