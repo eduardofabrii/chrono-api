@@ -41,10 +41,6 @@ public class ProjectServiceImpl implements ProjectService {
     // Search user before PUT, for PUT to update project 
     @Override
     public void updateProject(Project project) {
-        if (project.getResponsible() != null && project.getResponsible().getId() != null) {
-            project.setResponsible(userService.findResponsibleById(project.getResponsible().getId().longValue()));
-        }
-        
         Project currentProject = this.findProjectById(project.getId());
         currentProject.setName(project.getName());
         currentProject.setDescription(project.getDescription());
@@ -64,11 +60,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project saveProject(Project project) {
-        // To insert correct data
-        if (project.getResponsible() != null && project.getResponsible().getId() != null) {
-            project.setResponsible(userService.findResponsibleById(project.getResponsible().getId().longValue()));
-        }
-
         // Date validation
         if (project.getEndDate() != null && project.getStartDate() != null && project.getEndDate().isBefore(project.getStartDate())) {
             throw new IllegalArgumentException("A data de fim não pode ser anterior a data de início.");
