@@ -16,16 +16,10 @@ import com.chrono.response.user.UserPutResponse;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper {
     
-    @Mapping(target = "id")
-    @Mapping(target = "name")
-    @Mapping(target = "email")
-    @Mapping(target = "role")
+    @Mapping(target = "id", ignore = true)
     User toUserPost(UserPostRequest userRequest);
 
-    @Mapping(target = "id")
-    @Mapping(target = "name")
-    @Mapping(target = "email")
-    @Mapping(target = "role")
+    @Mapping(target = "id", ignore = true)
     User toUserPut(UserPutRequest userRequest);
 
     UserGetResponse toUserGetResponse(User user);
