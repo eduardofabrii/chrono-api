@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.chrono.domain.project.ProjectPriority;
 import com.chrono.domain.project.ProjectStatus;
+import com.chrono.domain.user.User;
 import com.chrono.response.user.UserGetResponseToProject;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -35,7 +36,7 @@ public record ProjectPutRequest(
     ProjectStatus status,
 
     @NotNull(message = "Usuário responsável é obrigatório")
-    UserGetResponseToProject responsible,
+    User responsible,
 
     @NotNull(message = "Prioridade é obrigatória")
     ProjectPriority priority
