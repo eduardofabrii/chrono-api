@@ -1,27 +1,39 @@
 package com.chrono.request.activity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import com.chrono.domain.activity.ActivityStatus;
-import com.chrono.response.project.ProjectGetResponse;
+import com.chrono.response.project.ProjectPostResponse;
 import com.chrono.response.user.UserGetResponseToProject;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-@Getter
-@Setter
-@Builder
-public class ActivityPutRequest {
-    private Integer id;
-    private ProjectGetResponse project;
-    private String name;
-    private String description;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private ActivityStatus status;
-    private UserGetResponseToProject responsible;
-    private LocalDateTime creationDate;
-}
+public record ActivityPutRequest(
+    Integer id,
+    
+    @NotNull(message = "Projeto é obrigatório.")
+    ProjectPostResponse project,
+    
+    @NotBlank(message = "Nome é obrigatório.")
+    String name,
+    
+    String description,
+    
+    @NotNull(message = "Data de início é obrigatória.")
+    @FutureOrPresent(message = "Data de início deve estar no presente ou futuro.")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    LocalDate startDate,
+    
+    @NotNull(message = "Data de término é obrigatória.")
+    @FutureOrPresent(message = "Data de término deve estar no presente ou futuro.")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    LocalDate endDate,
+    
+    @NotNull(message = "Status é obrigatório.")
+    ActivityStatus status,
+    
+    UserGetResponseToProject responsible
+) {}

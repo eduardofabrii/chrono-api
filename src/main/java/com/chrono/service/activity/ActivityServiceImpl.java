@@ -50,9 +50,9 @@ public class ActivityServiceImpl implements ActivityService {
         Activity activity = activityRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Activity not found"));
 
-        if (dto.getName() != null) activity.setName(dto.getName());
-        if (dto.getDescription() != null) activity.setDescription(dto.getDescription());
-        if (dto.getStatus() != null) activity.setStatus(dto.getStatus());
+        if (dto.name() != null) activity.setName(dto.name());
+        if (dto.description() != null) activity.setDescription(dto.description());
+        if (dto.status() != null) activity.setStatus(dto.status());
 
         activityRepository.save(activity);
         return mapper.toActivityPutResponse(activity);
