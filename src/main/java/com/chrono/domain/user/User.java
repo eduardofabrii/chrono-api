@@ -58,7 +58,7 @@ public class User implements UserDetails {
     private String password;
     
     @Column(name = "data_criacao", updatable = false)
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @CreationTimestamp
     private LocalDateTime creationDate;
     
@@ -81,6 +81,14 @@ public class User implements UserDetails {
         this.role = role;
     }
 
+    public User(Integer id, @NotBlank(message = "O nome do usuario é obrigatório.") String name,
+            @Email @NotBlank(message = "O email do usuario é obrigatório.") String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
+    // Functions 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == UserRole.ADMIN) {

@@ -61,7 +61,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserPostResponse> saveUser(@Valid @RequestBody UserPostRequest postRequest) throws URISyntaxException {
         UserPostResponse response = userService.saveUser(postRequest);
-        return ResponseEntity.created(new URI("/v1/user/" + response.getId())).body(response);
+        return ResponseEntity.created(new URI("/v1/user/" + response.id())).body(response);
     }
 
     // DELETE to delete user
