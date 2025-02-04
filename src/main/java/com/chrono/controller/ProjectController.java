@@ -60,7 +60,7 @@ public class ProjectController {
     @PostMapping
     public ResponseEntity<ProjectPostResponse> saveProject(@Valid @RequestBody ProjectPostRequest postRequest) throws URISyntaxException {
         ProjectPostResponse response = projectService.saveProject(postRequest);
-        return ResponseEntity.created(new URI("/v1/project/" + response.getId())).body(response);
+        return ResponseEntity.created(new URI("/v1/project/" + response.id())).body(response);
     }
 
     // DELETE to delete project

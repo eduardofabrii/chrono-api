@@ -6,21 +6,19 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.chrono.domain.user.User;
+import com.chrono.response.user.UserGetResponseToProject;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,48 +40,35 @@ public class Project {
     private Integer id;
     
     @Column(name = "nome")
-    @NotBlank(message = "O nome do projeto é obrigatório.")
     private String name;
     
     @Column(name = "descricao", columnDefinition = "TEXT")
-    @NotBlank(message = "A descrição do projeto é obrigatória.")
     private String description;
     
     @Column(name = "data_inicio")
-    @NotNull(message = "A data de início é obrigatória.")
     private LocalDate startDate;
     
     @Column(name = "data_fim")
-    @NotNull(message = "A data de fim é obrigatória.")
     private LocalDate endDate;
     
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "O status do projeto é obrigatório.")
     private ProjectStatus status;
     
-    @ManyToOne(fetch = FetchType.EAGER) // Força o carregamento do usuário completo
+    @ManyToOne
     @JoinColumn(name = "id_usuario_responsavel")
-    @NotNull(message = "É obrigatório ter um usuario dono do projeto")
     private User responsible;
     
     @Column(name = "data_criacao", updatable = false)
     @CreationTimestamp
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime creationDate;
     
     @Column(name = "prioridade")
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "A prioridade do projeto é obrigatória.")
     private ProjectPriority priority;
 
-    public Project(@NotBlank(message = "O nome do projeto é obrigatório.") String name,
-            @NotBlank(message = "A descrição do projeto é obrigatória.") String description,
-            @NotNull(message = "A data de início é obrigatória.") LocalDate startDate,
-            @NotNull(message = "A data de fim é obrigatória.") LocalDate endDate,
-            @NotNull(message = "O status do projeto é obrigatório.") ProjectStatus status,
-            @NotNull(message = "É obrigatório ter um usuario dono do projeto") User responsible,
-            @NotNull(message = "A prioridade do projeto é obrigatória.") ProjectPriority priority) {
+    // Constructors
+    public Project(String name, String description, LocalDate startDate, LocalDate endDate, ProjectStatus status, User responsible, ProjectPriority priority) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -91,5 +76,10 @@ public class Project {
         this.status = status;
         this.responsible = responsible;
         this.priority = priority;
+    }
+
+    // Getters and Setters
+    public void setResponsibleToOnlyProject(UserGetResponseToProject responsible) {
+        this.responsible = new User(responsible.id(), responsible.name(), responsible.email());
     }
 }
