@@ -5,20 +5,20 @@ import java.time.LocalDateTime;
 
 import com.chrono.response.activity.ActivityGetResponse;
 import com.chrono.response.user.UserGetResponseToProject;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+public record ReleaseTimePostResponse(
+    Integer id,
+    ActivityGetResponse activity,
+    UserGetResponseToProject user,
+    String description,
 
-@Getter
-@Setter
-@Builder
-public class ReleaseTimePostResponse {
-    private Integer id;
-    private ActivityGetResponse activity;
-    private UserGetResponseToProject user;
-    private String description;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private LocalDateTime registerDate;
-}
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    LocalDate startDate,
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    LocalDate endDate,
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    LocalDateTime registerDate
+) {}

@@ -16,20 +16,10 @@ import com.chrono.response.releasetime.ReleaseTimePutResponse;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ReleaseTimeMapper {
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "activity", source = "activity")
-    @Mapping(target = "user", source = "user")
-    @Mapping(target = "description", source = "description")
-    @Mapping(target = "startDate", source = "startDate")
-    @Mapping(target = "endDate", source = "endDate")
+    @Mapping(target = "id", ignore = true)
     ReleaseTime toReleaseTimePost(ReleaseTimePostRequest postRequest);
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "activity", source = "activity")
-    @Mapping(target = "user", source = "user")
-    @Mapping(target = "description", source = "description")
-    @Mapping(target = "startDate", source = "startDate")
-    @Mapping(target = "endDate", source = "endDate")
+    @Mapping(target = "id", ignore = true)
     ReleaseTime toReleaseTimePut(ReleaseTimePutRequest putRequest);
 
     ReleaseTimeGetResponse toReleaseTimeGetResponse(ReleaseTime releaseTime);
