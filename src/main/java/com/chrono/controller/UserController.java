@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chrono.domain.user.User;
-import com.chrono.infra.security.util.PasswordUtil;
-import com.chrono.mapper.UserMapper;
 import com.chrono.request.user.UserPostRequest;
 import com.chrono.request.user.UserPutRequest;
 import com.chrono.response.user.UserGetResponse;
@@ -34,61 +31,42 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserMapper mapper;
     private final UserService userService;
 
-    // GET to all users
+    // GET to list all users
     @GetMapping
     public ResponseEntity<List<UserGetResponse>> listAll() {
-        List<User> users = userService.findAllUsers();
-        List<UserGetResponse> userGetResponseList = mapper.toUserGetResponseList(users);
-        
-        return ResponseEntity.ok(userGetResponseList);
+        return ResponseEntity.ok(userService.findAllUsers());
     }
 
-    // GET to find user by filter name 
+    // GET to find user by name
     @GetMapping("name")
     public ResponseEntity<List<UserGetResponse>> getUserByName(@RequestParam String name) {
-        List<User> users = userService.findUserByName(name);
-        List<UserGetResponse> response = mapper.toUserGetResponseList(users);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(userService.findUserByName(name));
     }
 
     // GET to find user by id
     @GetMapping("{id}")
     public ResponseEntity<UserGetResponse> getUserById(@PathVariable Integer id) {
-        User user = userService.findUserById(id);
-        UserGetResponse response = mapper.toUserGetResponse(user);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(userService.findUserById(id));
     }
 
-    // PUT to update user
+    // POST to save user
     @PutMapping("{id}")
     public ResponseEntity<UserPutResponse> updateUser(@Valid @RequestBody UserPutRequest dto, @PathVariable Integer id) {
-        User user = mapper.toUserPut(dto);
-        user.setId(id);
-        userService.updateUser(user);
-        UserPutResponse response = mapper.toUserPutResponse(user);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(userService.updateUser(id, dto));
     }
 
     // POST to save user
     @PostMapping
     public ResponseEntity<UserPostResponse> saveUser(@Valid @RequestBody UserPostRequest postRequest) throws URISyntaxException {
-        String hashPassword = PasswordUtil.encoder(postRequest.getPassword());
-        postRequest.setPassword(hashPassword);
-
-        User user = mapper.toUserPost(postRequest);
-        userService.saveUser(user);
-
-        UserPostResponse response = mapper.toUserPostResponse(user);
-
-        return ResponseEntity.created(new URI("/v1/user/" + user.getId())).body(response);
+        UserPostResponse response = userService.saveUser(postRequest);
+        return ResponseEntity.created(new URI("/v1/user/" + response.getId())).body(response);
     }
 
     // DELETE to delete user
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUserById(@PathVariable Long id) throws URISyntaxException {
+    public ResponseEntity<Void> deleteUserById(@PathVariable Long id) {
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
     }
