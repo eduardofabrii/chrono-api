@@ -52,8 +52,6 @@ public class ActivityServiceImpl implements ActivityService {
     // PUT to update activity
     @Override
     public void updateActivity(Activity activity) {
-        checkAndSetProjectAndResponsible(activity);
-
         Activity currentActivity = this.findActivityById(activity.getId());
         currentActivity.setName(activity.getName());
         currentActivity.setDescription(activity.getDescription());
@@ -75,7 +73,6 @@ public class ActivityServiceImpl implements ActivityService {
             throw new IllegalArgumentException("A data de fim não pode ser anterior à data de início.");
         }
     
-        checkAndSetProjectAndResponsible(activity);
         activity.setId(null);
         return activityRepository.save(activity);
     }
@@ -87,20 +84,5 @@ public class ActivityServiceImpl implements ActivityService {
             throw new EntityNotFoundException("Atividade não encontrada para o ID: " + id);
         }
         activityRepository.deleteById(id);
-    }
-
-    // Function for check before post / put in postman
-    private void checkAndSetProjectAndResponsible(Activity activity) {
-        if (activity.getProject() != null && activity.getProject().getId() != null) {
-            activity.setProject(projectService.findProjectById(activity.getProject().getId()));
-        }
-
-        if (activity.getResponsible() != null && activity.getResponsible().getId() != null) {
-            activity.setResponsible(userService.findResponsibleById(activity.getResponsible().getId().longValue()));
-        }
-
-        if (activity.getCreationDate() == null) {
-            activity.setCreationDate(activity.getCreationDate());
-        }
     }
 }
