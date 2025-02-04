@@ -1,12 +1,17 @@
 package com.chrono.service.releasetime;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.chrono.domain.releasetime.ReleaseTime;
+import com.chrono.mapper.ReleaseTimeMapper;
 import com.chrono.repository.ReleaseTimeRepository;
+import com.chrono.request.releasetime.ReleaseTimePostRequest;
+import com.chrono.request.releasetime.ReleaseTimePutRequest;
+import com.chrono.response.releasetime.ReleaseTimeGetResponse;
+import com.chrono.response.releasetime.ReleaseTimePostResponse;
+import com.chrono.response.releasetime.ReleaseTimePutResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,40 +20,51 @@ import lombok.RequiredArgsConstructor;
 public class ReleaseTimeServiceImpl implements ReleaseTimeService {
 
     private final ReleaseTimeRepository releaseTimeRepository;
+    private final ReleaseTimeMapper mapper;
 
+    // GET all release times
     @Override
-    public List<ReleaseTime> findAllReleases() {
-        return releaseTimeRepository.findAll();
+    public List<ReleaseTimeGetResponse> findAllReleases() {
+        List<ReleaseTime> releases = releaseTimeRepository.findAll();
+        return mapper.toReleaseTimeGetResponseList(releases);
     }
 
-    // GET to find release time by id
+    // GET release time by ID
     @Override
-    public ReleaseTime findReleaseTimeById(Integer id) {
-        Optional<ReleaseTime> releaseTime = releaseTimeRepository.findById(id);
-        return releaseTime.orElse(null);
+    public ReleaseTimeGetResponse findReleaseTimeById(Integer id) {
+        ReleaseTime releaseTime = releaseTimeRepository.findById(id).orElse(null);
+        return mapper.toReleaseTimeGetResponse(releaseTime);
     }
 
     // PUT to update release time
     @Override
-    public void updateReleaseTime(ReleaseTime releaseTime) {
-        ReleaseTime currentProject = this.findReleaseTimeById(releaseTime.getId());
-        currentProject.setDescription(releaseTime.getDescription());
-        currentProject.setStartDate(releaseTime.getStartDate());
-        currentProject.setEndDate(releaseTime.getEndDate());
+    public ReleaseTimePutResponse updateReleaseTime(ReleaseTimePutRequest dto, Integer id) {
+        ReleaseTime releaseTime = mapper.toReleaseTimePut(dto);
+        releaseTime.setId(id);
 
-        releaseTimeRepository.save(currentProject);
+        ReleaseTime currentReleaseTime = releaseTimeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Release time not found"));
+        currentReleaseTime.setDescription(releaseTime.getDescription());
+        currentReleaseTime.setStartDate(releaseTime.getStartDate());
+        currentReleaseTime.setEndDate(releaseTime.getEndDate());
+
+        releaseTimeRepository.save(currentReleaseTime);
+        return mapper.toReleaseTimePutResponse(currentReleaseTime);
     }
 
     // POST to save release time
     @Override
-    public ReleaseTime saveReleaseTime(ReleaseTime releaseTime) {
-        // Date validator
+    public ReleaseTimePostResponse saveReleaseTime(ReleaseTimePostRequest postRequest) {
+        ReleaseTime releaseTime = mapper.toReleaseTimePost(postRequest);
+        
+        // Validate date logic
         if (releaseTime.getEndDate() != null && releaseTime.getStartDate() != null && releaseTime.getEndDate().isBefore(releaseTime.getStartDate())) {
-            throw new IllegalArgumentException("A data de fim não pode ser anterior à data de início.");
+            throw new IllegalArgumentException("End date cannot be before start date.");
         }
 
-        releaseTime.setId(null);
-        return releaseTimeRepository.save(releaseTime);
+        releaseTime.setId(null); // Ensure new record (not update)
+        releaseTime = releaseTimeRepository.save(releaseTime);
+        
+        return mapper.toReleaseTimePostResponse(releaseTime);
     }
 
     // DELETE to delete release time

@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chrono.domain.releasetime.ReleaseTime;
-import com.chrono.mapper.ReleaseTimeMapper;
 import com.chrono.request.releasetime.ReleaseTimePostRequest;
 import com.chrono.request.releasetime.ReleaseTimePutRequest;
 import com.chrono.response.releasetime.ReleaseTimeGetResponse;
@@ -31,48 +29,34 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReleaseTimeController {
 
-    private final ReleaseTimeMapper mapper;
     private final ReleaseTimeService releaseTimeService;
 
-    // GET to list all releases
+    // GET to list all release times
     @GetMapping
     public ResponseEntity<List<ReleaseTimeGetResponse>> listAll() {
-        List<ReleaseTime> releases = releaseTimeService.findAllReleases();
-        List<ReleaseTimeGetResponse> responseList = mapper.toReleaseTimeGetResponseList(releases);
-        return ResponseEntity.ok(responseList);
+        return ResponseEntity.ok(releaseTimeService.findAllReleases());
     }
 
-    // GET to find ReleaseTime by id
+    // GET to find release time by ID
     @GetMapping("{id}")
     public ResponseEntity<ReleaseTimeGetResponse> getReleaseTimeById(@PathVariable Integer id) {
-        ReleaseTime releaseTime = releaseTimeService.findReleaseTimeById(id);
-        ReleaseTimeGetResponse response = mapper.toReleaseTimeGetResponse(releaseTime);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(releaseTimeService.findReleaseTimeById(id));
     }
 
-    // PUT to update releaseTime
+    // PUT to update release time
     @PutMapping("{id}")
     public ResponseEntity<ReleaseTimePutResponse> updateReleaseTime(@Valid @RequestBody ReleaseTimePutRequest dto, @PathVariable Integer id) {
-        ReleaseTime releaseTime = mapper.toReleaseTimePut(dto);
-        releaseTime.setId(id);
-        
-        releaseTimeService.updateReleaseTime(releaseTime); 
-        ReleaseTimePutResponse response = mapper.toReleaseTimePutResponse(releaseTime);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(releaseTimeService.updateReleaseTime(dto, id));
     }
-    
 
-    // POST to save releaseTime
+    // POST to save release time
     @PostMapping
     public ResponseEntity<ReleaseTimePostResponse> saveReleaseTime(@Valid @RequestBody ReleaseTimePostRequest postRequest) throws URISyntaxException {
-        ReleaseTime releaseTime = mapper.toReleaseTimePost(postRequest);
-        releaseTimeService.saveReleaseTime(releaseTime);
-        
-        ReleaseTimePostResponse response = mapper.toReleaseTimePostResponse(releaseTime);
-        return ResponseEntity.created(new URI("/v1/ReleaseTime/" + releaseTime.getId())).body(response);
+        ReleaseTimePostResponse response = releaseTimeService.saveReleaseTime(postRequest);
+        return ResponseEntity.created(new URI("/v1/hours/" + response.getId())).body(response);
     }
 
-    // DELETE to delete releaseTime
+    // DELETE to delete release time
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteReleaseTimeById(@PathVariable Long id) {
         releaseTimeService.deleteReleaseTimeById(id);
