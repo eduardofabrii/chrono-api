@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.chrono.exceptions.InvalidReleaseTimeException;
 import com.chrono.exceptions.ResourceNotFoundException;
 
 /**
@@ -27,6 +28,18 @@ public class GlobalExceptionHandler {
         logger.error("Resource not found: ", ex);
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage(), "Resource not found");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    /**
+     * Manipula exceções do tipo {@link InvalidReleaseTimeException}.
+     *
+     * @param ex a exceção lançada
+     * @return um ResponseEntity contendo a mensagem da exceção e o status BAD_REQUEST
+     */
+    @ExceptionHandler(InvalidReleaseTimeException.class)
+    public ResponseEntity<String> handleInvalidReleaseTime(InvalidReleaseTimeException ex) {
+        logger.error("Invalid release time: ", ex);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     /**
