@@ -53,10 +53,10 @@ public class ReleaseTime {
     private String description;
     
     @Column(name = "data_inicio")
-    private LocalDate startDate;
+    private LocalDateTime startDate;
     
     @Column(name = "data_fim")
-    private LocalDate endDate;
+    private LocalDateTime endDate;
 
     @Column(name = "data_registro")
     @CreationTimestamp
@@ -67,8 +67,8 @@ public class ReleaseTime {
     public ReleaseTime(@NotNull(message = "A atividade é obrigatória.") Activity activity,
             @NotNull(message = "O usuário que lançou as horas é obrigatório.") User user,
             @Size(min = 10, message = "A descrição deve ter no mínimo 10 caracteres.") @NotBlank(message = "A descrição da atividade é obrigatória.") String description,
-            @NotNull(message = "A data de início é obrigatória.") LocalDate startDate,
-            @NotNull(message = "A data de fim é obrigatória.") LocalDate endDate) {
+            @NotNull(message = "A data de início é obrigatória.") LocalDateTime startDate,
+            @NotNull(message = "A data de fim é obrigatória.") LocalDateTime endDate) {
         this.activity = activity;
         this.user = user;
         this.description = description;
@@ -76,13 +76,11 @@ public class ReleaseTime {
         this.endDate = endDate;
     }
 
-
-
     public ReleaseTime(@NotNull(message = "A atividade é obrigatória.") Activity activity,
             @NotNull(message = "O usuário que lançou as horas é obrigatório.") User user,
             @Size(min = 10, message = "A descrição deve ter no mínimo 10 caracteres.") @NotBlank(message = "A descrição da atividade é obrigatória.") String description,
-            @NotNull(message = "A data de início é obrigatória.") LocalDate startDate,
-            @NotNull(message = "A data de fim é obrigatória.") LocalDate endDate, LocalDateTime registerDate) {
+            @NotNull(message = "A data de início é obrigatória.") LocalDateTime startDate,
+            @NotNull(message = "A data de fim é obrigatória.") LocalDateTime endDate, LocalDateTime registerDate) {
         this.activity = activity;
         this.user = user;
         this.description = description;

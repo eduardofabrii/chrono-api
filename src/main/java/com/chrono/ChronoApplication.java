@@ -1,6 +1,7 @@
 package com.chrono;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -173,42 +174,42 @@ public class ChronoApplication implements CommandLineRunner {
 			atividade1,
 			usuario1,
 			"Implementei a conexão do usuario com o banco de dados.",
-			LocalDate.of(2023, 8, 13),
-			LocalDate.of(2023, 8, 14)
+			LocalDateTime.of(2023, 8, 13, 9, 0),
+			LocalDateTime.of(2023, 8, 13, 12, 0)
 		);
 
 		ReleaseTime lancamentoHora2 = new ReleaseTime(
 			atividade1,
 			usuario1,
 			"Corrigi bugs na implementação do usuario.",
-			LocalDate.of(2023, 8, 15),
-			LocalDate.of(2023, 8, 16)
+			LocalDateTime.of(2023, 8, 14, 14, 0),
+			LocalDateTime.of(2023, 8, 14, 18, 0)
 		);
 
 		ReleaseTime lancamentoHora3 = new ReleaseTime(
 			atividade2,
 			usuario2,
 			"Desenvolvi a integração com o gateway de pagamento.",
-			LocalDate.of(2023, 8, 21),
-			LocalDate.of(2023, 8, 22)
+			LocalDateTime.of(2023, 8, 20, 10, 0),
+			LocalDateTime.of(2023, 8, 20, 15, 0)
 		);
 
 		ReleaseTime lancamentoHora4 = new ReleaseTime(
 			atividade3,
 			usuario3,
 			"Criei o layout do dashboard de projetos.",
-			LocalDate.of(2023, 8, 26),
-			LocalDate.of(2023, 8, 27)
+			LocalDateTime.of(2023, 8, 25, 11, 0),
+			LocalDateTime.of(2023, 8, 25, 13, 0)
 		);
 
 		ReleaseTime lancamentoHora5 = new ReleaseTime(
 			atividade4,
-			usuario2,
+			usuario4,
 			"Implementei o feed de notícias.",
-			LocalDate.of(2023, 8, 31),
-			LocalDate.of(2023, 9, 1)
+			LocalDateTime.of(2023, 8, 30, 9, 0),
+			LocalDateTime.of(2023, 8, 30, 12, 0)
 		);
-
+		
 		List<ReleaseTime> lancamentosHora = Arrays.asList(
 			lancamentoHora1, lancamentoHora2, lancamentoHora3, lancamentoHora4, lancamentoHora5
 		);

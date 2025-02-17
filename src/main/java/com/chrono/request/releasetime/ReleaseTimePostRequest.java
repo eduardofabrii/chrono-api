@@ -1,6 +1,6 @@
 package com.chrono.request.releasetime;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.chrono.domain.user.User;
 import com.chrono.response.activity.ActivityGetResponse;
@@ -8,8 +8,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.FutureOrPresent;
 
 public record ReleaseTimePostRequest(
     Integer id,
@@ -24,12 +22,10 @@ public record ReleaseTimePostRequest(
     String description,
     
     @NotNull(message = "Data de início é obrigatória")
-    @PastOrPresent(message = "Data de início deve estar no passado ou presente")
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    LocalDate startDate,
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    LocalDateTime startDate,
     
     @NotNull(message = "Data de término é obrigatória")
-    @FutureOrPresent(message = "Data de término deve estar no presente ou futuro")
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    LocalDate endDate
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    LocalDateTime endDate
 ) {}

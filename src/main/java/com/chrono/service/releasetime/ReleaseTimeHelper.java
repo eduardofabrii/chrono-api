@@ -55,16 +55,16 @@ public class ReleaseTimeHelper {
     }
 
     /**
-     * Valida se as datas do ReleaseTime estão corretas.
-     * A data de término não pode ser anterior à data de início.
+     * Valida se as datas e horas do ReleaseTime estão corretas.
+     * A data e hora de término não podem ser anteriores à data e hora de início.
      * 
-     * @param releaseTime o objeto ReleaseTime cujas datas serão validadas.
-     * @throws InvalidReleaseTimeException se a data de término for anterior à data de início.
+     * @param releaseTime o objeto ReleaseTime cujas datas e horas serão validadas.
+     * @throws InvalidReleaseTimeException se a data e hora de término forem anteriores à data e hora de início.
      */
     public void validateReleaseTimeDates(ReleaseTime releaseTime) {
         if (releaseTime.getEndDate() != null && releaseTime.getStartDate() != null &&
                 releaseTime.getEndDate().isBefore(releaseTime.getStartDate())) {
-            throw new InvalidReleaseTimeException("End date cannot be before start date.");
+            throw new InvalidReleaseTimeException("End date and time cannot be before start date and time.");
         }
     }
 }
