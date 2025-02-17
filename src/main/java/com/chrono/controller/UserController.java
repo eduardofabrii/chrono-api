@@ -1,6 +1,5 @@
 package com.chrono.controller;
 
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -23,50 +22,100 @@ import com.chrono.response.user.UserPostResponse;
 import com.chrono.response.user.UserPutResponse;
 import com.chrono.service.user.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("v1/user")
 @RequiredArgsConstructor
+@Tag(name = "UserController", description = "Endpoints para gerenciamento de usuários") 
 public class UserController {
 
     private final UserService userService;
 
-    // GET to list all users
+    @Operation(summary = "Listar todos os usuários", description = "Retorna uma lista de todos os usuários cadastrados")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lista de usuários retornada com sucesso", content = @Content(schema = @Schema(implementation = UserGetResponse.class, type = "array")))
+    })
     @GetMapping
     public ResponseEntity<List<UserGetResponse>> listAll() {
         return ResponseEntity.ok(userService.findAllUsers());
     }
 
-    // GET to find user by name
+    @Operation(summary = "Buscar usuários por nome", description = "Retorna uma lista de usuários que correspondem ao nome fornecido")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lista de usuários retornada com sucesso", content = @Content(schema = @Schema(implementation = UserGetResponse.class, type = "array"))),
+        @ApiResponse(responseCode = "404", description = "Usuário não encontrado", content = @Content)
+    })
     @GetMapping("name")
-    public ResponseEntity<List<UserGetResponse>> getUserByName(@RequestParam String name) {
+    public ResponseEntity<List<UserGetResponse>> getUserByName(
+        @Parameter(description = "Nome do usuário a ser buscado", example = "João Silva")
+        @RequestParam String name
+    ) {
         return ResponseEntity.ok(userService.findUserByName(name));
     }
 
-    // GET to find user by id
+    @Operation(summary = "Buscar usuário por ID", description = "Retorna um usuário com base no ID fornecido")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Usuário encontrado com sucesso", content = @Content(schema = @Schema(implementation = UserGetResponse.class))),
+        @ApiResponse(responseCode = "404", description = "Usuário não encontrado", content = @Content),
+        @ApiResponse(responseCode = "500", description = "Erro inesperado", content = @Content)
+    })
     @GetMapping("{id}")
-    public ResponseEntity<UserGetResponse> getUserById(@PathVariable Integer id) {
+    public ResponseEntity<UserGetResponse> getUserById(
+        @Parameter(description = "ID do usuário a ser buscado", example = "1")
+        @PathVariable Integer id
+    ) {
         return ResponseEntity.ok(userService.findUserById(id));
     }
 
-    // POST to save user
+    @Operation(summary = "Atualizar usuário", description = "Atualiza um usuário existente com base no ID fornecido")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso", content = @Content(schema = @Schema(implementation = UserPutResponse.class))),
+        @ApiResponse(responseCode = "404", description = "Usuário não encontrado", content = @Content),
+        @ApiResponse(responseCode = "500", description = "Erro inesperado", content = @Content)
+    })
     @PutMapping("{id}")
-    public ResponseEntity<UserPutResponse> updateUser(@Valid @RequestBody UserPutRequest dto, @PathVariable Integer id) {
+    public ResponseEntity<UserPutResponse> updateUser(
+        @Valid @RequestBody UserPutRequest dto,
+        @Parameter(description = "ID do usuário a ser atualizado", example = "1")
+        @PathVariable Integer id
+    ) {
         return ResponseEntity.ok(userService.updateUser(id, dto));
     }
 
-    // POST to save user
+    @Operation(summary = "Criar usuário", description = "Cria um novo usuário com os dados fornecidos")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso", content = @Content(schema = @Schema(implementation = UserPostResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos", content = @Content),
+        @ApiResponse(responseCode = "500", description = "Erro inesperado", content = @Content)
+    })
     @PostMapping
-    public ResponseEntity<UserPostResponse> saveUser(@Valid @RequestBody UserPostRequest postRequest) throws URISyntaxException {
+    public ResponseEntity<UserPostResponse> saveUser(
+        @Valid @RequestBody UserPostRequest postRequest
+    ) throws URISyntaxException {
         UserPostResponse response = userService.saveUser(postRequest);
         return ResponseEntity.created(new URI("/v1/user/" + response.id())).body(response);
     }
 
-    // DELETE to delete user
+    @Operation(summary = "Excluir usuário", description = "Exclui um usuário com base no ID fornecido")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Usuário excluído com sucesso", content = @Content),
+        @ApiResponse(responseCode = "404", description = "Usuário não encontrado", content = @Content),
+        @ApiResponse(responseCode = "500", description = "Erro inesperado", content = @Content)
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUserById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUserById(
+        @Parameter(description = "ID do usuário a ser excluído", example = "1")
+        @PathVariable Long id
+    ) {
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
     }
