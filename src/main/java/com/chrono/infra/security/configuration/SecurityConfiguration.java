@@ -47,6 +47,15 @@ public class SecurityConfiguration {
                     // Rotas públicas para todos
                     .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 
+                    // Configuração do Swagger
+                    .requestMatchers(
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/swagger-resources/**",
+                        "/swagger-resources"
+                    ).permitAll()
+
                     // Rotas protegidas acessíveis apenas por admin
                     .requestMatchers(HttpMethod.POST, "/v1/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/v1/**").hasRole("ADMIN")
