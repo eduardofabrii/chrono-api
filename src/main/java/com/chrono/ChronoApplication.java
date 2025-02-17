@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -43,7 +42,7 @@ public class ChronoApplication implements CommandLineRunner {
 		// Users creation
 		User usuario1 = new User(
 			"Rodrigo Quisen",
-			"rodrigoquisen@gmail.com",
+			"rodrigoquisen@wise.com",
 			"wise@system",
 			UserRole.ADMIN
 		);
