@@ -9,6 +9,10 @@ import com.chrono.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
 
+/**
+ * Classe de serviço para manipulação de autorização de usuários.
+ * Implementa a interface UserDetailsService para fornecer detalhes do usuário com base no nome de usuário.
+ */
 @Service
 @AllArgsConstructor
 public class AuthorizationService implements UserDetailsService {
