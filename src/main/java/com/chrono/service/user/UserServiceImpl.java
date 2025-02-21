@@ -122,12 +122,12 @@ public class UserServiceImpl implements UserService {
     /**
      * Atualiza o último login do usuário.
      * 
-     * @param email o email do usuário cujo último login será atualizado.
+     * @param name o nome do usuário cujo último login será atualizado.
      * @throws ResourceNotFoundException se o usuário não for encontrado.
      */
     @Override
-    public void updateLastLogin(String email) {
-        User user = userRepository.findByEmail(email)
+    public void updateLastLogin(String name) {
+        User user = userRepository.findByUsername(name)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         user.setLastLogin(LocalDateTime.now());
@@ -148,5 +148,18 @@ public class UserServiceImpl implements UserService {
         }
         List<User> users = userRepository.findByRole(role);
         return mapper.toUserGetResponseList(users);
+    }
+
+    /**
+     * Obtém o papel do usuário pelo nome de usuário.
+     *
+     * @param name o nome de usuário
+     * @return o papel do usuário
+     * @throws ResourceNotFoundException se o usuário não for encontrado
+     */
+    public UserRole getRoleByUserName(String name) {
+        return userRepository.findByUsername(name)
+                .map(User::getRole) 
+                .orElseThrow(() -> new ResourceNotFoundException("User is not admin"));
     }
 }
