@@ -49,7 +49,7 @@ public class AuthenticationController {
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        userService.updateLastLogin(dto.email());
+        userService.updateLastLogin(dto.name());
         
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }

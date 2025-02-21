@@ -16,6 +16,6 @@ public interface UserService {
     UserPutResponse updateUser(Integer id, UserPutRequest dto);
     UserPostResponse saveUser(UserPostRequest postRequest);
     void deleteUserById(Long id);
-    void updateLastLogin(String email);
+    void updateLastLogin(String name);
     List<UserGetResponse> findUsersByRole(UserRole role);
 }
