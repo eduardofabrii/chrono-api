@@ -77,6 +77,8 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public ProjectPutResponse updateProject(Integer id, ProjectPutRequest dto) {
+        projectHelper.validateResponsibleRole(dto.responsible().getId());
+        
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Project not found"));
 
@@ -96,6 +98,7 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public ProjectPostResponse saveProject(ProjectPostRequest postRequest) {
+        projectHelper.validateResponsibleRole(postRequest.responsible().id());
         Project project = mapper.toProjectPost(postRequest);
         projectHelper.setResponsible(project, postRequest.responsible().id());
         projectRepository.save(project);

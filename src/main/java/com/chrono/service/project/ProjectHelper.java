@@ -2,6 +2,7 @@ package com.chrono.service.project;
 
 import com.chrono.domain.project.Project;
 import com.chrono.domain.user.User;
+import com.chrono.domain.user.UserRole;
 import com.chrono.repository.UserRepository;
 import com.chrono.request.project.ProjectPutRequest;
 import com.chrono.exceptions.ResourceNotFoundException;
@@ -49,4 +50,32 @@ public class ProjectHelper {
         // Atualizar o responsável
         setResponsible(project, dto.responsible().getId());
     }
+
+/**
+     * Recupera a função de um usuário por seu ID de usuário.
+     *
+     * @param userId o ID do usuário cuja função será recuperada
+     * @return o papel do usuário
+     * @throws ResourceNotFoundException se o usuário com o ID especificado não for encontrado
+     */
+    public UserRole getRoleByUserId(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return user.getRole();
+    }
+
+    /**
+     * Valida se o usuário com o ID de responsável fornecido tem a função de ADMIN.
+     * Se o usuário não tiver a função ADMIN, uma IllegalArgumentException será lançada.
+     *
+     * @param responsableId o ID do usuário a ser validado
+     * @throws IllegalArgumentException se o usuário não tiver a função ADMIN
+     */
+    public void validateResponsibleRole(Integer responsibleId) {
+        if (!getRoleByUserId(responsibleId).equals(UserRole.ADMIN)) {
+            throw new IllegalArgumentException("The responsible user must have the role of administrator.");
+        }
+    }
+
 }
+

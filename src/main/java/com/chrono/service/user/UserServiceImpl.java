@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.chrono.domain.user.User;
+import com.chrono.domain.user.UserRole;
 import com.chrono.mapper.UserMapper;
 import com.chrono.repository.UserRepository;
 import com.chrono.request.user.UserPostRequest;
@@ -131,5 +132,21 @@ public class UserServiceImpl implements UserService {
 
         user.setLastLogin(LocalDateTime.now());
         userRepository.save(user);
+    }
+
+    /**
+     * Encontra e retorna uma lista de usuários por função.
+     *
+     * @param role a função dos usuários a serem encontrados
+     * @return uma lista de usuários com a função especificada
+     * @throws ResourceNotFoundException se o papel for nulo
+     */
+    @Override
+    public List<UserGetResponse> findUsersByRole(UserRole role) {
+        if (role == null) {
+            throw new ResourceNotFoundException("Admin role not found");
+        }
+        List<User> users = userRepository.findByRole(role);
+        return mapper.toUserGetResponseList(users);
     }
 }

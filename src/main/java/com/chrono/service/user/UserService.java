@@ -2,6 +2,7 @@ package com.chrono.service.user;
 
 import java.util.List;
 
+import com.chrono.domain.user.UserRole;
 import com.chrono.request.user.UserPostRequest;
 import com.chrono.request.user.UserPutRequest;
 import com.chrono.response.user.UserGetResponse;
@@ -16,4 +17,5 @@ public interface UserService {
     UserPostResponse saveUser(UserPostRequest postRequest);
     void deleteUserById(Long id);
     void updateLastLogin(String email);
+    List<UserGetResponse> findUsersByRole(UserRole role);
 }
