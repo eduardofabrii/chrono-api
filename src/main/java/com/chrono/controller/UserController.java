@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chrono.domain.user.UserRole;
 import com.chrono.request.user.UserPostRequest;
 import com.chrono.request.user.UserPutRequest;
 import com.chrono.response.user.UserGetResponse;
@@ -118,5 +119,17 @@ public class UserController {
     ) {
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @Operation(summary = "Listar usuários administradores", description = "Retorna uma lista de usuários com a função de administrador")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lista de usuários administradores retornada com sucesso", content = @Content(schema = @Schema(implementation = UserGetResponse.class, type = "array"))),
+        @ApiResponse(responseCode = "404", description = "Nenhum usuário administrador encontrado", content = @Content)
+    })
+    @GetMapping("admin_users")
+    public ResponseEntity<List<UserGetResponse>> getAdminUsers() {
+        List<UserGetResponse> adminUsers = userService.findUsersByRole(UserRole.ADMIN);
+        return ResponseEntity.ok(adminUsers);
     }
 }

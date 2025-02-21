@@ -25,6 +25,7 @@ public class TokenService {
      * Gera um token JWT para o usuário fornecido.
      *
      * @param user O usuário para o qual o token será gerado.
+     * @param role O papel do usuário.
      * @return O token JWT gerado.
      * @throws RuntimeException Se ocorrer um erro durante a criação do token.
      */
@@ -36,6 +37,7 @@ public class TokenService {
             return JWT.create()
             .withIssuer("chrono_api")
             .withSubject(user.getName())
+            .withClaim("role", user.getRole().name())
             .withExpiresAt(this.generateExpirationDate())
             .sign(algorithm);
 
