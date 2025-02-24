@@ -1,13 +1,11 @@
 package com.chrono.request.releasetime;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.chrono.domain.user.User;
 import com.chrono.response.activity.ActivityGetResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 

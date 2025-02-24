@@ -7,7 +7,6 @@ import com.chrono.response.project.ProjectPostResponse;
 import com.chrono.response.user.UserGetResponseToProject;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -23,12 +22,10 @@ public record ActivityPutRequest(
     String description,
     
     @NotNull(message = "Data de início é obrigatória.")
-    @FutureOrPresent(message = "Data de início deve estar no presente ou futuro.")
     @JsonFormat(pattern = "dd/MM/yyyy")
     LocalDate startDate,
     
     @NotNull(message = "Data de término é obrigatória.")
-    @FutureOrPresent(message = "Data de término deve estar no presente ou futuro.")
     @JsonFormat(pattern = "dd/MM/yyyy")
     LocalDate endDate,
     
