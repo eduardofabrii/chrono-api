@@ -78,7 +78,10 @@ public class ActivityHelper {
     public void updateActivityFields(Activity activity, ActivityPutRequest dto) {
         if (dto.name() != null) activity.setName(dto.name());
         if (dto.description() != null) activity.setDescription(dto.description());
+        if (dto.startDate() != null) activity.setStartDate(dto.startDate());
+        if (dto.endDate() != null) activity.setEndDate(dto.endDate());
         if (dto.status() != null) activity.setStatus(dto.status());
+        if (dto.responsible() != null) activity.setResponsible(getUserById(dto.responsible().id()));
     }
 
     /**

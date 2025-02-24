@@ -52,7 +52,7 @@ public class ChronoApplication implements CommandLineRunner {
 			"Maria Silva",
 			"maria.silva@gmail.com",
 			"password123",
-			UserRole.USER
+			UserRole.ADMIN
 		);
 
 		User usuario3 = new User(
@@ -102,7 +102,7 @@ public class ChronoApplication implements CommandLineRunner {
 			LocalDate.of(2023, 10, 5),
 			LocalDate.of(2024, 1, 20),
 			ProjectStatus.EM_ANDAMENTO,
-			usuario3, 
+			usuario2, 
 			ProjectPriority.BAIXA
 		);
 
@@ -112,7 +112,7 @@ public class ChronoApplication implements CommandLineRunner {
 			LocalDate.of(2023, 9, 10),
 			LocalDate.of(2024, 1, 5),
 			ProjectStatus.EM_ANDAMENTO,
-			usuario4, 
+			usuario1, 
 			ProjectPriority.ALTA
 		);
 
@@ -147,8 +147,8 @@ public class ChronoApplication implements CommandLineRunner {
 			projeto3,
 			"Criar dashboard de projetos",
 			"Desenvolver painel de controle para visualização de projetos",
-			LocalDate.of(2023, 8, 25),
-			LocalDate.of(2023, 9, 25), 
+			LocalDate.of(2025, 8, 25),
+			LocalDate.of(2025, 9, 25), 
 			ActivityStatus.EM_ANDAMENTO,
 			usuario3
 		);
