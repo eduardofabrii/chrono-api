@@ -18,6 +18,7 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     public List<Activity> findByNameContaining(String name);
     public Optional<Activity> findById(Integer id);
     public List<Activity> findByProject(Project project);
+    public List<Activity> findByProjectId(Integer projectId);
     public List<Activity> findByResponsible(User responsible);
     public List<Activity> findByEndDate(LocalDate endDate);
     public List<Activity> findByCreationDate(LocalDateTime creationDate);
