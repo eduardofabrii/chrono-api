@@ -103,4 +103,15 @@ public class ActivityController {
         activityService.deleteActivityById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @Operation(summary = "Listar atividades por ID do projeto", description = "Busca uma lista de atividades pelo ID do projeto.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Atividades buscadas com sucesso pelo ID do projeto", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ActivityGetResponse.class))),
+        @ApiResponse(responseCode = "404", description = "Atividades não encontradas", content = @Content)
+    })
+    @GetMapping("project/{projectId}")
+    public ResponseEntity<List<ActivityGetResponse>> listarAtividadesPorProjetoId(@Parameter(description = "ID do projeto a ser encontrado", example = "1") @PathVariable Integer projectId) {
+        List<ActivityGetResponse> atividades = activityService.findActivitiesByProjectId(projectId);
+        return ResponseEntity.ok(atividades);
+    }
 }

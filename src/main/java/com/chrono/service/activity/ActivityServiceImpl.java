@@ -114,4 +114,19 @@ public class ActivityServiceImpl implements ActivityService {
         }
         activityRepository.deleteById(id);
     }
+
+    /**
+     * Lista atividades pelo ID do projeto.
+     *
+     * @param projectId ID do projeto.
+     * @return Lista de respostas de atividades.
+     * @throws ResourceNotFoundException se nenhuma atividade for encontrada.
+     */
+    public List<ActivityGetResponse> findActivitiesByProjectId(Integer projectId) {
+        List<Activity> activities = activityRepository.findByProjectId(projectId);
+        if (activities.isEmpty()) {
+            throw new ResourceNotFoundException("No activities found for the given project ID");
+        }
+        return mapper.toActivityGetResponseList(activities);
+    }
 }
