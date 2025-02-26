@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chrono.domain.project.Project;
 import com.chrono.request.project.ProjectPostRequest;
 import com.chrono.request.project.ProjectPutRequest;
 import com.chrono.response.project.ProjectGetResponse;
@@ -112,5 +113,22 @@ public class ProjectController {
     public ResponseEntity<Void> deleteProjectById(@Parameter(description = "ID do projeto a ser excluído", example = "1") @PathVariable Long id) {
         projectService.deleteProjectById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * @Operation(summary = "Obter projetos por ID do usuário", description = "Recupera todos os projetos associados às atividades de um usuário específico")
+     * @ApiResponses(value = {
+     *     @ApiResponse(responseCode = "200", description = "Projetos recuperados com sucesso",
+     *          content = @Content(mediaType = "application/json", 
+     *          array = @ArraySchema(schema = @Schema(implementation = Project.class)))),
+     *     @ApiResponse(responseCode = "404", description = "Nenhum projeto encontrado para este usuário"),
+     *     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+     * })
+     * @Parameter(name = "userId", description = "ID do usuário cujos projetos serão recuperados", required = true)
+     */
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Project>> getProjectsByActivityUserId(@PathVariable Long userId) {
+        List<Project> projects = projectService.findProjectsByActivityUserId(userId);
+        return ResponseEntity.ok(projects);
     }
 }

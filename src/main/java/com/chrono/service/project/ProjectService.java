@@ -2,6 +2,7 @@ package com.chrono.service.project;
 
 import java.util.List;
 
+import com.chrono.domain.project.Project;
 import com.chrono.request.project.ProjectPostRequest;
 import com.chrono.request.project.ProjectPutRequest;
 import com.chrono.response.project.ProjectGetResponse;
@@ -15,4 +16,5 @@ public interface ProjectService {
     ProjectPutResponse updateProject(Integer id, ProjectPutRequest dto);
     ProjectPostResponse saveProject(ProjectPostRequest postRequest);
     void deleteProjectById(Long id);
+    List<Project> findProjectsByActivityUserId(Long userId);
 }
