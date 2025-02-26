@@ -134,7 +134,7 @@ public class ChronoApplication implements CommandLineRunner {
 		);
 
 		Activity atividade2 = new Activity(
-			projeto2,
+			projeto1,
 			"Desenvolver módulo de pagamento",
 			"Implementar integração com gateways de pagamento",
 			LocalDate.of(2023, 8, 20),
