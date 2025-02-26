@@ -119,4 +119,18 @@ public class ProjectServiceImpl implements ProjectService {
 
         projectRepository.deleteById(id);
     }
+
+    /**
+     * Busca todos os projetos associados às atividades de um usuário específico.
+     *
+     * @param userId O ID do usuário cujos projetos associados às atividades serão buscados
+     * @return Uma lista de projetos que contêm atividades do usuário especificado
+     */
+    public List<Project> findProjectsByActivityUserId(Long userId) {
+        if (!projectRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("User isn't in another activity, not found");
+        }
+
+        return projectRepository.findByActivityUserId(userId);
+    }
 }

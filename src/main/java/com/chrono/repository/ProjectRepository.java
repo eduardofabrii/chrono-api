@@ -1,6 +1,7 @@
 package com.chrono.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.chrono.domain.project.Project;
 import com.chrono.domain.project.ProjectPriority;
@@ -23,4 +24,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     public List<Project> findByStartDate(LocalDate startDate);
     public List<Project> findByStatus(ProjectStatus status);
     public List<Project> findByEndDate(LocalDate endDate);
+
+    @Query("SELECT p FROM Project p JOIN Activity a ON p.id = a.project.id WHERE a.responsible.id = ?1")
+    public List<Project> findByActivityUserId(Long userId);
 }
