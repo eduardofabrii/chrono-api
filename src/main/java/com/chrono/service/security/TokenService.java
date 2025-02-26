@@ -38,6 +38,7 @@ public class TokenService {
             .withIssuer("chrono_api")
             .withSubject(user.getName())
             .withClaim("role", user.getRole().name())
+            .withClaim("id", user.getId().toString())
             .withExpiresAt(this.generateExpirationDate())
             .sign(algorithm);
 
