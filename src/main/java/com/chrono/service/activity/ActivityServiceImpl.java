@@ -129,4 +129,19 @@ public class ActivityServiceImpl implements ActivityService {
         }
         return mapper.toActivityGetResponseList(activities);
     }
+
+    /**
+     * Busca todas as atividades associadas a um usuário responsável específico.
+     *
+     * @param userId O ID do usuário responsável pelas atividades
+     * @return Uma lista de objetos ActivityGetResponse correspondentes às atividades encontradas
+     * @throws ResourceNotFoundException se nenhuma atividade for encontrada.
+     */
+    public List<ActivityGetResponse> findActivitiesByResponsibleUserId(Integer userId) {
+        List<Activity> activities = activityRepository.findByResponsibleUserId(userId);
+        if (activities.isEmpty()) {
+            throw new ResourceNotFoundException("No activities found for the user responsible ID");
+        }
+        return mapper.toActivityGetResponseList(activities);
+    }
 }
