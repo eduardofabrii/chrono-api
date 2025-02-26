@@ -114,4 +114,17 @@ public class ActivityController {
         List<ActivityGetResponse> atividades = activityService.findActivitiesByProjectId(projectId);
         return ResponseEntity.ok(atividades);
     }
+
+    @Operation(summary = "Listar atividades que um responsável/usuário é responsável", description = "Busca uma lista de atividades pelo ID do usuário responsável.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Atividades buscadas com sucesso pelo ID do responsável", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ActivityGetResponse.class))),
+        @ApiResponse(responseCode = "404", description = "Atividades não encontradas", content = @Content)
+    })
+    @GetMapping("/responsible/{userId}")
+    public ResponseEntity<List<ActivityGetResponse>> getActivitiesByResponsibleUserId(
+            @PathVariable Integer userId
+    ) {
+        List<ActivityGetResponse> activities = activityService.findActivitiesByResponsibleUserId(userId);
+        return ResponseEntity.ok(activities);
+    }
 }

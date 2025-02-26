@@ -16,4 +16,5 @@ public interface ActivityService {
     ActivityPostResponse saveActivity(ActivityPostRequest activity);
     void deleteActivityById(Long id);
     List<ActivityGetResponse> findActivitiesByProjectId(Integer projectId);
+    List<ActivityGetResponse> findActivitiesByResponsibleUserId(Integer projectId);
 }

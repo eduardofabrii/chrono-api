@@ -1,6 +1,7 @@
 package com.chrono.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.chrono.domain.activity.Activity;
 import com.chrono.domain.activity.ActivityStatus;
@@ -24,4 +25,7 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     public List<Activity> findByCreationDate(LocalDateTime creationDate);
     public List<Activity> findByStatus(ActivityStatus status);
     public List<Activity> findByStartDate(LocalDate startDate);
+
+    @Query("SELECT a FROM Activity a WHERE a.responsible.id = ?1")
+    List<Activity> findByResponsibleUserId(Integer userId);
 }
