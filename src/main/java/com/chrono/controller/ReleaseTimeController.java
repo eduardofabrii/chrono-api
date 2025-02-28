@@ -104,4 +104,19 @@ public class ReleaseTimeController {
         releaseTimeService.deleteReleaseTimeById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @Operation(summary = "Buscar lancamentos de horas por ID de usuário", description = "Retorna uma lista de lancamentos de horas com base no ID de usuário fornecido")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lista de lancamentos de horas retornada com sucesso", content = @Content(schema = @Schema(implementation = ReleaseTimeGetResponse.class, type = "array"))),
+        @ApiResponse(responseCode = "404", description = "Lancamentos de horas não encontrados", content = @Content),
+        @ApiResponse(responseCode = "500", description = "Erro inesperado", content = @Content)
+    })
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ReleaseTimeGetResponse>> getReleaseTimesByUserId(
+        @Parameter(description = "ID do usuário cujos lancamentos de horas devem ser buscados", example = "1")
+        @PathVariable Integer userId
+    ) {
+        List<ReleaseTimeGetResponse> releaseTimes = releaseTimeService.getReleaseTimesByUserId(userId);
+        return ResponseEntity.ok(releaseTimes);
+    }
 }

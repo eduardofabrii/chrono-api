@@ -14,4 +14,5 @@ public interface ReleaseTimeService {
     public ReleaseTimePutResponse updateReleaseTime(ReleaseTimePutRequest releaseTime, Integer id);
     public ReleaseTimePostResponse saveReleaseTime(ReleaseTimePostRequest releaseTime);
     public void deleteReleaseTimeById(Long id);
+    public List<ReleaseTimeGetResponse> getReleaseTimesByUserId(Integer userId);
 }
