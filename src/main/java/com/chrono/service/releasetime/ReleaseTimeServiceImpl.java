@@ -1,6 +1,7 @@
 package com.chrono.service.releasetime;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -94,5 +95,23 @@ public class ReleaseTimeServiceImpl implements ReleaseTimeService {
             throw new ResourceNotFoundException("Release Time not found");
         }
         releaseTimeRepository.deleteById(id);
+    }
+
+    /**
+     * Recupera uma lista de lançamentos de horas associadas a um ID de usuário específico.
+     *
+     * @param userId o ID do usuário cujos lançamentos de horas devem ser recuperados
+     * @return uma lista de objetos {@link ReleaseTimeGetResponse} representando os lançamentos de horas do usuário especificado
+     * @throws ResourceNotFoundException se nenhum lançamento de horas for encontrado para o ID de usuário fornecido
+     */
+    public List<ReleaseTimeGetResponse> getReleaseTimesByUserId(Integer userId) {
+        List<ReleaseTime> releaseTimes = releaseTimeRepository.findByUserId(userId);
+        if (releaseTimes.isEmpty()) {
+            throw new ResourceNotFoundException("No release times found for the user ID: " + userId);
+        }
+
+        return releaseTimes.stream()
+                .map(mapper::toReleaseTimeGetResponse)
+                .collect(Collectors.toList());
     }
 }

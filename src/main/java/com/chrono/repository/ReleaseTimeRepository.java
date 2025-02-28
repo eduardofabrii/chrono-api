@@ -1,6 +1,7 @@
 package com.chrono.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.chrono.domain.releasetime.ReleaseTime;
 import java.util.List;
@@ -19,4 +20,7 @@ public interface ReleaseTimeRepository extends JpaRepository<ReleaseTime, Long>{
     public List<ReleaseTime> findByRegisterDate(LocalDateTime registerDate);
     public List<ReleaseTime> findByStartDate(LocalDate startDate);
     public List<ReleaseTime> findByUser(User user);
+
+    @Query("SELECT rt FROM ReleaseTime rt WHERE rt.user.id = ?1")
+    List<ReleaseTime> findByUserId(Integer userId);
 }
