@@ -97,4 +97,29 @@ public class ActivityHelper {
         activity.setEndDate(request.endDate());
         activity.setStatus(request.status());
     }
+
+    /**
+     * Valida se as datas de uma atividade estão dentro do intervalo de datas do projeto.
+     *
+     * @param activity A atividade a ser validada.
+     * @throws IllegalArgumentException Se as datas da atividade estiverem fora do intervalo do projeto.
+     */
+    public void validateActivityDates(Activity activity) {
+        Project project = activity.getProject();
+
+        // Verifica se a data de início da atividade é anterior à data de início do projeto
+        if (activity.getStartDate().isBefore(project.getStartDate())) {
+            throw new IllegalArgumentException("A data de início da atividade não pode ser anterior à data de início do projeto.");
+        }
+
+        // Verifica se a data de fim da atividade é posterior à data de fim do projeto
+        if (activity.getEndDate().isAfter(project.getEndDate())) {
+            throw new IllegalArgumentException("A data de fim da atividade não pode ser posterior à data de fim do projeto.");
+        }
+
+        // Verifica se a data de início da atividade é posterior à data de fim
+        if (activity.getStartDate().isAfter(activity.getEndDate())) {
+            throw new IllegalArgumentException("A data de início da atividade não pode ser posterior à data de fim da atividade.");
+        }
+    }
 }

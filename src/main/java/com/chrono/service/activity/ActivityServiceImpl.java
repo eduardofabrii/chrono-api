@@ -81,6 +81,7 @@ public class ActivityServiceImpl implements ActivityService {
     public ActivityPutResponse updateActivity(Integer id, ActivityPutRequest dto) {
         Activity activity = activityHelper.getActivityById(id, activityRepository);
         activityHelper.updateActivityFields(activity, dto);
+        activityHelper.validateActivityDates(activity);
         activityRepository.save(activity);
         return mapper.toActivityPutResponse(activity);
     }
@@ -97,6 +98,7 @@ public class ActivityServiceImpl implements ActivityService {
         activityHelper.updateActivityFields(activity, request);
         activity.setProject(activityHelper.getProjectById(request.project().id()));
         activity.setResponsible(activityHelper.getUserById(request.responsible().id()));
+        activityHelper.validateActivityDates(activity);
         activityRepository.save(activity);
         return mapper.toActivityPostResponse(activity);
     }
@@ -115,7 +117,7 @@ public class ActivityServiceImpl implements ActivityService {
         activityRepository.deleteById(id);
     }
 
-    /**
+ /**
      * Lista atividades pelo ID do projeto.
      *
      * @param projectId ID do projeto.
