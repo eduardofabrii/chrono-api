@@ -4,5 +4,7 @@ import java.util.List;
 
 public record DashboardResponse(
     Long totalProjects,
-    List<ProjectStatusCount> projectStatusCounts
+    List<ProjectStatusCount> projectStatusCounts,
+    Long totalActivities,
+    Double totalHours
 ) {}
