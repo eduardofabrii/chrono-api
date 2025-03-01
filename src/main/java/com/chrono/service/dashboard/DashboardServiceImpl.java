@@ -19,14 +19,18 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardRepository dashboardRepository;
 
     /**
-     * Recupera os dados do dashboard, incluindo o número total de projetos e a contagem de projetos por status.
+     * Recupera os dados do dashboard, incluindo o número total de projetos, 
+     * a contagem de projetos por status, total de atividades e horas lançadas.
      *
-     * @return um objeto {@link DashboardResponse} contendo o número total de projetos e uma lista de contagens de status de projetos.
+     * @return um objeto {@link DashboardResponse} contendo as informações do dashboard
      */
     @Override
     public DashboardResponse getDashboardData() {
         Long totalProjects = dashboardRepository.countTotalProjects();
         List<Object[]> statusCounts = dashboardRepository.getProjectStatusCounts();
+        Long totalActivities = dashboardRepository.countTotalActivities();
+        Double totalHours = dashboardRepository.sumTotalHours();
+        
         List<ProjectStatusCount> projectStatusCounts = new ArrayList<>();
         
         for (Object[] result : statusCounts) {
@@ -35,6 +39,6 @@ public class DashboardServiceImpl implements DashboardService {
             projectStatusCounts.add(new ProjectStatusCount(status, count));
         }
         
-        return new DashboardResponse(totalProjects, projectStatusCounts);
+        return new DashboardResponse(totalProjects, projectStatusCounts, totalActivities, totalHours);
     }
 }
