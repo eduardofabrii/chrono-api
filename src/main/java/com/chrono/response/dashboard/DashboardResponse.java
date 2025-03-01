@@ -6,5 +6,6 @@ public record DashboardResponse(
     Long totalProjects,
     List<ProjectStatusCount> projectStatusCounts,
     Long totalActivities,
-    Double totalHours
+    Double totalHours,
+    List<ProjectHoursData> projectHoursData
 ) {}

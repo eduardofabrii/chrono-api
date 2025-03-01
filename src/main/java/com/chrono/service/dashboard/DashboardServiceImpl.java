@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.chrono.domain.project.ProjectStatus;
 import com.chrono.repository.DashboardRepository;
 import com.chrono.response.dashboard.DashboardResponse;
+import com.chrono.response.dashboard.ProjectHoursData;
 import com.chrono.response.dashboard.ProjectStatusCount;
 
 import lombok.RequiredArgsConstructor;
@@ -17,28 +18,37 @@ import lombok.RequiredArgsConstructor;
 public class DashboardServiceImpl implements DashboardService {
 
     private final DashboardRepository dashboardRepository;
+    private final ProjectHoursService projectHoursService;
 
     /**
-     * Recupera os dados do dashboard, incluindo o número total de projetos, 
-     * a contagem de projetos por status, total de atividades e horas lançadas.
-     *
-     * @return um objeto {@link DashboardResponse} contendo as informações do dashboard
+     * Recupera os dados do dashboard
+     * @return Objeto DashboardResponse contendo todas as informações
      */
     @Override
     public DashboardResponse getDashboardData() {
+        // Obter dados básicos
         Long totalProjects = dashboardRepository.countTotalProjects();
-        List<Object[]> statusCounts = dashboardRepository.getProjectStatusCounts();
         Long totalActivities = dashboardRepository.countTotalActivities();
         Double totalHours = dashboardRepository.sumTotalHours();
         
+        // Processar contagens de status
         List<ProjectStatusCount> projectStatusCounts = new ArrayList<>();
-        
-        for (Object[] result : statusCounts) {
+        for (Object[] result : dashboardRepository.getProjectStatusCounts()) {
             ProjectStatus status = (ProjectStatus) result[0];
             Long count = ((Number) result[1]).longValue();
             projectStatusCounts.add(new ProjectStatusCount(status, count));
         }
         
-        return new DashboardResponse(totalProjects, projectStatusCounts, totalActivities, totalHours);
+        // Obter projetos com horas calculadas
+        List<ProjectHoursData> projectHoursData = projectHoursService.getProjectsWithHours();
+        
+        // Retornar resposta completa
+        return new DashboardResponse(
+            totalProjects, 
+            projectStatusCounts, 
+            totalActivities, 
+            totalHours, 
+            projectHoursData
+        );
     }
 }

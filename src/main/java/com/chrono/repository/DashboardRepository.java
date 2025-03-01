@@ -38,6 +38,14 @@ public interface DashboardRepository extends JpaRepository<Project, Integer> {
      */
     @Query(value = "SELECT COALESCE(SUM(TIMESTAMPDIFF(MINUTE, data_inicio, data_fim) / 60.0), 0) FROM lancamento_hora", nativeQuery = true)
     Double sumTotalHours();
+    
+    /**
+     * Consulta temporária para obter dados básicos dos projetos para uso no dashboard
+     * até que possamos resolver a consulta de horas por projeto.
+     * @return Lista de projetos com seus ids, nomes e status
+     */
+    @Query("SELECT p.id, p.name, p.status FROM Project p")
+    List<Object[]> getBasicProjectData();
 }
 
 
