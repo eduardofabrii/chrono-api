@@ -8,5 +8,6 @@ public record DashboardResponse(
     Long totalActivities,
     Double totalHours,
     List<ProjectHoursData> projectHoursData,
-    List<UserHoursData> userHoursData
+    List<UserHoursData> userHoursData,
+    List<UserPendingActivities> pendingActivitiesByUser
 ) {}

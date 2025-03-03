@@ -11,6 +11,7 @@ import com.chrono.response.dashboard.DashboardResponse;
 import com.chrono.response.dashboard.ProjectHoursData;
 import com.chrono.response.dashboard.ProjectStatusCount;
 import com.chrono.response.dashboard.UserHoursData;
+import com.chrono.response.dashboard.UserPendingActivities;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,7 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardRepository dashboardRepository;
     private final ProjectHoursService projectHoursService;
     private final UserHoursService userHoursService;
+    private final PendingActivitiesService pendingActivitiesService;
 
     /**
      * Recupera os dados do dashboard
@@ -47,6 +49,9 @@ public class DashboardServiceImpl implements DashboardService {
         // Obter usuários com horas lançadas
         List<UserHoursData> userHoursData = userHoursService.getUsersWithHours();
         
+        // Obter atividades pendentes por usuário
+        List<UserPendingActivities> pendingActivitiesByUser = pendingActivitiesService.getPendingActivitiesByUser();
+        
         // Retornar resposta completa
         return new DashboardResponse(
             totalProjects, 
@@ -54,7 +59,8 @@ public class DashboardServiceImpl implements DashboardService {
             totalActivities, 
             totalHours, 
             projectHoursData,
-            userHoursData
+            userHoursData,
+            pendingActivitiesByUser
         );
     }
 }
