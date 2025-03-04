@@ -46,6 +46,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                     // Rotas públicas para todos
                     .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/v1/project").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/v1/activity").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/v1/hours").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/v1/hours").permitAll()
 
                     // Configuração do Swagger
                     .requestMatchers(
@@ -60,7 +64,7 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.POST, "/v1/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/v1/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/v1/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/v1/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/v1/**").permitAll()
                     
                     .anyRequest().authenticated()
                 )
