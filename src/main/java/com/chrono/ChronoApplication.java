@@ -85,93 +85,113 @@ public class ChronoApplication implements CommandLineRunner {
 		// Projects creation
 		List<Project> projetos = Arrays.asList(
 			new Project(
+				null,
 				"Aplicação web para bancos",
 				"Aplicação bancária para controle financeiro",
 				LocalDate.of(2023, 12, 8),
 				LocalDate.of(2024, 3, 23),
 				ProjectStatus.EM_ANDAMENTO,
 				usuario1, 
+				null,
 				ProjectPriority.ALTA
 			),
 			new Project(
+				null,
 				"Aplicação de e-commerce",
 				"Plataforma de vendas online",
 				LocalDate.of(2023, 11, 1),
 				LocalDate.of(2024, 2, 15),
 				ProjectStatus.EM_ANDAMENTO,
 				usuario2, 
+				null,
 				ProjectPriority.MEDIA
 			),
 			new Project(
+				null,
 				"Aplicação de gestão de projetos",
 				"Ferramenta para gerenciamento de projetos",
 				LocalDate.of(2023, 10, 5),
 				LocalDate.of(2024, 1, 20),
 				ProjectStatus.EM_ANDAMENTO,
 				usuario2, 
+				null,
 				ProjectPriority.BAIXA
 			),
 			new Project(
+				null,
 				"Aplicação de rede social",
 				"Plataforma para interação social",
 				LocalDate.of(2023, 9, 10),
 				LocalDate.of(2024, 1, 5),
 				ProjectStatus.CANCELADO,
 				usuario1, 
+				null,
 				ProjectPriority.ALTA
 			),
 			new Project(
+				null,
 				"Aplicação de delivery",
 				"Plataforma para entrega de alimentos",
 				LocalDate.of(2023, 10, 1),
 				LocalDate.of(2024, 2, 28),
 				ProjectStatus.EM_ANDAMENTO,
 				usuario3, 
+				null,
 				ProjectPriority.MEDIA
 			),
 			new Project(
+				null,
 				"Aplicação de streaming",
 				"Plataforma para streaming de vídeos",
 				LocalDate.of(2023, 11, 15),
 				LocalDate.of(2024, 4, 30),
 				ProjectStatus.EM_ANDAMENTO,
 				usuario4, 
+				null,
 				ProjectPriority.ALTA
 			),
 			new Project(
+				null,
 				"Aplicação de fitness",
 				"Plataforma para acompanhamento de exercícios",
 				LocalDate.of(2023, 9, 20),
 				LocalDate.of(2024, 1, 10),
 				ProjectStatus.EM_ANDAMENTO,
 				usuario1, 
+				null,
 				ProjectPriority.BAIXA
 			),
 			new Project(
+				null,
 				"Aplicação de viagens",
 				"Plataforma para reservas de viagens",
 				LocalDate.of(2023, 10, 10),
 				LocalDate.of(2024, 3, 15),
 				ProjectStatus.EM_ANDAMENTO,
 				usuario2, 
+				null,
 				ProjectPriority.MEDIA
 			),
 			new Project(
+				null,
 				"Aplicação de educação",
 				"Plataforma para cursos online",
 				LocalDate.of(2023, 11, 5),
 				LocalDate.of(2024, 5, 20),
 				ProjectStatus.EM_ANDAMENTO,
 				usuario3, 
+				null,
 				ProjectPriority.ALTA
 			),
 			new Project(
+				null,
 				"Aplicação de saúde",
 				"Plataforma para agendamento de consultas",
 				LocalDate.of(2023, 12, 1),
 				LocalDate.of(2024, 6, 30),
 				ProjectStatus.EM_ANDAMENTO,
 				usuario4, 
+				null,
 				ProjectPriority.MEDIA
 			)
 		);
@@ -558,4 +578,3 @@ public class ChronoApplication implements CommandLineRunner {
 			releaseTimeRepository.saveAll(lancamentosHora);
 		}
 	}
-	
