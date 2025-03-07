@@ -21,9 +21,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,17 +41,12 @@ public class User implements UserDetails {
     private Integer id;
     
     @Column(name = "nome")
-    @NotBlank(message = "O nome do usuario é obrigatório.")
     private String name;
 
     @Column(unique = true)
-    @Email
-    @NotBlank(message = "O email do usuario é obrigatório.")
     private String email;
 
     @Column(name = "senha")
-    @Size(min = 5, message = "A senha deve ter pelo menos 8 caracteres.")
-    @NotBlank(message = "É obrigatório o usuario ter uma senha.")
     private String password;
     
     @Column(name = "data_criacao", updatable = false)
@@ -71,9 +63,7 @@ public class User implements UserDetails {
     private UserRole role;
 
     // Constructors
-    public User(@NotBlank(message = "O nome do usuario é obrigatório.") String name,
-            @NotBlank(message = "O email do usuario é obrigatório.") String email,
-            @NotBlank(message = "É obrigatório o usuario ter uma senha.") String password, UserRole role) {
+    public User(String name, String email, String password, UserRole role) {
         this.name = name;
         this.email = email;
         this.password = new BCryptPasswordEncoder().encode(password); // É necessário para encryptar a senha dos usuários sendo populados no ChronoApplication.java
