@@ -70,22 +70,14 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    
     // Constructors
     public User(@NotBlank(message = "O nome do usuario é obrigatório.") String name,
             @NotBlank(message = "O email do usuario é obrigatório.") String email,
             @NotBlank(message = "É obrigatório o usuario ter uma senha.") String password, UserRole role) {
         this.name = name;
         this.email = email;
-        this.password = new BCryptPasswordEncoder().encode(password);
+        this.password = new BCryptPasswordEncoder().encode(password); // É necessário para encryptar a senha dos usuários sendo populados no ChronoApplication.java
         this.role = role;
-    }
-
-    public User(Integer id, @NotBlank(message = "O nome do usuario é obrigatório.") String name,
-            @Email @NotBlank(message = "O email do usuario é obrigatório.") String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
     }
 
     // Functions 
