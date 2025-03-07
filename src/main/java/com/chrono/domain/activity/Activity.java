@@ -18,8 +18,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -67,22 +65,4 @@ public class Activity {
     @Column(name = "data_criacao", updatable = false)
     @CreationTimestamp
     private LocalDateTime creationDate;
-
-
-    // Constructors
-    public Activity(@NotNull(message = "O id do projeto é obrigatório.") Project project,
-            @NotBlank(message = "O nome da atividade é obrigatória.") String name,
-            @NotBlank(message = "A descrição do projeto é obrigatória.") String description,
-            @NotNull(message = "A data de início é obrigatória.") LocalDate startDate,
-            @NotNull(message = "A data de fim é obrigatória.") LocalDate endDate,
-            @NotNull(message = "O status da atividade é obrigatório.") ActivityStatus status,
-            @NotNull(message = "É obrigatório ter um usuario dono do projeto") User responsible) {
-        this.project = project;
-        this.name = name;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.status = status;
-        this.responsible = responsible;
-    }    
 }

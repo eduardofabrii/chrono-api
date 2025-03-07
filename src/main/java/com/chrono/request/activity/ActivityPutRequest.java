@@ -19,6 +19,7 @@ public record ActivityPutRequest(
     @NotBlank(message = "Nome é obrigatório.")
     String name,
     
+    @NotBlank(message = "A descrição do projeto é obrigatória.")
     String description,
     
     @NotNull(message = "Data de início é obrigatória.")
@@ -32,5 +33,6 @@ public record ActivityPutRequest(
     @NotNull(message = "Status é obrigatório.")
     ActivityStatus status,
     
+    @NotNull(message = "É obrigatório ter um usuario responsável pela atividade")
     UserGetResponseToProject responsible
 ) {}
