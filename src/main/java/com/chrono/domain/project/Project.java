@@ -6,9 +6,6 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.chrono.domain.user.User;
-import com.chrono.response.user.UserGetResponseToProject;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -66,15 +63,4 @@ public class Project {
     @Column(name = "prioridade")
     @Enumerated(EnumType.STRING)
     private ProjectPriority priority;
-
-    // Constructors
-    public Project(String name, String description, LocalDate startDate, LocalDate endDate, ProjectStatus status, User responsible, ProjectPriority priority) {
-        this.name = name;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.status = status;
-        this.responsible = responsible;
-        this.priority = priority;
-    }
 }
