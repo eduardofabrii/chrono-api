@@ -181,184 +181,224 @@ public class ChronoApplication implements CommandLineRunner {
 		// Activities creation
 		List<Activity> atividades = Arrays.asList(
 			new Activity(
+				null,
 				projetos.get(0),
 				"Implementar configurações do usuario",
 				"Fazer do zero tudo que precisa quanto ao usuario...",
 				LocalDate.of(2023, 12, 10),
 				LocalDate.of(2023, 12, 20), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario1
+				usuario1,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(0),
 				"Desenvolver módulo de pagamento",
 				"Implementar integração com gateways de pagamento",
 				LocalDate.of(2023, 12, 15),
 				LocalDate.of(2023, 12, 25), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario3
+				usuario3,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(1),
 				"Criar dashboard de projetos",
 				"Desenvolver painel de controle para visualização de projetos",
 				LocalDate.of(2023, 11, 5),
 				LocalDate.of(2023, 11, 15), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario3
+				usuario3,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(1),
 				"Implementar feed de notícias",
 				"Desenvolver feed para exibição de postagens dos usuários",
 				LocalDate.of(2023, 11, 10),
 				LocalDate.of(2023, 11, 20), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario4
+				usuario4,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(2),
 				"Desenvolver módulo de autenticação",
 				"Implementar sistema de login e registro",
 				LocalDate.of(2023, 10, 10),
 				LocalDate.of(2023, 10, 20), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario2
+				usuario2,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(2),
 				"Criar sistema de notificações",
 				"Desenvolver sistema de notificações em tempo real",
 				LocalDate.of(2023, 10, 15),
 				LocalDate.of(2023, 10, 25), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario1
+				usuario1,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(3),
 				"Implementar sistema de mensagens",
 				"Desenvolver chat para comunicação entre usuários",
 				LocalDate.of(2023, 9, 15),
 				LocalDate.of(2023, 9, 25), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario3
+				usuario3,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(3),
 				"Criar sistema de perfis",
 				"Desenvolver páginas de perfil dos usuários",
 				LocalDate.of(2023, 9, 20),
 				LocalDate.of(2023, 9, 30), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario4
+				usuario4,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(4),
 				"Desenvolver módulo de pedidos",
 				"Implementar sistema de pedidos e pagamentos",
 				LocalDate.of(2023, 10, 5),
 				LocalDate.of(2023, 10, 15), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario1
+				usuario1,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(4),
 				"Criar sistema de avaliações",
 				"Desenvolver sistema de avaliações de restaurantes",
 				LocalDate.of(2023, 10, 10),
 				LocalDate.of(2023, 10, 20), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario2
+				usuario2,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(5),
 				"Implementar player de vídeo",
 				"Desenvolver player para streaming de vídeos",
 				LocalDate.of(2023, 11, 20),
 				LocalDate.of(2023, 11, 30), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario3
+				usuario3,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(5),
 				"Criar sistema de recomendações",
 				"Desenvolver algoritmo de recomendações de vídeos",
 				LocalDate.of(2023, 11, 25),
 				LocalDate.of(2023, 12, 5), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario4
+				usuario4,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(6),
 				"Desenvolver módulo de exercícios",
 				"Implementar sistema de acompanhamento de exercícios",
 				LocalDate.of(2023, 9, 25),
 				LocalDate.of(2023, 10, 5), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario1
+				usuario1,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(6),
 				"Criar sistema de metas",
 				"Desenvolver sistema de definição de metas fitness",
 				LocalDate.of(2023, 9, 30),
 				LocalDate.of(2023, 10, 10), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario2
+				usuario2,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(7),
 				"Implementar sistema de reservas",
 				"Desenvolver sistema de reservas de viagens",
 				LocalDate.of(2023, 10, 15),
 				LocalDate.of(2023, 10, 25), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario3
+				usuario3,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(7),
 				"Criar sistema de avaliações",
 				"Desenvolver sistema de avaliações de hotéis",
 				LocalDate.of(2023, 10, 20),
 				LocalDate.of(2023, 10, 30), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario4
+				usuario4,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(8),
 				"Desenvolver módulo de cursos",
 				"Implementar sistema de criação e gerenciamento de cursos",
 				LocalDate.of(2023, 11, 10),
 				LocalDate.of(2023, 11, 20), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario1
+				usuario1,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(8),
 				"Criar sistema de certificados",
 				"Desenvolver sistema de emissão de certificados",
 				LocalDate.of(2023, 11, 15),
 				LocalDate.of(2023, 11, 25), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario2
+				usuario2,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(9),
 				"Implementar sistema de agendamento",
 				"Desenvolver sistema de agendamento de consultas",
 				LocalDate.of(2023, 12, 5),
 				LocalDate.of(2023, 12, 15), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario3
+				usuario3,
+				null
 			),
 			new Activity(
+				null,
 				projetos.get(9),
 				"Criar sistema de lembretes",
 				"Desenvolver sistema de lembretes para consultas",
 				LocalDate.of(2023, 12, 10),
 				LocalDate.of(2023, 12, 20), 
 				ActivityStatus.EM_ANDAMENTO,
-				usuario4
+				usuario4,
+				null
 			)
 		);
 
@@ -465,56 +505,57 @@ public class ChronoApplication implements CommandLineRunner {
 				LocalDateTime.of(2023, 9, 25, 14, 0)
 			),
 			new ReleaseTime(
-				atividades.get(13),
-				usuario2,
-				"Criei o sistema de definição de metas fitness.",
-				LocalDateTime.of(2023, 9, 30, 11, 0),
-				LocalDateTime.of(2023, 9, 30, 13, 0)
-			),
-			new ReleaseTime(
-				atividades.get(14),
-				usuario3,
-				"Desenvolvi o sistema de reservas de viagens.",
-				LocalDateTime.of(2023, 10, 15, 9, 0),
-				LocalDateTime.of(2023, 10, 15, 12, 0)
-			),
-			new ReleaseTime(
-				atividades.get(15),
-				usuario4,
-				"Criei o sistema de avaliações de hotéis.",
-				LocalDateTime.of(2023, 10, 20, 14, 0),
-				LocalDateTime.of(2023, 10, 20, 18, 0)
-			),
-			new ReleaseTime(
-				atividades.get(16),
-				usuario1,
-				"Implementei o sistema de criação e gerenciamento de cursos.",
-				LocalDateTime.of(2023, 11, 10, 10, 0),
-				LocalDateTime.of(2023, 11, 10, 15, 0)
-			),
-			new ReleaseTime(
-				atividades.get(17),
-				usuario2,
-				"Criei o sistema de emissão de certificados.",
-				LocalDateTime.of(2023, 11, 15, 11, 0),
-				LocalDateTime.of(2023, 11, 15, 13, 0)
-			),
-			new ReleaseTime(
-				atividades.get(18),
-				usuario3,
-				"Desenvolvi o sistema de agendamento de consultas.",
-				LocalDateTime.of(2023, 12, 5, 9, 0),
-				LocalDateTime.of(2023, 12, 5, 12, 0)
-			),
-			new ReleaseTime(
-				atividades.get(19),
-				usuario4,
-				"Criei o sistema de lembretes para consultas.",
-				LocalDateTime.of(2023, 12, 10, 14, 0),
-				LocalDateTime.of(2023, 12, 10, 18, 0)
-			)
-		);
-
-		releaseTimeRepository.saveAll(lancamentosHora);
+					atividades.get(13),
+					usuario2,
+					"Criei o sistema de definição de metas fitness.",
+					LocalDateTime.of(2023, 9, 30, 11, 0),
+					LocalDateTime.of(2023, 9, 30, 13, 0)
+				),
+				new ReleaseTime(
+					atividades.get(14),
+					usuario3,
+					"Desenvolvi o sistema de reservas de viagens.",
+					LocalDateTime.of(2023, 10, 15, 9, 0),
+					LocalDateTime.of(2023, 10, 15, 12, 0)
+				),
+				new ReleaseTime(
+					atividades.get(15),
+					usuario4,
+					"Criei o sistema de avaliações de hotéis.",
+					LocalDateTime.of(2023, 10, 20, 14, 0),
+					LocalDateTime.of(2023, 10, 20, 18, 0)
+				),
+				new ReleaseTime(
+					atividades.get(16),
+					usuario1,
+					"Implementei o sistema de criação e gerenciamento de cursos.",
+					LocalDateTime.of(2023, 11, 10, 10, 0),
+					LocalDateTime.of(2023, 11, 10, 15, 0)
+				),
+				new ReleaseTime(
+					atividades.get(17),
+					usuario2,
+					"Criei o sistema de emissão de certificados.",
+					LocalDateTime.of(2023, 11, 15, 11, 0),
+					LocalDateTime.of(2023, 11, 15, 13, 0)
+				),
+				new ReleaseTime(
+					atividades.get(18),
+					usuario3,
+					"Desenvolvi o sistema de agendamento de consultas.",
+					LocalDateTime.of(2023, 12, 5, 9, 0),
+					LocalDateTime.of(2023, 12, 5, 12, 0)
+				),
+				new ReleaseTime(
+					atividades.get(19),
+					usuario4,
+					"Criei o sistema de lembretes para consultas.",
+					LocalDateTime.of(2023, 12, 10, 14, 0),
+					LocalDateTime.of(2023, 12, 10, 18, 0)
+				)
+			);
+	
+			releaseTimeRepository.saveAll(lancamentosHora);
+		}
 	}
-}
+	
