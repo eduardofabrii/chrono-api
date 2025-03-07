@@ -427,154 +427,196 @@ public class ChronoApplication implements CommandLineRunner {
 		// Releases time creation
 		List<ReleaseTime> lancamentosHora = Arrays.asList(
 			new ReleaseTime(
+				null,
 				atividades.get(0),
 				usuario1,
 				"Implementei a conexão do usuario com o banco de dados.",
 				LocalDateTime.of(2023, 12, 10, 9, 0),
-				LocalDateTime.of(2023, 12, 10, 12, 0)
+				LocalDateTime.of(2023, 12, 10, 12, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(0),
 				usuario1,
 				"Corrigi bugs na implementação do usuario.",
 				LocalDateTime.of(2023, 12, 11, 14, 0),
-				LocalDateTime.of(2023, 12, 11, 18, 0)
+				LocalDateTime.of(2023, 12, 11, 18, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(1),
 				usuario3,
 				"Desenvolvi a integração com o gateway de pagamento.",
 				LocalDateTime.of(2023, 12, 15, 10, 0),
-				LocalDateTime.of(2023, 12, 15, 15, 0)
+				LocalDateTime.of(2023, 12, 15, 15, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(2),
 				usuario3,
 				"Criei o layout do dashboard de projetos.",
 				LocalDateTime.of(2023, 11, 5, 11, 0),
-				LocalDateTime.of(2023, 11, 5, 13, 0)
+				LocalDateTime.of(2023, 11, 5, 13, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(3),
 				usuario4,
 				"Implementei o feed de notícias.",
 				LocalDateTime.of(2023, 11, 10, 9, 0),
-				LocalDateTime.of(2023, 11, 10, 12, 0)
+				LocalDateTime.of(2023, 11, 10, 12, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(4),
 				usuario2,
 				"Desenvolvi o sistema de login e registro.",
 				LocalDateTime.of(2023, 10, 10, 10, 0),
-				LocalDateTime.of(2023, 10, 10, 14, 0)
+				LocalDateTime.of(2023, 10, 10, 14, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(5),
 				usuario1,
 				"Criei o sistema de notificações em tempo real.",
 				LocalDateTime.of(2023, 10, 15, 11, 0),
-				LocalDateTime.of(2023, 10, 15, 13, 0)
+				LocalDateTime.of(2023, 10, 15, 13, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(6),
 				usuario3,
 				"Implementei o sistema de mensagens.",
 				LocalDateTime.of(2023, 9, 15, 9, 0),
-				LocalDateTime.of(2023, 9, 15, 12, 0)
+				LocalDateTime.of(2023, 9, 15, 12, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(7),
 				usuario4,
 				"Criei as páginas de perfil dos usuários.",
 				LocalDateTime.of(2023, 9, 20, 14, 0),
-				LocalDateTime.of(2023, 9, 20, 18, 0)
+				LocalDateTime.of(2023, 9, 20, 18, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(8),
 				usuario1,
 				"Desenvolvi o sistema de pedidos e pagamentos.",
 				LocalDateTime.of(2023, 10, 5, 10, 0),
-				LocalDateTime.of(2023, 10, 5, 15, 0)
+				LocalDateTime.of(2023, 10, 5, 15, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(9),
 				usuario2,
 				"Criei o sistema de avaliações de restaurantes.",
 				LocalDateTime.of(2023, 10, 10, 11, 0),
-				LocalDateTime.of(2023, 10, 10, 13, 0)
+				LocalDateTime.of(2023, 10, 10, 13, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(10),
 				usuario3,
 				"Implementei o player de vídeo.",
 				LocalDateTime.of(2023, 11, 20, 9, 0),
-				LocalDateTime.of(2023, 11, 20, 12, 0)
+				LocalDateTime.of(2023, 11, 20, 12, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(11),
 				usuario4,
 				"Desenvolvi o algoritmo de recomendações de vídeos.",
 				LocalDateTime.of(2023, 11, 25, 14, 0),
-				LocalDateTime.of(2023, 11, 25, 18, 0)
+				LocalDateTime.of(2023, 11, 25, 18, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 				atividades.get(12),
 				usuario1,
 				"Implementei o sistema de acompanhamento de exercícios.",
 				LocalDateTime.of(2023, 9, 25, 10, 0),
-				LocalDateTime.of(2023, 9, 25, 14, 0)
+				LocalDateTime.of(2023, 9, 25, 14, 0),
+				null
 			),
 			new ReleaseTime(
+				null,
 					atividades.get(13),
 					usuario2,
 					"Criei o sistema de definição de metas fitness.",
 					LocalDateTime.of(2023, 9, 30, 11, 0),
-					LocalDateTime.of(2023, 9, 30, 13, 0)
+					LocalDateTime.of(2023, 9, 30, 13, 0),
+					null
 				),
 				new ReleaseTime(
+					null,
 					atividades.get(14),
 					usuario3,
 					"Desenvolvi o sistema de reservas de viagens.",
 					LocalDateTime.of(2023, 10, 15, 9, 0),
-					LocalDateTime.of(2023, 10, 15, 12, 0)
+					LocalDateTime.of(2023, 10, 15, 12, 0),
+					null
 				),
 				new ReleaseTime(
+					null,
 					atividades.get(15),
 					usuario4,
 					"Criei o sistema de avaliações de hotéis.",
 					LocalDateTime.of(2023, 10, 20, 14, 0),
-					LocalDateTime.of(2023, 10, 20, 18, 0)
+					LocalDateTime.of(2023, 10, 20, 18, 0),
+					null
 				),
 				new ReleaseTime(
+					null,
 					atividades.get(16),
 					usuario1,
 					"Implementei o sistema de criação e gerenciamento de cursos.",
 					LocalDateTime.of(2023, 11, 10, 10, 0),
-					LocalDateTime.of(2023, 11, 10, 15, 0)
+					LocalDateTime.of(2023, 11, 10, 15, 0),
+					null
 				),
 				new ReleaseTime(
+					null,
 					atividades.get(17),
 					usuario2,
 					"Criei o sistema de emissão de certificados.",
 					LocalDateTime.of(2023, 11, 15, 11, 0),
-					LocalDateTime.of(2023, 11, 15, 13, 0)
+					LocalDateTime.of(2023, 11, 15, 13, 0),
+					null
 				),
 				new ReleaseTime(
+					null,
 					atividades.get(18),
 					usuario3,
 					"Desenvolvi o sistema de agendamento de consultas.",
 					LocalDateTime.of(2023, 12, 5, 9, 0),
-					LocalDateTime.of(2023, 12, 5, 12, 0)
+					LocalDateTime.of(2023, 12, 5, 12, 0),
+					null
 				),
 				new ReleaseTime(
+					null,
 					atividades.get(19),
 					usuario4,
 					"Criei o sistema de lembretes para consultas.",
 					LocalDateTime.of(2023, 12, 10, 14, 0),
-					LocalDateTime.of(2023, 12, 10, 18, 0)
+					LocalDateTime.of(2023, 12, 10, 18, 0),
+					null
 				)
 			);
-	
+		
 			releaseTimeRepository.saveAll(lancamentosHora);
 		}
 	}
