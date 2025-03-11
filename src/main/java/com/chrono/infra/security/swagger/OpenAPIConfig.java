@@ -23,7 +23,9 @@ public class OpenAPIConfig {
                 .info(new Info()
                         .title("Chrono API Documentation")
                         .version("1.0")
-                        .description("Documentação da API do Chrono para o projeto final do Trainee da @Wise"))
+                        .description("Documentação da API do Chrono para o projeto final do Trainee da @Wise\n\n" +
+                                     "**AVISO: Para acessar os endpoints protegidos desta API, é necessário gerar um token JWT " +
+                                     "através do endpoint de autenticação e incluí-lo no campo de autenticação 'Bearer' acima.**"))
 
                 // Configuração de segurança para o Swagger - Exige um token para acessar a API
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
@@ -34,6 +36,7 @@ public class OpenAPIConfig {
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")
                                         .bearerFormat("JWT")
+                                        .description("É necessário gerar um token JWT através do endpoint de autenticação e incluí-lo aqui. Formato: Bearer {token}")
                         )
                 );
     }
