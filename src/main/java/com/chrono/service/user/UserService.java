@@ -19,4 +19,5 @@ public interface UserService {
     void updateLastLogin(String name);
     List<UserGetResponse> findUsersByRole(UserRole role);
     void softDeleteUser(Integer id);
+    void restoreUser(Integer id);
 }

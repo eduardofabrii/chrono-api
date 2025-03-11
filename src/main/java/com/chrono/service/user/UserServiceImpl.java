@@ -135,6 +135,24 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Restaura um usuário que foi previamente desativado (soft delete).
+     *
+     * @param id O identificador do usuário a ser restaurado
+     * @throws ResourceNotFoundException Se nenhum usuário com o ID fornecido for encontrado
+     * @throws IllegalStateException Se o usuário não estiver em estado de exclusão
+     */
+    public void restoreUser(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        if (user.getDeletedAt() != null) {
+            user.setDeletedAt(null); // Remove o soft delete
+            userRepository.save(user);
+        } else {
+            throw new IllegalStateException("User is not deleted");
+        }
+    }
+
+    /**
      * Atualiza o último login do usuário.
      * 
      * @param name o nome do usuário cujo último login será atualizado.

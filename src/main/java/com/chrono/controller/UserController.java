@@ -134,6 +134,20 @@ public class UserController {
                 return ResponseEntity.ok("User soft deleted successfully");
     }
 
+    @Operation(summary = "Restaurar usuário", description = "Restaura um usuário previamente desativado")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Usuário restaurado com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
+        @ApiResponse(responseCode = "500", description = "Usuário não foi deletado anteriormente"),
+    })
+    @PutMapping("restore/{id}")
+    public ResponseEntity<String> restoreUser(
+        @Parameter(description = "ID do usuário a ser restaurado", required = true)
+        @PathVariable Integer id) {
+        userService.restoreUser(id);
+        return ResponseEntity.ok("User restored successfully");
+    }
+
     @Operation(summary = "Listar usuários administradores", description = "Retorna uma lista de usuários com a função de administrador")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Lista de usuários administradores retornada com sucesso", content = @Content(schema = @Schema(implementation = UserGetResponse.class, type = "array"))),
