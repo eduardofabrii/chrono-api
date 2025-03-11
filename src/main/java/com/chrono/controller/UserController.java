@@ -119,8 +119,20 @@ public class UserController {
     ) {
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
-    }
+        }
 
+    @Operation(summary = "Exclusão lógica de usuário", description = "Marca um usuário como excluído sem removê-lo fisicamente do banco de dados")
+        @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário excluído logicamente com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+        })
+    @DeleteMapping("soft/{id}")
+        public ResponseEntity<String> softDeleteUser(@Parameter(description = "ID do usuário a ser excluído logicamente", 
+            required = true) @PathVariable Integer id) {
+                userService.softDeleteUser(id);
+                return ResponseEntity.ok("User soft deleted successfully");
+    }
 
     @Operation(summary = "Listar usuários administradores", description = "Retorna uma lista de usuários com a função de administrador")
     @ApiResponses(value = {
