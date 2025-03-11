@@ -120,6 +120,21 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Realiza a exclusão lógica (soft delete) de um usuário no sistema.
+     * Este método marca o usuário como excluído ao definir o campo 'deletedAt' 
+     * com a data e hora atual, sem remover fisicamente o registro do banco de dados.
+     *
+     * @param id O identificador único do usuário a ser excluído logicamente
+     * @throws ResourceNotFoundException Se nenhum usuário for encontrado com o ID fornecido
+     */
+    public void softDeleteUser(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        user.setDeletedAt(LocalDateTime.now());
+        userRepository.save(user);
+    }
+
+    /**
      * Atualiza o último login do usuário.
      * 
      * @param name o nome do usuário cujo último login será atualizado.

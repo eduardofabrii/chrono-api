@@ -17,7 +17,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public Optional<User> findById(Integer id); 
     public Optional<User> findByEmail(String email);
     public List<User> findByRole(UserRole role);
-
+    public List<User> findByDeletedAtIsNull();
+    public List<User> findByDeletedAtIsNotNull();
+    
     @Query("SELECT u FROM User u WHERE u.name = :name")
     public Optional<User> findByUsername(@Param("name") String name);
 }
