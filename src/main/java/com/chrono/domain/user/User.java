@@ -65,12 +65,16 @@ public class User implements UserDetails {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
+    @Column(name = "ativo")
+    private Boolean active = true;
+
     // Constructors
     public User(String name, String email, String password, UserRole role) {
         this.name = name;
         this.email = email;
         this.password = new BCryptPasswordEncoder().encode(password); // É necessário para encryptar a senha dos usuários sendo populados no ChronoApplication.java
         this.role = role;
+        this.active = true;
     }
 
     // Functions 
