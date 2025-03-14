@@ -70,7 +70,7 @@ public class ChronoApplication implements CommandLineRunner {
 		);
 
 		User usuario5 = new User(
-			"Graziele Andrade Tieppo",
+			"Graziele Tieppo",
 			"gratieppo@gmail.com",
 			"wise@system",
 			UserRole.USER
@@ -105,7 +105,7 @@ public class ChronoApplication implements CommandLineRunner {
 				LocalDate.of(2024, 1, 1),
 				LocalDate.of(2024, 6, 30),
 				ProjectStatus.EM_ANDAMENTO,
-				usuario1, 
+				usuario1, // ADMIN user
 				null,
 				ProjectPriority.ALTA
 			),
@@ -116,7 +116,7 @@ public class ChronoApplication implements CommandLineRunner {
 				LocalDate.of(2024, 2, 1),
 				LocalDate.of(2024, 7, 31),
 				ProjectStatus.EM_ANDAMENTO,
-				usuario2, 
+				 usuario1,
 				null,
 				ProjectPriority.MEDIA
 			),
@@ -127,7 +127,7 @@ public class ChronoApplication implements CommandLineRunner {
 				LocalDate.of(2024, 3, 1),
 				LocalDate.of(2024, 8, 31),
 				ProjectStatus.EM_ANDAMENTO,
-				usuario2, 
+				 usuario7, 
 				null,
 				ProjectPriority.BAIXA
 			),
@@ -149,7 +149,7 @@ public class ChronoApplication implements CommandLineRunner {
 				LocalDate.of(2024, 5, 1),
 				LocalDate.of(2024, 10, 31),
 				ProjectStatus.EM_ANDAMENTO,
-				usuario3, 
+				 usuario6,
 				null,
 				ProjectPriority.MEDIA
 			),
@@ -160,7 +160,7 @@ public class ChronoApplication implements CommandLineRunner {
 				LocalDate.of(2024, 6, 1),
 				LocalDate.of(2024, 11, 30),
 				ProjectStatus.EM_ANDAMENTO,
-				usuario4, 
+				 usuario7,
 				null,
 				ProjectPriority.ALTA
 			),
@@ -171,7 +171,7 @@ public class ChronoApplication implements CommandLineRunner {
 				LocalDate.of(2024, 7, 1),
 				LocalDate.of(2024, 12, 31),
 				ProjectStatus.EM_ANDAMENTO,
-				usuario1, 
+				usuario1, // ADMIN user
 				null,
 				ProjectPriority.BAIXA
 			),
@@ -182,7 +182,7 @@ public class ChronoApplication implements CommandLineRunner {
 				LocalDate.of(2024, 8, 1),
 				LocalDate.of(2025, 1, 31),
 				ProjectStatus.EM_ANDAMENTO,
-				usuario2, 
+				 usuario6, // Changed from usuario2 (USER) to usuario6 (ADMIN)
 				null,
 				ProjectPriority.MEDIA
 			),
@@ -193,7 +193,7 @@ public class ChronoApplication implements CommandLineRunner {
 				LocalDate.of(2024, 9, 1),
 				LocalDate.of(2025, 2, 28),
 				ProjectStatus.EM_ANDAMENTO,
-				usuario3, 
+				 usuario7, // Changed from usuario3 (USER) to usuario7 (ADMIN)
 				null,
 				ProjectPriority.ALTA
 			),
@@ -204,7 +204,7 @@ public class ChronoApplication implements CommandLineRunner {
 				LocalDate.of(2024, 10, 1),
 				LocalDate.of(2025, 3, 31),
 				ProjectStatus.EM_ANDAMENTO,
-				usuario4, 
+				 usuario6, // Changed from usuario4 (USER) to usuario6 (ADMIN)
 				null,
 				ProjectPriority.MEDIA
 			)
@@ -219,8 +219,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(0),
 				"Implementar configurações do usuario",
 				"Fazer do zero tudo que precisa quanto ao usuario...",
-				LocalDate.of(2023, 12, 10),
-				LocalDate.of(2023, 12, 20), 
+				LocalDate.of(2024, 1, 10),
+				LocalDate.of(2024, 1, 20), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario1,
 				null
@@ -230,8 +230,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(0),
 				"Desenvolver módulo de pagamento",
 				"Implementar integração com gateways de pagamento",
-				LocalDate.of(2023, 12, 15),
-				LocalDate.of(2023, 12, 25), 
+				LocalDate.of(2024, 1, 15),
+				LocalDate.of(2024, 1, 25), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario3,
 				null
@@ -241,8 +241,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(1),
 				"Criar dashboard de projetos",
 				"Desenvolver painel de controle para visualização de projetos",
-				LocalDate.of(2023, 11, 5),
-				LocalDate.of(2023, 11, 15), 
+				LocalDate.of(2024, 2, 5),
+				LocalDate.of(2024, 2, 15), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario3,
 				null
@@ -252,8 +252,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(1),
 				"Implementar feed de notícias",
 				"Desenvolver feed para exibição de postagens dos usuários",
-				LocalDate.of(2023, 11, 10),
-				LocalDate.of(2023, 11, 20), 
+				LocalDate.of(2024, 2, 10),
+				LocalDate.of(2024, 2, 20), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario4,
 				null
@@ -263,8 +263,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(2),
 				"Desenvolver módulo de autenticação",
 				"Implementar sistema de login e registro",
-				LocalDate.of(2023, 10, 10),
-				LocalDate.of(2023, 10, 20), 
+				LocalDate.of(2024, 3, 10),
+				LocalDate.of(2024, 3, 20), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario2,
 				null
@@ -274,8 +274,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(2),
 				"Criar sistema de notificações",
 				"Desenvolver sistema de notificações em tempo real",
-				LocalDate.of(2023, 10, 15),
-				LocalDate.of(2023, 10, 25), 
+				LocalDate.of(2024, 3, 15),
+				LocalDate.of(2024, 3, 25), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario1,
 				null
@@ -285,8 +285,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(3),
 				"Implementar sistema de mensagens",
 				"Desenvolver chat para comunicação entre usuários",
-				LocalDate.of(2023, 9, 15),
-				LocalDate.of(2023, 9, 25), 
+				LocalDate.of(2024, 4, 15),
+				LocalDate.of(2024, 4, 25), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario3,
 				null
@@ -296,8 +296,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(3),
 				"Criar sistema de perfis",
 				"Desenvolver páginas de perfil dos usuários",
-				LocalDate.of(2023, 9, 20),
-				LocalDate.of(2023, 9, 30), 
+				LocalDate.of(2024, 4, 20),
+				LocalDate.of(2024, 4, 30), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario4,
 				null
@@ -307,8 +307,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(4),
 				"Desenvolver módulo de pedidos",
 				"Implementar sistema de pedidos e pagamentos",
-				LocalDate.of(2023, 10, 5),
-				LocalDate.of(2023, 10, 15), 
+				LocalDate.of(2024, 5, 5),
+				LocalDate.of(2024, 5, 15), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario1,
 				null
@@ -318,8 +318,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(4),
 				"Criar sistema de avaliações",
 				"Desenvolver sistema de avaliações de restaurantes",
-				LocalDate.of(2023, 10, 10),
-				LocalDate.of(2023, 10, 20), 
+				LocalDate.of(2024, 5, 10),
+				LocalDate.of(2024, 5, 20), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario2,
 				null
@@ -329,8 +329,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(5),
 				"Implementar player de vídeo",
 				"Desenvolver player para streaming de vídeos",
-				LocalDate.of(2023, 11, 20),
-				LocalDate.of(2023, 11, 30), 
+				LocalDate.of(2024, 6, 20),
+				LocalDate.of(2024, 6, 30), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario3,
 				null
@@ -340,8 +340,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(5),
 				"Criar sistema de recomendações",
 				"Desenvolver algoritmo de recomendações de vídeos",
-				LocalDate.of(2023, 11, 25),
-				LocalDate.of(2023, 12, 5), 
+				LocalDate.of(2024, 6, 25),
+				LocalDate.of(2024, 7, 5), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario4,
 				null
@@ -351,8 +351,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(6),
 				"Desenvolver módulo de exercícios",
 				"Implementar sistema de acompanhamento de exercícios",
-				LocalDate.of(2023, 9, 25),
-				LocalDate.of(2023, 10, 5), 
+				LocalDate.of(2024, 7, 25),
+				LocalDate.of(2024, 8, 5), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario1,
 				null
@@ -362,8 +362,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(6),
 				"Criar sistema de metas",
 				"Desenvolver sistema de definição de metas fitness",
-				LocalDate.of(2023, 9, 30),
-				LocalDate.of(2023, 10, 10), 
+				LocalDate.of(2024, 7, 30),
+				LocalDate.of(2024, 8, 10), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario2,
 				null
@@ -373,8 +373,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(7),
 				"Implementar sistema de reservas",
 				"Desenvolver sistema de reservas de viagens",
-				LocalDate.of(2023, 10, 15),
-				LocalDate.of(2023, 10, 25), 
+				LocalDate.of(2024, 8, 15),
+				LocalDate.of(2024, 8, 25), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario3,
 				null
@@ -384,8 +384,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(7),
 				"Criar sistema de avaliações",
 				"Desenvolver sistema de avaliações de hotéis",
-				LocalDate.of(2023, 10, 20),
-				LocalDate.of(2023, 10, 30), 
+				LocalDate.of(2024, 8, 20),
+				LocalDate.of(2024, 8, 30), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario4,
 				null
@@ -395,8 +395,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(8),
 				"Desenvolver módulo de cursos",
 				"Implementar sistema de criação e gerenciamento de cursos",
-				LocalDate.of(2023, 11, 10),
-				LocalDate.of(2023, 11, 20), 
+				LocalDate.of(2024, 9, 10),
+				LocalDate.of(2024, 9, 20), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario1,
 				null
@@ -406,8 +406,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(8),
 				"Criar sistema de certificados",
 				"Desenvolver sistema de emissão de certificados",
-				LocalDate.of(2023, 11, 15),
-				LocalDate.of(2023, 11, 25), 
+				LocalDate.of(2024, 9, 15),
+				LocalDate.of(2024, 9, 25), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario2,
 				null
@@ -417,8 +417,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(9),
 				"Implementar sistema de agendamento",
 				"Desenvolver sistema de agendamento de consultas",
-				LocalDate.of(2023, 12, 5),
-				LocalDate.of(2023, 12, 15), 
+				LocalDate.of(2024, 10, 5),
+				LocalDate.of(2024, 10, 15), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario3,
 				null
@@ -428,8 +428,8 @@ public class ChronoApplication implements CommandLineRunner {
 				projetos.get(9),
 				"Criar sistema de lembretes",
 				"Desenvolver sistema de lembretes para consultas",
-				LocalDate.of(2023, 12, 10),
-				LocalDate.of(2023, 12, 20), 
+				LocalDate.of(2024, 10, 10),
+				LocalDate.of(2024, 10, 20), 
 				ActivityStatus.EM_ANDAMENTO,
 				usuario4,
 				null
@@ -445,8 +445,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(0),
 				usuario1,
 				"Implementei a conexão do usuario com o banco de dados.",
-				LocalDateTime.of(2024, 1, 10, 9, 0),
-				LocalDateTime.of(2024, 1, 10, 12, 0),
+				LocalDateTime.of(2024, 1, 12, 9, 0),
+				LocalDateTime.of(2024, 1, 12, 12, 0),
 				null
 			),
 			new ReleaseTime(
@@ -454,8 +454,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(0),
 				usuario1,
 				"Corrigi bugs na implementação do usuario.",
-				LocalDateTime.of(2024, 1, 11, 14, 0),
-				LocalDateTime.of(2024, 1, 11, 18, 0),
+				LocalDateTime.of(2024, 1, 14, 14, 0),
+				LocalDateTime.of(2024, 1, 14, 18, 0),
 				null
 			),
 			new ReleaseTime(
@@ -463,8 +463,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(1),
 				usuario3,
 				"Desenvolvi a integração com o gateway de pagamento.",
-				LocalDateTime.of(2024, 2, 15, 10, 0),
-				LocalDateTime.of(2024, 2, 15, 15, 0),
+				LocalDateTime.of(2024, 1, 17, 10, 0),
+				LocalDateTime.of(2024, 1, 17, 15, 0),
 				null
 			),
 			new ReleaseTime(
@@ -472,8 +472,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(2),
 				usuario3,
 				"Criei o layout do dashboard de projetos.",
-				LocalDateTime.of(2024, 2, 5, 11, 0),
-				LocalDateTime.of(2024, 2, 5, 13, 0),
+				LocalDateTime.of(2024, 2, 7, 11, 0),
+				LocalDateTime.of(2024, 2, 7, 13, 0),
 				null
 			),
 			new ReleaseTime(
@@ -481,8 +481,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(3),
 				usuario4,
 				"Implementei o feed de notícias.",
-				LocalDateTime.of(2024, 3, 10, 9, 0),
-				LocalDateTime.of(2024, 3, 10, 12, 0),
+				LocalDateTime.of(2024, 2, 12, 9, 0),
+				LocalDateTime.of(2024, 2, 12, 12, 0),
 				null
 			),
 			new ReleaseTime(
@@ -490,8 +490,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(4),
 				usuario2,
 				"Desenvolvi o sistema de login e registro.",
-				LocalDateTime.of(2024, 3, 10, 10, 0),
-				LocalDateTime.of(2024, 3, 10, 14, 0),
+				LocalDateTime.of(2024, 3, 12, 10, 0),
+				LocalDateTime.of(2024, 3, 12, 14, 0),
 				null
 			),
 			new ReleaseTime(
@@ -499,8 +499,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(5),
 				usuario1,
 				"Criei o sistema de notificações em tempo real.",
-				LocalDateTime.of(2024, 4, 15, 11, 0),
-				LocalDateTime.of(2024, 4, 15, 13, 0),
+				LocalDateTime.of(2024, 3, 17, 11, 0),
+				LocalDateTime.of(2024, 3, 17, 13, 0),
 				null
 			),
 			new ReleaseTime(
@@ -508,8 +508,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(6),
 				usuario3,
 				"Implementei o sistema de mensagens.",
-				LocalDateTime.of(2024, 4, 15, 9, 0),
-				LocalDateTime.of(2024, 4, 15, 12, 0),
+				LocalDateTime.of(2024, 4, 17, 9, 0),
+				LocalDateTime.of(2024, 4, 17, 12, 0),
 				null
 			),
 			new ReleaseTime(
@@ -517,8 +517,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(7),
 				usuario4,
 				"Criei as páginas de perfil dos usuários.",
-				LocalDateTime.of(2024, 4, 20, 14, 0),
-				LocalDateTime.of(2024, 4, 20, 18, 0),
+				LocalDateTime.of(2024, 4, 22, 14, 0),
+				LocalDateTime.of(2024, 4, 22, 18, 0),
 				null
 			),
 			new ReleaseTime(
@@ -526,8 +526,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(8),
 				usuario1,
 				"Desenvolvi o sistema de pedidos e pagamentos.",
-				LocalDateTime.of(2024, 5, 5, 10, 0),
-				LocalDateTime.of(2024, 5, 5, 15, 0),
+				LocalDateTime.of(2024, 5, 7, 10, 0),
+				LocalDateTime.of(2024, 5, 7, 15, 0),
 				null
 			),
 			new ReleaseTime(
@@ -535,8 +535,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(9),
 				usuario2,
 				"Criei o sistema de avaliações de restaurantes.",
-				LocalDateTime.of(2024, 6, 10, 11, 0),
-				LocalDateTime.of(2024, 6, 10, 13, 0),
+				LocalDateTime.of(2024, 5, 12, 11, 0),
+				LocalDateTime.of(2024, 5, 12, 13, 0),
 				null
 			),
 			new ReleaseTime(
@@ -544,8 +544,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(10),
 				usuario3,
 				"Implementei o player de vídeo.",
-				LocalDateTime.of(2024, 6, 20, 9, 0),
-				LocalDateTime.of(2024, 6, 20, 12, 0),
+				LocalDateTime.of(2024, 6, 22, 9, 0),
+				LocalDateTime.of(2024, 6, 22, 12, 0),
 				null
 			),
 			new ReleaseTime(
@@ -553,8 +553,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(11),
 				usuario4,
 				"Desenvolvi o algoritmo de recomendações de vídeos.",
-				LocalDateTime.of(2024, 7, 25, 14, 0),
-				LocalDateTime.of(2024, 7, 25, 18, 0),
+				LocalDateTime.of(2024, 6, 27, 14, 0),
+				LocalDateTime.of(2024, 6, 27, 18, 0),
 				null
 			),
 			new ReleaseTime(
@@ -562,8 +562,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(12),
 				usuario1,
 				"Implementei o sistema de acompanhamento de exercícios.",
-				LocalDateTime.of(2024, 7, 25, 10, 0),
-				LocalDateTime.of(2024, 7, 25, 14, 0),
+				LocalDateTime.of(2024, 7, 27, 10, 0),
+				LocalDateTime.of(2024, 7, 27, 14, 0),
 				null
 			),
 			new ReleaseTime(
@@ -571,8 +571,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(13),
 				usuario2,
 				"Criei o sistema de definição de metas fitness.",
-				LocalDateTime.of(2024, 8, 30, 11, 0),
-				LocalDateTime.of(2024, 8, 30, 13, 0),
+				LocalDateTime.of(2024, 8, 1, 11, 0),
+				LocalDateTime.of(2024, 8, 1, 13, 0),
 				null
 			),
 			new ReleaseTime(
@@ -580,8 +580,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(14),
 				usuario3,
 				"Desenvolvi o sistema de reservas de viagens.",
-				LocalDateTime.of(2024, 8, 15, 9, 0),
-				LocalDateTime.of(2024, 8, 15, 12, 0),
+				LocalDateTime.of(2024, 8, 17, 9, 0),
+				LocalDateTime.of(2024, 8, 17, 12, 0),
 				null
 			),
 			new ReleaseTime(
@@ -589,8 +589,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(15),
 				usuario4,
 				"Criei o sistema de avaliações de hotéis.",
-				LocalDateTime.of(2024, 9, 20, 14, 0),
-				LocalDateTime.of(2024, 9, 20, 18, 0),
+				LocalDateTime.of(2024, 8, 22, 14, 0),
+				LocalDateTime.of(2024, 8, 22, 18, 0),
 				null
 			),
 			new ReleaseTime(
@@ -598,8 +598,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(16),
 				usuario1,
 				"Implementei o sistema de criação e gerenciamento de cursos.",
-				LocalDateTime.of(2024, 9, 10, 10, 0),
-				LocalDateTime.of(2024, 9, 10, 15, 0),
+				LocalDateTime.of(2024, 9, 12, 10, 0),
+				LocalDateTime.of(2024, 9, 12, 15, 0),
 				null
 			),
 			new ReleaseTime(
@@ -607,8 +607,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(17),
 				usuario2,
 				"Criei o sistema de emissão de certificados.",
-				LocalDateTime.of(2024, 10, 15, 11, 0),
-				LocalDateTime.of(2024, 10, 15, 13, 0),
+				LocalDateTime.of(2024, 9, 17, 11, 0),
+				LocalDateTime.of(2024, 9, 17, 13, 0),
 				null
 			),
 			new ReleaseTime(
@@ -616,8 +616,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(18),
 				usuario3,
 				"Desenvolvi o sistema de agendamento de consultas.",
-				LocalDateTime.of(2024, 10, 5, 9, 0),
-				LocalDateTime.of(2024, 10, 5, 12, 0),
+				LocalDateTime.of(2024, 10, 7, 9, 0),
+				LocalDateTime.of(2024, 10, 7, 12, 0),
 				null
 			),
 			new ReleaseTime(
@@ -625,8 +625,8 @@ public class ChronoApplication implements CommandLineRunner {
 				atividades.get(19),
 				usuario4,
 				"Criei o sistema de lembretes para consultas.",
-				LocalDateTime.of(2024, 11, 10, 14, 0),
-				LocalDateTime.of(2024, 11, 10, 18, 0),
+				LocalDateTime.of(2024, 10, 12, 14, 0),
+				LocalDateTime.of(2024, 10, 12, 18, 0),
 				null
 			)
 		);
