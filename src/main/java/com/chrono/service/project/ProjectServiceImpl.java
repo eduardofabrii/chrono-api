@@ -84,6 +84,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         // Delegar a atualização dos campos do projeto para o helper
         projectHelper.updateProjectFields(project, dto);
+        projectHelper.validateProjectDates(project);
 
         // Salvar o projeto atualizado
         projectRepository.save(project);
@@ -101,6 +102,7 @@ public class ProjectServiceImpl implements ProjectService {
         projectHelper.validateResponsibleRole(postRequest.responsible().id());
         Project project = mapper.toProjectPost(postRequest);
         projectHelper.setResponsible(project, postRequest.responsible().id());
+        projectHelper.validateProjectDates(project);
         projectRepository.save(project);
         return mapper.toProjectPostResponse(project);
     }
