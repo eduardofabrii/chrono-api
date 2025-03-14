@@ -77,5 +77,18 @@ public class ProjectHelper {
         }
     }
 
+    /**
+     * Valida se as datas do projeto são válidas.
+     *
+     * @param project O projeto a ser validado.
+     * @throws IllegalArgumentException Se a data de início do projeto for posterior à data de fim.
+     */
+    public void validateProjectDates(Project project) {
+        // Verifica se a data de início do projeto é posterior à data de fim
+        if (project.getStartDate() != null && project.getEndDate() != null && 
+            project.getStartDate().isAfter(project.getEndDate())) {
+            throw new IllegalArgumentException("A data de início do projeto não pode ser posterior à data de fim do projeto.");
+        }
+    }
 }
 
