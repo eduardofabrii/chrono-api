@@ -63,4 +63,7 @@ public class Project {
     @Column(name = "prioridade")
     @Enumerated(EnumType.STRING)
     private ProjectPriority priority;
+
+    @Column(name = "horas_previstas")
+    private Integer estimatedHours;
 }

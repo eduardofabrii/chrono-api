@@ -46,6 +46,7 @@ public class ProjectHelper {
         if (dto.endDate() != null) project.setEndDate(dto.endDate());
         if (dto.priority() != null) project.setPriority(dto.priority());
         if (dto.status() != null) project.setStatus(dto.status());
+        project.setEstimatedHours(dto.estimatedHours());
 
         // Atualizar o responsável
         setResponsible(project, dto.responsible().getId());

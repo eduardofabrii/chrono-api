@@ -25,5 +25,6 @@ public record ProjectPutResponse(
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     LocalDateTime creationDate,
     
-    ProjectPriority priority
+    ProjectPriority priority,
+    Integer estimatedHours
 ) {}

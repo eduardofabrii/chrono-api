@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 public record ProjectPostRequest(
@@ -35,5 +36,8 @@ public record ProjectPostRequest(
     UserGetResponseToProject responsible,
 
     @NotNull(message = "Prioridade é obrigatória")
-    ProjectPriority priority
+    ProjectPriority priority,
+
+    @PositiveOrZero(message = "Horas previstas não podem ser negativas")
+    Integer estimatedHours
 ) {}
