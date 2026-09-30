@@ -20,6 +20,7 @@ import com.chrono.response.releasetime.ReleaseTimeGetResponse;
 import com.chrono.response.releasetime.ReleaseTimePostResponse;
 import com.chrono.response.releasetime.ReleaseTimePutResponse;
 import com.chrono.service.releasetime.ReleaseTimeService;
+import com.chrono.service.security.AccessGuard;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -38,6 +39,7 @@ import lombok.RequiredArgsConstructor;
 public class ReleaseTimeController {
 
     private final ReleaseTimeService releaseTimeService;
+    private final AccessGuard accessGuard;
 
     @Operation(summary = "Listar todos os lancamentos de horas", description = "Retorna uma lista de todos os lancamentos de horas cadastrados")
     @ApiResponses(value = {
@@ -74,6 +76,7 @@ public class ReleaseTimeController {
         @Parameter(description = "ID do lancamento de hora a ser atualizado", example = "1")
         @PathVariable Integer id
     ) {
+        accessGuard.requireSelfOrAdmin(releaseTimeService.findReleaseTimeOwnerId(id));
         return ResponseEntity.ok(releaseTimeService.updateReleaseTime(dto, id));
     }
 
@@ -86,6 +89,7 @@ public class ReleaseTimeController {
     public ResponseEntity<ReleaseTimePostResponse> saveReleaseTime(
         @Valid @RequestBody ReleaseTimePostRequest postRequest
     ) throws URISyntaxException {
+        accessGuard.requireSelfOrAdmin(postRequest.user().getId());
         ReleaseTimePostResponse response = releaseTimeService.saveReleaseTime(postRequest);
         return ResponseEntity.created(new URI("/v1/hours/" + response.id())).body(response);
     }
@@ -116,6 +120,7 @@ public class ReleaseTimeController {
         @Parameter(description = "ID do usuário cujos lancamentos de horas devem ser buscados", example = "1")
         @PathVariable Integer userId
     ) {
+        accessGuard.requireSelfOrAdmin(userId);
         List<ReleaseTimeGetResponse> releaseTimes = releaseTimeService.getReleaseTimesByUserId(userId);
         return ResponseEntity.ok(releaseTimes);
     }

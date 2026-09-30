@@ -22,6 +22,7 @@ import com.chrono.response.user.UserGetResponse;
 import com.chrono.response.user.UserPostResponse;
 import com.chrono.response.user.UserPutResponse;
 import com.chrono.service.user.UserService;
+import com.chrono.service.security.AccessGuard;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -40,6 +41,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
     private final UserService userService;
+    private final AccessGuard accessGuard;
 
     @Operation(summary = "Listar todos os usuários", description = "Retorna uma lista de todos os usuários cadastrados")
     @ApiResponses(value = {
@@ -74,6 +76,7 @@ public class UserController {
         @Parameter(description = "ID do usuário a ser buscado", example = "1")
         @PathVariable Integer id
     ) {
+        accessGuard.requireSelfOrAdmin(id);
         return ResponseEntity.ok(userService.findUserById(id));
     }
 
@@ -89,7 +92,11 @@ public class UserController {
         @Parameter(description = "ID do usuário a ser atualizado", example = "1")
         @PathVariable Integer id
     ) {
-        return ResponseEntity.ok(userService.updateUser(id, dto));
+        accessGuard.requireSelfOrAdmin(id);
+        // Somente administradores podem alterar o papel de um usuário
+        UserPutRequest request = accessGuard.isAdmin() ? dto
+            : new UserPutRequest(dto.id(), dto.name(), dto.email(), dto.password(), null);
+        return ResponseEntity.ok(userService.updateUser(id, request));
     }
 
     @Operation(summary = "Criar usuário", description = "Cria um novo usuário com os dados fornecidos")

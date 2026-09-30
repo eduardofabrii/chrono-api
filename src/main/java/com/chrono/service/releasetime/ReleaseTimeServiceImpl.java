@@ -51,6 +51,20 @@ public class ReleaseTimeServiceImpl implements ReleaseTimeService {
     }
 
     /**
+     * Retorna o ID do usuário dono de um lançamento de hora.
+     *
+     * @param id o ID do lançamento de hora
+     * @return o ID do usuário dono do lançamento
+     * @throws ResourceNotFoundException se o lançamento não for encontrado
+     */
+    @Override
+    public Integer findReleaseTimeOwnerId(Integer id) {
+        return releaseTimeRepository.findById(id)
+                .map(releaseTime -> releaseTime.getUser().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Release time not found"));
+    }
+
+    /**
      * Atualiza um lancamento de hora existente.
      * 
      * @param dto os dados de atualização do lancamento de hora.
@@ -102,15 +116,10 @@ public class ReleaseTimeServiceImpl implements ReleaseTimeService {
      *
      * @param userId o ID do usuário cujos lançamentos de horas devem ser recuperados
      * @return uma lista de objetos {@link ReleaseTimeGetResponse} representando os lançamentos de horas do usuário especificado
-     * @throws ResourceNotFoundException se nenhum lançamento de horas for encontrado para o ID de usuário fornecido
+     * (lista vazia quando o usuário ainda não lançou horas)
      */
     public List<ReleaseTimeGetResponse> getReleaseTimesByUserId(Integer userId) {
-        List<ReleaseTime> releaseTimes = releaseTimeRepository.findByUserId(userId);
-        if (releaseTimes.isEmpty()) {
-            throw new ResourceNotFoundException("No release times found for the user ID: " + userId);
-        }
-
-        return releaseTimes.stream()
+        return releaseTimeRepository.findByUserId(userId).stream()
                 .map(mapper::toReleaseTimeGetResponse)
                 .collect(Collectors.toList());
     }

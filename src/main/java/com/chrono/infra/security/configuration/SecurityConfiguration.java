@@ -44,12 +44,8 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                    // Rotas públicas para todos
+                    // Rotas públicas
                     .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/v1/project").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/v1/activity").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/v1/hours").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/v1/hours").permitAll()
 
                     // Configuração do Swagger
                     .requestMatchers(
@@ -60,12 +56,18 @@ public class SecurityConfiguration {
                         "/swagger-resources"
                     ).permitAll()
 
+                    // Lançamentos de horas e perfil: qualquer usuário autenticado (dono validado no controller)
+                    .requestMatchers(HttpMethod.POST, "/v1/hours").authenticated()
+                    .requestMatchers(HttpMethod.PUT, "/v1/hours/*", "/v1/user/*").authenticated()
+
+                    // Listas de usuários: apenas admin (o perfil próprio é validado no controller)
+                    .requestMatchers(HttpMethod.GET, "/v1/user", "/v1/user/name", "/v1/user/admin_users").hasRole("ADMIN")
+
                     // Rotas protegidas acessíveis apenas por admin
                     .requestMatchers(HttpMethod.POST, "/v1/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/v1/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/v1/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/v1/**").permitAll()
-                    
+
                     .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling -> exceptionHandling

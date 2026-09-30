@@ -32,10 +32,13 @@ public class SecurityFilter extends OncePerRequestFilter {
         // If token's found, the user will be authenticated
         if (token != null) {
             var login = tokenService.validateToken(token);
-            UserDetails user = userRepository.findByName(login);
+            UserDetails user = login != null ? userRepository.findByName(login) : null;
 
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            // Token inválido, usuário removido ou desativado seguem sem autenticação
+            if (user != null && user.isEnabled()) {
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
 
         // Allows the request to continue
