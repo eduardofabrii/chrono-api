@@ -61,44 +61,32 @@ Para configurar o banco de dados, você precisará do XAMPP com o MySQL rodando 
 
 OBS: Recomenda-se usar o spring.jpa.hibernate.ddl-auto=create para inicializar e após isso comentar a criação das colunas no ChronoApplication.java e enfim colocar o spring.jpa.hibernate.ddl-auto=update, para tornar o banco de dados persistente.
 
-#### 3. Configuração do application.properties
+#### 3. Variáveis de ambiente
 
-O arquivo `application.properties` do projeto contém configurações importantes para a conexão com o banco de dados e outras funcionalidades:
+Credenciais não ficam no repositório. O `application.properties` lê tudo de variáveis de ambiente:
 
-```properties
-spring.application.name=chrono-api
+| Variável | Descrição | Exemplo local |
+| --- | --- | --- |
+| `DB_URL` | URL JDBC do MySQL | `jdbc:mysql://localhost:3306/sistema_gerenciamento?createDatabaseIfNotExist=true` |
+| `DB_USERNAME` | Usuário do banco | `root` |
+| `DB_PASSWORD` | Senha do banco | *(vazio)* |
+| `JWT_SECRET` | Chave usada para assinar os tokens JWT (use um valor longo e aleatório) | `troque-por-um-valor-seguro` |
+| `PORT` | Porta HTTP (opcional, padrão `8080`) | `8080` |
 
-server.port=${PORT:8080}
+Exemplo:
 
-# Criando ou conectando ao banco de dados localmente
-spring.datasource.url=jdbc:mysql://localhost:3306/sistema_gerenciamento?createDatabaseIfNotExist=true
-spring.datasource.username=root
-spring.datasource.password=
-
-# Criando ou conectando ao banco de dados em produção
-# spring.datasource.url=jdbc:mysql://hngomrlb3vfq3jcr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/tvh4l4220jn8dxna
-# spring.datasource.username=s1a99hdal3n36gw4
-# spring.datasource.password=ee0bmqjn30z2hpp5
-# spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-
-# Tipo de inserção que o JPA faz no banco de dados
-spring.jpa.hibernate.ddl-auto=create
-
-# Mostra os dados inseridos no bd dentro do console
-spring.jpa.show-sql=true
-
-# Dialeto para não precisar atualizar o bd
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
-
-# Secret
-api.security.token.secret=${JWT_SECRET:my-secret-jwt}
+```bash
+export DB_URL="jdbc:mysql://localhost:3306/sistema_gerenciamento?createDatabaseIfNotExist=true"
+export DB_USERNAME=root
+export DB_PASSWORD=
+export JWT_SECRET="$(openssl rand -base64 48)"
+./mvnw spring-boot:run
 ```
 
 **Observações importantes:**
-- Para ambiente local, as configurações já estão preparadas para usar o MySQL na porta 3306 sem senha.
-- Para produção, existem configurações comentadas que podem ser ativadas quando necessário.
-- A propriedade `spring.jpa.hibernate.ddl-auto=create` recria o banco de dados a cada inicialização. Para manter os dados entre reinicializações, altere para `update`.
-- O token JWT usa uma chave secreta definida pela variável de ambiente `JWT_SECRET` ou o valor padrão "my-secret-jwt" quando não especificado.
+- Em produção (Heroku), configure as mesmas variáveis em *Settings → Config Vars*.
+- A aplicação não sobe sem `JWT_SECRET`, para evitar tokens assinados com uma chave conhecida.
+- `spring.jpa.hibernate.ddl-auto=update` mantém os dados entre reinicializações; use `create` apenas para recriar o banco.
 
 #### 4. Rodar a Aplicação Backend
 
