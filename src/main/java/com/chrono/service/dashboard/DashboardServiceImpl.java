@@ -1,5 +1,7 @@
 package com.chrono.service.dashboard;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,11 @@ public class DashboardServiceImpl implements DashboardService {
         Long totalProjects = dashboardRepository.countTotalProjects();
         Long totalActivities = dashboardRepository.countTotalActivities();
         Double totalHours = dashboardRepository.sumTotalHours();
+
+        // Comparação com o mês anterior
+        LocalDateTime startOfMonth = LocalDate.now().withDayOfMonth(1).atStartOfDay();
+        Double hoursThisMonth = dashboardRepository.sumHoursBetween(startOfMonth, startOfMonth.plusMonths(1));
+        Double hoursLastMonth = dashboardRepository.sumHoursBetween(startOfMonth.minusMonths(1), startOfMonth);
         
         // Processar contagens de status
         List<ProjectStatusCount> projectStatusCounts = new ArrayList<>();
@@ -58,6 +65,8 @@ public class DashboardServiceImpl implements DashboardService {
             projectStatusCounts, 
             totalActivities, 
             totalHours, 
+            hoursThisMonth,
+            hoursLastMonth,
             projectHoursData,
             userHoursData,
             pendingActivitiesByUser

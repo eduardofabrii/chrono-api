@@ -1,9 +1,11 @@
 package com.chrono.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.chrono.domain.project.Project;
 
@@ -38,6 +40,15 @@ public interface DashboardRepository extends JpaRepository<Project, Integer> {
      */
     @Query(value = "SELECT COALESCE(SUM(TIMESTAMPDIFF(MINUTE, data_inicio, data_fim) / 60.0), 0) FROM lancamento_hora", nativeQuery = true)
     Double sumTotalHours();
+
+    /**
+     * Calcula a soma de horas dos lançamentos iniciados dentro de um período.
+     * @param start início do período (inclusivo)
+     * @param end fim do período (exclusivo)
+     * @return o total de horas lançadas no período
+     */
+    @Query(value = "SELECT COALESCE(SUM(TIMESTAMPDIFF(MINUTE, data_inicio, data_fim) / 60.0), 0) FROM lancamento_hora WHERE data_inicio >= :start AND data_inicio < :end", nativeQuery = true)
+    Double sumHoursBetween(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
     
     /**
      * Consulta temporária para obter dados básicos dos projetos para uso no dashboard

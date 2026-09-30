@@ -7,6 +7,8 @@ public record DashboardResponse(
     List<ProjectStatusCount> projectStatusCounts,
     Long totalActivities,
     Double totalHours,
+    Double hoursThisMonth,
+    Double hoursLastMonth,
     List<ProjectHoursData> projectHoursData,
     List<UserHoursData> userHoursData,
     List<UserPendingActivities> pendingActivitiesByUser

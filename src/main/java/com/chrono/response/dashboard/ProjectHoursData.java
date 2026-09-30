@@ -6,6 +6,7 @@ public record ProjectHoursData(
     Integer projectId,
     String projectName,
     ProjectStatus projectStatus,
-    Double totalHours
+    Double totalHours,
+    Integer estimatedHours
 ) {
 }

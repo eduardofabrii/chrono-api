@@ -29,13 +29,14 @@ public class ProjectHoursService {
                 p.id_projeto as id, 
                 p.nome as name, 
                 p.status as status,
+                p.horas_previstas as estimated_hours,
                 COALESCE(SUM(TIMESTAMPDIFF(MINUTE, lh.data_inicio, lh.data_fim) / 60.0), 0) as total_hours
             FROM 
                 projeto p
                 LEFT JOIN atividade a ON a.id_projeto = p.id_projeto
                 LEFT JOIN lancamento_hora lh ON lh.id_atividade = a.id_atividade
             GROUP BY 
-                p.id_projeto, p.nome, p.status
+                p.id_projeto, p.nome, p.status, p.horas_previstas
             ORDER BY 
                 total_hours DESC
         """;
@@ -51,8 +52,10 @@ public class ProjectHoursService {
                 String statusStr = (String) row.get("status");
                 Double hours = ((Number) row.get("total_hours")).doubleValue();
                 
+                Number estimated = (Number) row.get("estimated_hours");
+
                 ProjectStatus status = ProjectStatus.valueOf(statusStr);
-                result.add(new ProjectHoursData(id, name, status, hours));
+                result.add(new ProjectHoursData(id, name, status, hours, estimated == null ? null : estimated.intValue()));
             }
         } catch (Exception e) {
             // Em caso de erro, tenta o método de backup
@@ -66,7 +69,7 @@ public class ProjectHoursService {
      * Método de backup para obter projetos e suas horas
      */
     private List<ProjectHoursData> getProjectsFromRepository() {
-        String sql = "SELECT id_projeto, nome, status FROM projeto";
+        String sql = "SELECT id_projeto, nome, status, horas_previstas FROM projeto";
         List<ProjectHoursData> result = new ArrayList<>();
         
         try {
@@ -77,6 +80,7 @@ public class ProjectHoursService {
                 String name = (String) project.get("nome");
                 String statusStr = (String) project.get("status");
                 ProjectStatus status = ProjectStatus.valueOf(statusStr);
+                Number estimated = (Number) project.get("horas_previstas");
                 
                 String hoursSql = """
                     SELECT COALESCE(SUM(TIMESTAMPDIFF(MINUTE, lh.data_inicio, lh.data_fim) / 60.0), 0) 
@@ -88,7 +92,7 @@ public class ProjectHoursService {
                 Double hours = jdbcTemplate.queryForObject(hoursSql, Double.class, projectId);
                 if (hours == null) hours = 0.0;
                 
-                result.add(new ProjectHoursData(projectId, name, status, hours));
+                result.add(new ProjectHoursData(projectId, name, status, hours, estimated == null ? null : estimated.intValue()));
             }
         } catch (Exception e) {
             // Se falhar completamente, retorna lista vazia
